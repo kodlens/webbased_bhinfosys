@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="section">
+        <div class="section" v-if="user.active == 1">
             <div class="panel">
                 <div class="columns">
                     <div class="column is-10 is-offset-1">
                         <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF BOARDING HOUSE</div>
 
-                        <div class="level">
-                            <div class="level-left">
+                        <div class="columns">
+                            <div class="column">
                                 <b-field label="Page">
                                     <b-select v-model="perPage" @input="setPerPage">
                                         <option value="5">5 per page</option>
@@ -21,25 +21,23 @@
 
                                     </b-select>
                                 </b-field>
-                            </div>
 
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <b-field label="Search">
-                                        <b-input type="text"
-                                                 v-model="search.bhousename" placeholder="Search Bhouse"
-                                                 @keyup.native.enter="loadAsyncData"/>
-                                        <p class="control">
-                                            <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
-                                        </p>
-                                    </b-field>
-                                </div>
+                                <b-field label="Search">
+                                    <b-input type="text"
+                                                v-model="search.bhousename" placeholder="Search Bhouse"
+                                                @keyup.native.enter="loadAsyncData"/>
+                                    <p class="control">
+                                        <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
+                                    </p>
+                                </b-field>
                             </div>
                         </div>
 
                         <div class="buttons mt-3 is-right">
                             <b-button tag="a" href="/boarding-house/create" icon-right="account-arrow-up-outline" class="is-success">NEW BOARDING HOUSE</b-button>
                         </div>
+
+                        
 
                         <b-table
                             :data="data"
@@ -61,7 +59,7 @@
                                 {{ props.row.bhouse_id }}
                             </b-table-column>
 
-                            <b-table-column field="bhouse_name" label="Boarding House Name" v-slot="props">
+                            <b-table-column field="bhouse_name" label="Boarding House Name" sortable v-slot="props">
                                 {{ props.row.bhouse_name }}
                             </b-table-column>
 
@@ -94,12 +92,27 @@
                 </div>
             </div>
         </div><!--section div-->
+
+        <div class="section">
+            <div class="columns" v-if="user.active === 0">
+                <div class="column is-8 is-offset-2">
+                    <b-notification
+                            type="is-danger is-light"
+                            aria-close-label="Close notification"
+                            role="alert">
+                            Account status is inactive.
+                    </b-notification>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 
 export default{
+    props: ['propUser'],
+
     data() {
         return{
             data: [],
@@ -120,6 +133,8 @@ export default{
                 'button': true,
                 'is-loading':false,
             },
+
+            user: {},
 
 
         }
@@ -204,15 +219,21 @@ export default{
             });
         },
 
-
         openLink(id){
             window.location = '/boarding-house/' +id + '/edit';
+        },
+
+
+        initData(){
+            this.user = JSON.parse(this.propUser);
+            console.log(this.user.active);
         }
 
 
     },
 
     mounted() {
+        this.initData();
         this.loadAsyncData();
 
     }

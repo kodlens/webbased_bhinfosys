@@ -54,6 +54,10 @@ Route::resource('/users', App\Http\Controllers\Administrator\UserController::cla
 Route::get('/get-users', [App\Http\Controllers\Administrator\UserController::class, 'getUsers']);
 Route::post('/user-reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
+Route::post('/user-deactivate/{id}', [App\Http\Controllers\Administrator\UserController::class, 'deactivate']);
+Route::post('/user-activate/{id}', [App\Http\Controllers\Administrator\UserController::class, 'activate']);
+
+
 
 Route::resource('/request-accounts', App\Http\Controllers\Administrator\RequestAccountController::class);
 Route::get('/get-request-accounts', [App\Http\Controllers\Administrator\RequestAccountController::class, 'getRequestAccount']);

@@ -256,6 +256,26 @@ class UserController extends Controller
         ]);
     }
 
+    public function deactivate($id){
+        $data = User::find($id);
+        $data->active = 0;
+        $data->save();
+
+        return response()->json([
+            'status' => 'deactivated'
+        ]);
+    }
+
+    public function activate($id){
+        $data = User::find($id);
+        $data->active = 1;
+        $data->save();
+
+        return response()->json([
+            'status' => 'activated'
+        ]);
+    }
+
 
 
 }

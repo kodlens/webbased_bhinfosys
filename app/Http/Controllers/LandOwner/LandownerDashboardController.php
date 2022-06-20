@@ -4,10 +4,11 @@ namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\BoardingHouse;
 
+use Auth;
 
 class LandownerDashboardController extends Controller
 {
@@ -15,12 +16,13 @@ class LandownerDashboardController extends Controller
     public function __construct(){
         $this->middleware('auth');
         //$this->middleware('landowner');
-
     }
 
     public function index(){
+        $user = Auth::user();
 
-        return view('landowner.landowner-dashboard');
+        return view('landowner.landowner-dashboard')
+            ->with('user', $user);
     }
 
 

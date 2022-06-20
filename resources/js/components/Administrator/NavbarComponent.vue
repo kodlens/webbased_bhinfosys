@@ -23,9 +23,9 @@
                         <b-menu-list label="Menu">
                             <b-menu-item icon="information-outline" label="Dashboard" tag="a" href="/dashboard"></b-menu-item>
 
-                            <b-menu-item label="BH List" tag="a" href="/bh-lists"></b-menu-item>
+                            <b-menu-item icon="domain" label="BH List" tag="a" href="/bh-lists"></b-menu-item>
 
-                            <b-menu-item label="All Accounts" tag="a" href="/users"></b-menu-item>
+                            <b-menu-item icon="account-multiple" label="Users" tag="a" href="/users"></b-menu-item>
                             
                             <!-- <b-menu-item icqon="account" label="User Account">
                                 

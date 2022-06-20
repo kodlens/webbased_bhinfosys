@@ -1,7 +1,7 @@
 @extends('layouts.landowner-app')
 
 @section('content')
-    <boarding-house></boarding-house>
+    <boarding-house prop-user='@json($user)'></boarding-house>
 
 @endsection
 

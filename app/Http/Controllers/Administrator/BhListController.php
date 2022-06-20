@@ -23,9 +23,14 @@ class BhListController extends Controller
 
 
     public function getBhLists (Request $req){
-        return BoardingHouse::with(['owner'])->paginate($req->perpage);
+        return BoardingHouse::with(['owner', 'province', 'city', 'barangay'])->paginate($req->perpage);
     }
 
+
+
+    public function destroy($id){
+        BoardingHouse::destroy($id);
+    }
 
 
 }

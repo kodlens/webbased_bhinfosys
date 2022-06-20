@@ -23,7 +23,10 @@ class LandownerBoardingHouseController extends Controller
     }
 
     public function index(){
-        return view('landowner.boarding-house');
+        $user = Auth::user();
+
+        return view('landowner.boarding-house')
+            ->with('user', $user);
     }
 
     public function show($id){

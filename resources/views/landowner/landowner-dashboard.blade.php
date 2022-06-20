@@ -1,6 +1,6 @@
 @extends('layouts.landowner-app')
 
 @section('content')
-    <landowner-dashboard prop-user="{{ auth()->user() }}"></landowner-dashboard>
+    <landowner-dashboard prop-user='@json($user)'></landowner-dashboard>
 @endsection
 

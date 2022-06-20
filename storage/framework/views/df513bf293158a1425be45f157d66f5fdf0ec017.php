@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('content'); ?>
-    <landowner-dashboard prop-user="<?php echo e(auth()->user()); ?>"></landowner-dashboard>
+    <landowner-dashboard prop-user='<?php echo json_encode($user, 15, 512) ?>'></landowner-dashboard>
 <?php $__env->stopSection(); ?>
 
 

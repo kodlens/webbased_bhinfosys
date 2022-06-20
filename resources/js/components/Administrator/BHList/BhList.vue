@@ -9,39 +9,25 @@
 
                             <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">BOARDING HOUSE LIST</div>
 
-                            <div class="level">
-                                <div class="level-left">
-                                    <b-field label="Page">
-                                        <b-select v-model="perPage" @input="setPerPage">
-                                            <option value="5">5 per page</option>
-                                            <option value="10">10 per page</option>
-                                            <option value="15">15 per page</option>
-                                            <option value="20">20 per page</option>
-                                        </b-select>
-                                        <b-select v-model="sortOrder" @input="loadAsyncData">
-                                            <option value="asc">ASC</option>
-                                            <option value="desc">DESC</option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
+                            <b-field label="Page">
+                                <b-select v-model="perPage" @input="setPerPage">
+                                    <option value="5">5 per page</option>
+                                    <option value="10">10 per page</option>
+                                    <option value="15">15 per page</option>
+                                    <option value="20">20 per page</option>
+                                </b-select>
+                            </b-field>
 
-                                <div class="level-right">
-                                    <div class="level-item">
-                                        <b-field label="Search">
-                                            <b-input type="text"
-                                                     v-model="search.lname" placeholder="Lastname"
-                                                     @keyup.native.enter="loadAsyncData"/>
-                                            <p class="control">
-                                                <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
-                                            </p>
-                                        </b-field>
-                                    </div>
-                                </div>
-                            </div>
+                                <b-field label="Search">
+                                <b-input type="text"
+                                    v-model="search.lname" placeholder="Owner..."
+                                    @keyup.native.enter="loadAsyncData"/>
+                                <p class="control">
+                                    <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
+                                </p>
+                            </b-field>
 
-                            <div class="buttons mt-3 is-right">
-                                <b-button icon-right="account-arrow-up-outline" class="is-success">NEW</b-button>
-                            </div>
+                           
 
                             <b-table
                                 :data="data"
@@ -63,7 +49,7 @@
                                     {{ props.row.bhouse_id }}
                                 </b-table-column>
                                 
-                                <b-table-column field="bhouse_name" label="BH Name" v-slot="props">
+                                <b-table-column field="bhouse_name" label="BH Name" sortable v-slot="props">
                                     {{ props.row.bhouse_name }}
                                 </b-table-column>
 
@@ -71,20 +57,28 @@
                                     {{ props.row.owner.lname }},  {{ props.row.owner.fname }}  {{ props.row.owner.mname }}
                                 </b-table-column>
 
-                                <b-table-column field="is_approve" label="Status" v-slot="props">
+                                <b-table-column field="province" label="Location" v-slot="props">
+                                    {{ props.row.province.provDesc }},  {{ props.row.city.citymunDesc }}  {{ props.row.barangay.brgyDesc }}
+                                </b-table-column>
+
+                                <!-- <b-table-column field="is_approve" label="Status" v-slot="props">
                                     <b-icon icon="check-bold" v-if="props.row.is_approve" type="is-success"></b-icon>
                                     <b-icon type="is-danger" icon="bank-off" v-else></b-icon>
-                                </b-table-column>
+                                </b-table-column> -->
 
 
                                 <b-table-column label="Options" v-slot="props">
                                     <div class="is-flex">
-                                        <b-tooltip label="View permit" v-if="props.row.is_approve === 0">
+                                        <!-- <b-tooltip label="View permit" v-if="props.row.is_approve === 0">
                                             <b-button class="button is-small is-link mr-1" tag="a" icon-right="desktop-mac" @click="viewPermit(props.row.bhouse_id)"></b-button>
                                         </b-tooltip>
 
-                                        <b-tooltip label="Deactivate" v-if="props.row.is_approve === 1">
+                                        <b-tooltip label="Deactivate">
                                             <b-button class="button is-small is-danger mr-1" tag="a" icon-right="laptop-off" @click="deactivateBhouse(props.row.bhouse_id)"></b-button>
+                                        </b-tooltip> -->
+
+                                         <b-tooltip label="Delete" class="is-danger">
+                                            <b-button class="button is-small is-danger mr-1"  icon-right="trash-can-outline" @click="confirmDelete(props.row.bhouse_id)"></b-button>
                                         </b-tooltip>
 
                                     </div>
@@ -165,7 +159,7 @@ export default {
             sortField: 'bhouse_id',
             sortOrder: 'desc',
             page: 1,
-            perPage: 5,
+            perPage: 10,
             defaultSortDirection: 'asc',
 
             search: {
@@ -305,7 +299,7 @@ export default {
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/appointment-type/' + delete_id).then(res => {
+            axios.delete('/bh-lists/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {

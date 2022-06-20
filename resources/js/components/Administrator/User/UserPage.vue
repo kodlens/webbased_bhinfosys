@@ -6,8 +6,8 @@
                     <div class="column is-10 is-offset-1">
                         <div class="is-flex is-justify-content-center mb-2" style="font-size: 20px; font-weight: bold;">LIST OF USERS</div>
 
-                        <div class="level">
-                            <div class="level-left">
+                        <div class="columns">
+                            <div class="column">
                                 <b-field label="Page">
                                     <b-select v-model="perPage" @input="setPerPage">
                                         <option value="5">5 per page</option>
@@ -15,25 +15,16 @@
                                         <option value="15">15 per page</option>
                                         <option value="20">20 per page</option>
                                     </b-select>
-                                    <b-select v-model="sortOrder" @input="loadAsyncData">
-                                        <option value="asc">ASC</option>
-                                        <option value="desc">DESC</option>
-
-                                    </b-select>
                                 </b-field>
-                            </div>
 
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <b-field label="Search">
-                                        <b-input type="text"
-                                                 v-model="search.lname" placeholder="Search Lastname"
-                                                 @keyup.native.enter="loadAsyncData"/>
-                                        <p class="control">
-                                            <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
-                                        </p>
-                                    </b-field>
-                                </div>
+                                <b-field label="Search">
+                                    <b-input type="text"
+                                                v-model="search.lname" placeholder="Search Lastname"
+                                                @keyup.native.enter="loadAsyncData"/>
+                                    <p class="control">
+                                        <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
+                                    </p>
+                                </b-field>
                             </div>
                         </div>
 
@@ -65,7 +56,7 @@
                                 {{ props.row.username }}
                             </b-table-column>
 
-                            <b-table-column field="name" label="Name" v-slot="props">
+                            <b-table-column field="lname" label="Name" sortable v-slot="props">
                                 {{ props.row.lname }}, {{ props.row.fname }} {{ props.row.mname }}
                             </b-table-column>
 
@@ -81,6 +72,12 @@
                                 {{ props.row.role }}
                             </b-table-column>
 
+                            <b-table-column field="active" label="Active" v-slot="props">
+                                <b-icon v-if="props.row.active === 1" type="is-success is-small" icon="check-outline"></b-icon>
+                                <b-icon v-else icon="close-thick" type="is-danger is-small"></b-icon>
+                                
+                            </b-table-column>
+
                             <b-table-column label="Action" v-slot="props">
                                 <b-dropdown aria-role="list">
                                     <template #trigger="{ active }">
@@ -94,6 +91,8 @@
                                     <b-dropdown-item aria-role="listitem" @click="getData(props.row.user_id)">Modify</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.user_id)">Delete</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="openModalResetPassword(props.row.user_id)">Reset Password</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" @click="confirmDeactivate(props.row.user_id)">Deactivate</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" @click="activate(props.row.user_id)">Activate</b-dropdown-item>
 
                                 </b-dropdown>
 
@@ -222,7 +221,7 @@
                                              :type="this.errors.role ? 'is-danger':''"
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select placeholder="Role" v-model="fields.role" icon="account" expanded>
-                                            <option value="BOARDER">BOARDER</option>
+                                            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
                                             <option value="LANDOWNER">LANDOWNER</option>
                                         </b-select>
                                     </b-field>
@@ -385,7 +384,7 @@ export default{
             sortField: 'user_id',
             sortOrder: 'desc',
             page: 1,
-            perPage: 5,
+            perPage: 10,
             defaultSortDirection: 'asc',
 
 
@@ -645,6 +644,52 @@ export default{
                 this.errors.contact_no = ['Invalid mobile number format. Valid format sample is (+639161234123)'];
 
             }
+        },
+
+
+        confirmDeactivate(dataId) {
+            this.$buefy.dialog.confirm({
+                title: 'Deactivate!',
+                type: 'is-danger',
+                message: 'Are you sure you want deactivate this data?',
+                cancelText: 'Cancel',
+                confirmText: 'Delete',
+                onConfirm: () => this.deactivate(dataId)
+            });
+        },
+        //execute delete after confirming
+        deactivate(dataId) {
+            axios.post('/user-deactivate/' + dataId).then(res => {
+
+                if(res.data.status === 'deactivated'){
+                    this.$buefy.toast.open({
+                        message: 'Account deactivated',
+                        type: 'is-success'
+                    })
+                }
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
+        },
+
+        activate: function(dataId){
+            axios.post('/user-activate/' + dataId).then(res => {
+
+                if(res.data.status === 'activated'){
+                    this.$buefy.toast.open({
+                        message: 'Account activated',
+                        type: 'is-success'
+                    })
+                }
+                this.loadAsyncData();
+            }).catch(err => {
+                if (err.response.status === 422) {
+                    this.errors = err.response.data.errors;
+                }
+            });
         }
 
 

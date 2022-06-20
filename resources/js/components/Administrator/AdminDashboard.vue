@@ -1,7 +1,11 @@
 <template>
     <div>
         <div class="section">
-            <h1 class="title is-flex is-justify-content-center is-flex">ADMINISTRATOR</h1>
+
+            <div class="text-container">
+                <h1 class="title">ADMINISTRATOR</h1>
+            </div>
+            
              
         </div>
     
@@ -17,11 +21,13 @@ export default {
 </script>
 
 <style scoped>
-.section h1{
-    color:white;
-    padding:.5em;
-    background: black;
-
-}
+    .text-container{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -50px;
+    }
 
 </style>

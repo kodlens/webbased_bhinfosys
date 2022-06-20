@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('content'); ?>
-    <boarding-house></boarding-house>
+    <boarding-house prop-user='<?php echo json_encode($user, 15, 512) ?>'></boarding-house>
 
 <?php $__env->stopSection(); ?>
 

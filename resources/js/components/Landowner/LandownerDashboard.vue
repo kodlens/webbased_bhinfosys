@@ -2,21 +2,23 @@
     <div>
         <div class="section">
 
-            <div class="columns" v-if="is_approve < 1">
+            <div class="columns" v-if="user.active == 0">
                 <div class="column is-8 is-offset-2">
                     <b-notification
                             type="is-danger is-light"
                             aria-close-label="Close notification"
                             role="alert">
-                        Account status is not yet approved. You cannot add boarding house at this moment.
+                            Account status is inactive.
                     </b-notification>
                 </div>
             </div>
+
+
             <h1 class="title is-flex is-justify-content-center">LANDOWNER DASHBOARD</h1>
 
         </div>
 
-        <div class="section">
+        <div class="section" v-if="user.active == 1">
             <div class="bhouse-container">
 
                 <div class="card" v-for="(item, index) in bhouses" :key="index">
@@ -72,12 +74,12 @@
 
 <script>
 export default {
-    props: ['propIsApprove'],
+    props: ['propUser'],
 
     data() {
         return{
             bhouses: [],
-            is_approve: 0,
+            user: {},
         }
     },
 
@@ -89,7 +91,8 @@ export default {
         },
 
         initData: function(){
-            this.is_approve = parseInt(this.propIsApprove);
+            this.user = JSON.parse(this.propUser);
+            console.log(this.user);
         }
     },
 
@@ -109,7 +112,7 @@ export default {
 }
 .card{
     width: 500px;
-    margin: auto;
+    margin: 15px;
 }
 
 .card-content-title{
