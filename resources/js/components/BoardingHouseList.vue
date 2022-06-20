@@ -6,7 +6,7 @@
                 <b-field>
                     <b-input type="text" v-model="search.bhousename" expanded placeholder="Search Boarding House"></b-input>
                     <p class="control">
-                        <button class="button is-link" icon-left="lens" @click="loadBoardingHouses"></button>
+                        <button class="button is-link" icon-left="magnify" @click="loadBoardingHouses"></button>
                     </p>
                 </b-field>
             </div>
@@ -66,6 +66,9 @@ export default {
 
             search: {
                 bhousename: '',
+                rules: '',
+                amenities: '',
+                price: '',
             }
 
 

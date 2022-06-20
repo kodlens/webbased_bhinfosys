@@ -10823,7 +10823,10 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       itemShow: 3,
       search: {
-        bhousename: ''
+        bhousename: '',
+        rules: '',
+        amenities: '',
+        price: ''
       }
     };
   },
@@ -56802,7 +56805,7 @@ var render = function () {
                 _c("p", { staticClass: "control" }, [
                   _c("button", {
                     staticClass: "button is-link",
-                    attrs: { "icon-left": "lens" },
+                    attrs: { "icon-left": "magnify" },
                     on: { click: _vm.loadBoardingHouses },
                   }),
                 ]),
