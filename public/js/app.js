@@ -10816,6 +10816,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10823,10 +10829,8 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       itemShow: 3,
       search: {
-        bhousename: '',
-        rules: '',
-        amenities: '',
-        price: ''
+        category: '',
+        key: ''
       }
     };
   },
@@ -10837,10 +10841,10 @@ __webpack_require__.r(__webpack_exports__);
     loadBoardingHouses: function loadBoardingHouses() {
       var _this = this;
 
-      console.log('test');
-      var params = ["bhousename=".concat(this.search.bhousename)].join('&');
+      var params = ["key=".concat(this.search.key), "category=".concat(this.search.category)].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.items = res.data;
+        console.log(_this.items);
       })["catch"](function (err) {});
     },
     onResize: function onResize() {
@@ -56787,6 +56791,44 @@ var render = function () {
             _c(
               "b-field",
               [
+                _c(
+                  "p",
+                  { staticClass: "control" },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { placeholder: "Please select..." },
+                        model: {
+                          value: _vm.search.category,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.search, "category", $$v)
+                          },
+                          expression: "search.category",
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "bhouse" } }, [
+                          _vm._v("BOARDING HOUSE"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "rule " } }, [
+                          _vm._v("RULES"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "amenities" } }, [
+                          _vm._v("AMENITIES"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "location" } }, [
+                          _vm._v("LOCATION (Purok/Street)"),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
                 _c("b-input", {
                   attrs: {
                     type: "text",
@@ -56794,21 +56836,26 @@ var render = function () {
                     placeholder: "Search Boarding House",
                   },
                   model: {
-                    value: _vm.search.bhousename,
+                    value: _vm.search.key,
                     callback: function ($$v) {
-                      _vm.$set(_vm.search, "bhousename", $$v)
+                      _vm.$set(_vm.search, "key", $$v)
                     },
-                    expression: "search.bhousename",
+                    expression: "search.key",
                   },
                 }),
                 _vm._v(" "),
-                _c("p", { staticClass: "control" }, [
-                  _c("button", {
-                    staticClass: "button is-link",
-                    attrs: { "icon-left": "magnify" },
-                    on: { click: _vm.loadBoardingHouses },
-                  }),
-                ]),
+                _c(
+                  "p",
+                  { staticClass: "control" },
+                  [
+                    _c("b-button", {
+                      staticClass: "button is-link",
+                      attrs: { "icon-left": "magnify" },
+                      on: { click: _vm.loadBoardingHouses },
+                    }),
+                  ],
+                  1
+                ),
               ],
               1
             ),

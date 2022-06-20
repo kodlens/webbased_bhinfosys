@@ -4,9 +4,17 @@
         <div class="columns is-centered">
             <div class="column is-6">
                 <b-field>
-                    <b-input type="text" v-model="search.bhousename" expanded placeholder="Search Boarding House"></b-input>
                     <p class="control">
-                        <button class="button is-link" icon-left="magnify" @click="loadBoardingHouses"></button>
+                        <b-select v-model="search.category" placeholder="Please select...">
+                            <option value="bhouse">BOARDING HOUSE</option>
+                            <option value="rule ">RULES</option>
+                            <option value="amenities">AMENITIES</option>
+                            <option value="location">LOCATION (Purok/Street)</option>
+                        </b-select>
+                    </p>
+                    <b-input type="text" v-model="search.key" expanded placeholder="Search Boarding House"></b-input>
+                    <p class="control">
+                        <b-button class="button is-link" icon-left="magnify" @click="loadBoardingHouses"></b-button>
                     </p>
                 </b-field>
             </div>
@@ -44,8 +52,6 @@
         <div class="columns">
             <div class="column">
 
-
-
             </div>
         </div>
 
@@ -59,19 +65,14 @@ export default {
     data() {
         return {
 
-
             test: 0,
             items: [],
             itemShow: 3,
 
             search: {
-                bhousename: '',
-                rules: '',
-                amenities: '',
-                price: '',
+                category: '',
+                key: '',
             }
-
-
         }
     },
 
@@ -83,12 +84,13 @@ export default {
         },
 
         loadBoardingHouses: function(){
-            console.log('test')
             const params = [
-                `bhousename=${this.search.bhousename}`
+                `key=${this.search.key}`,
+                `category=${this.search.category}`
             ].join('&')
             axios.get(`/get-client-bhouses?${params}`).then(res=>{
                 this.items = res.data;
+                console.log(this.items)
             }).catch(err => {
 
             });

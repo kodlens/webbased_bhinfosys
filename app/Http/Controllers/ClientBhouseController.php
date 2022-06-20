@@ -15,15 +15,42 @@ class ClientBhouseController extends Controller
 
     }
 
-
-
     public function getBhouses(Request $req){
-        $bhousename = $req->bhousename;
 
+        $key = $req->key;
+        $cat = $req->category;
 
-        $data = DB::table('boarding_houses as a')
-            ->where('a.bhouse_name', 'like', $bhousename .'%')
-            ->get();
+        return $req;
+
+        //$bhousename = $req->bhousename;
+
+        if($cat == 'bhouse'){
+            $data = BoardingHouse::with(['province', 'city', 'barangay'])
+                ->where('bhouse_name', 'like', '%' .$key .'%')
+                ->get();
+        }
+
+        if($cat == 'rules'){
+            $data = BoardingHouse::with(['province', 'city', 'barangay'])
+                ->where('bhouse_rule', 'like', '%' .$key .'%')
+                ->get();
+        }
+
+        if($cat == 'amenities'){
+            $data = BoardingHouse::with(['province', 'city', 'barangay'])
+                ->where('amenities', 'like', '%' .$key .'%')
+                ->get();
+        }
+
+        if($cat == 'location'){
+            $data = BoardingHouse::with(['province', 'city', 'barangay'])
+                ->where('street', 'like', '%' .$key .'%')
+                ->get();
+        }
+        
+
+        
+
         return $data;
     }
 
