@@ -16,7 +16,7 @@
 <?php $__env->startSection('content'); ?>
 
 
-    <client-bhouse-detail prop-bhouse-id="<?php echo e($id); ?>"></client-bhouse-detail>
+    <client-bhouse-detail prop-bhouse-id="<?php echo e($id); ?>" prop-data='<?php echo json_encode($data, 15, 512) ?>'></client-bhouse-detail>
 
 <?php $__env->stopSection(); ?>
 

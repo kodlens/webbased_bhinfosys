@@ -169,7 +169,7 @@
                                     <b-field label="Contact No"
                                              :type="this.errors.contact_no ? 'is-danger':''"
                                              :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
-                                        <b-input type="text" placeholder="Contact No" v-model="fields.contact_no" @input="checkMobileNo"></b-input>
+                                        <b-input type="text" placeholder="Contact No" v-model="fields.contact_no"></b-input>
                                     </b-field>
                                 </div>
                             </div>

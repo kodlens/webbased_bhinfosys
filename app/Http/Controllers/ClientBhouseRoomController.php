@@ -31,16 +31,16 @@ class ClientBhouseRoomController extends Controller
     }
 
     public function getBedSpaces($room_id){
-        $dateNow = date('Y-m-d H:i:s');
+        // $dateNow = date('Y-m-d H:i:s');
 
-        $date24 = date('Y-m-d H:i:s', strtotime('-24 hours', strtotime(date('Y-m-d H:i:s'))));
-        //subract 1 day from today;
+        // $date24 = date('Y-m-d H:i:s', strtotime('-24 hours', strtotime(date('Y-m-d H:i:s'))));
+        // //subract 1 day from today;
 
-        //return $dateNow;
-        $rsrv = BookBedSpace::where('created_at', '<=', $date24)
-            ->where('is_active', 1)
-            ->where('approval_status', 'PENDING')
-            ->get();
+        // //return $dateNow;
+        // $rsrv = BookBedSpace::where('created_at', '<=', $date24)
+        //     ->where('is_active', 1)
+        //     ->where('approval_status', 'PENDING')
+        //     ->get();
 
         //kigwa// tiwason ang mark failed
         //d makita kai walay bedspace Id ma forward tungod sa status na pending
@@ -49,27 +49,26 @@ class ClientBhouseRoomController extends Controller
         //mabalik ug available ang bedspace then ang reservation ref ma mark as failed
 
 
-        if(count($rsrv) > 0){
-            //if naa
-            BookBedSpace::where('created_at', '<=', $date24)
-                ->where('is_active', 1)
-                ->where('approval_status', 'PENDING')
-                ->update([
-                    'is_active' => 0,
-                    'approval_status' => 'FAILED'
-                ]);
+        // if(count($rsrv) > 0){
+        //     //if naa
+        //     BookBedSpace::where('created_at', '<=', $date24)
+        //         ->where('is_active', 1)
+        //         ->where('approval_status', 'PENDING')
+        //         ->update([
+        //             'is_active' => 0,
+        //             'approval_status' => 'FAILED'
+        //         ]);
 
-            foreach($rsrv as $item){
-                BedSpace::where('bedspace_id', '=', $item->bedspace_id)
-                    ->update([
-                        'is_booked' => 0
-                    ]);
-            }
-        }
+        //     foreach($rsrv as $item){
+        //         BedSpace::where('bedspace_id', '=', $item->bedspace_id)
+        //             ->update([
+        //                 'is_booked' => 0
+        //             ]);
+        //     }
+        // }
 
         $bedspaces = BedSpace::where('room_id', $room_id)
             ->with(['imgs'])
-            ->where('is_booked', 0)
             ->get();
         return $bedspaces;
     }

@@ -10822,11 +10822,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       test: 0,
-      items: [],
+      bhouses: [],
       itemShow: 3,
       search: {
         category: '',
@@ -10843,8 +10848,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var params = ["key=".concat(this.search.key), "category=".concat(this.search.category)].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
-        _this.items = res.data;
-        console.log(_this.items);
+        _this.bhouses = res.data;
       })["catch"](function (err) {});
     },
     onResize: function onResize() {
@@ -11196,6 +11200,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propData: {
@@ -11229,6 +11239,8 @@ __webpack_require__.r(__webpack_exports__);
           //     return;
           // }
           navigator.geolocation.getCurrentPosition(_this.getPosition);
+
+          _this.loadMap();
         });
       } else {
         //this.camera = 'off';
@@ -11241,7 +11253,6 @@ __webpack_require__.r(__webpack_exports__);
       //this.position.long = position.coords.longitude;
       this.nlat = position.coords.latitude;
       this.nlong = position.coords.longitude;
-      this.loadMap();
     },
     loadMap: function loadMap() {
       //init map
@@ -11270,12 +11281,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     //load map
     loadData: function loadData() {
-      var _this2 = this;
-
-      axios.get('/get-bhouse-detail/' + this.bhouse_id).then(function (res) {
-        _this2.data = res.data;
-        console.log(_this2.data);
-      });
+      // axios.get('/get-bhouse-detail/' + this.bhouse_id).then(res=>{
+      //     this.data = res.data;
+      //     console.log(this.data)
+      // });
+      this.data = JSON.parse(this.propData)[0];
+      console.log(this.data);
     },
     initData: function initData() {
       //this.data = JSON.parse(this.propData);
@@ -11283,8 +11294,10 @@ __webpack_require__.r(__webpack_exports__);
       this.loadData();
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.initData();
+  },
+  mounted: function mounted() {
     this.loadNavigator(); //this.loadMap();
   }
 });
@@ -13672,6 +13685,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -13762,6 +13781,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('bhouse_name', this.fields.bhouse_name);
       formData.append('bhouse_rule', this.fields.bhouse_rule);
       formData.append('bhouse_desc', this.fields.bhouse_desc);
+      formData.append('amenities', this.fields.amenities);
       formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
       formData.append('lat', this.fields.lat);
       formData.append('long', this.fields["long"]);
@@ -35953,7 +35973,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36001,7 +36021,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n        font-size: 1.5em;\n        font-weight: bold;\n        color: blue;\n}\n.desc[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.landname[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.landnames[data-v-147bde05]{\n        margin-left: 6em;\n}\n.conno[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.connos[data-v-147bde05]{\n        margin-left: 6em;\n}\n.bhouse-desc[data-v-147bde05]{\n        font-size: 1em;\n        margin-left: 6em;\n}\n.loc[data-v-147bde05]{\n        font-size: 1em;\n        margin-top: 5px;\n        font-weight: bold;\n}\n.locs[data-v-147bde05]{\n        margin-left: 6em;\n}\n.bhouse-loc[data-v-147bde05]{\n        margin-top: 15px;\n        margin-left: 3em;\n}\n.column[data-v-147bde05]{\n        padding: 2em;\n        background: white;\n}\n.title[data-v-147bde05]{\n    color:blue;\n    font-weight: bold;\n    padding-left: 4.5em;\n}\n.rules-content[data-v-147bde05]{\n    background:dodgerblue;\n    color:white;\n    padding: 1em;\n    border-radius: 5px;\n}\n.buttons mt-5[data-v-147bde05]{\n    margin-left: 2em;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n    color: blue;\n}\n.desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.landname[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.landnames[data-v-147bde05]{\n    margin-left: 6em;\n}\n.conno[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.connos[data-v-147bde05]{\n    margin-left: 6em;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-left: 6em;\n}\n.loc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.locs[data-v-147bde05]{\n    margin-left: 6em;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n    margin-left: 3em;\n}\n.column[data-v-147bde05]{\n    padding: 2em;\n    background: white;\n}\n.title[data-v-147bde05]{\ncolor:blue;\nfont-weight: bold;\npadding-left: 4.5em;\n}\n.rules-content[data-v-147bde05]{\n    list-style-type: circle;\n}\n.buttons mt-5[data-v-147bde05]{\n    margin-left: 2em;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -54428,7 +54448,6 @@ var render = function () {
                                   type: "text",
                                   placeholder: "Contact No",
                                 },
-                                on: { input: _vm.checkMobileNo },
                                 model: {
                                   value: _vm.fields.contact_no,
                                   callback: function ($$v) {
@@ -56779,186 +56798,159 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "section" },
-    [
-      _c("div", { staticClass: "columns is-centered" }, [
-        _c(
-          "div",
-          { staticClass: "column is-6" },
-          [
+  return _c("div", { staticClass: "section" }, [
+    _c("div", { staticClass: "columns is-centered" }, [
+      _c(
+        "div",
+        { staticClass: "column is-6" },
+        [
+          _c(
+            "b-field",
+            [
+              _c(
+                "p",
+                { staticClass: "control" },
+                [
+                  _c(
+                    "b-select",
+                    {
+                      attrs: { placeholder: "Please select..." },
+                      model: {
+                        value: _vm.search.category,
+                        callback: function ($$v) {
+                          _vm.$set(_vm.search, "category", $$v)
+                        },
+                        expression: "search.category",
+                      },
+                    },
+                    [
+                      _c("option", { attrs: { value: "bhouse" } }, [
+                        _vm._v("BOARDING HOUSE"),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "rule " } }, [
+                        _vm._v("RULES"),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "amenities" } }, [
+                        _vm._v("AMENITIES"),
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "location" } }, [
+                        _vm._v("LOCATION (Purok/Street)"),
+                      ]),
+                    ]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-input", {
+                attrs: {
+                  type: "text",
+                  expanded: "",
+                  placeholder: "Search Boarding House",
+                },
+                model: {
+                  value: _vm.search.key,
+                  callback: function ($$v) {
+                    _vm.$set(_vm.search, "key", $$v)
+                  },
+                  expression: "search.key",
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "p",
+                { staticClass: "control" },
+                [
+                  _c("b-button", {
+                    staticClass: "button is-link",
+                    attrs: { "icon-left": "magnify" },
+                    on: { click: _vm.loadBoardingHouses },
+                  }),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "result-container" },
+      _vm._l(_vm.bhouses, function (item, index) {
+        return _c("div", { key: index, staticClass: "card" }, [
+          _c("div", { staticClass: "card-image" }, [
+            _c("figure", { staticClass: "image 5" }, [
+              _c("a", [
+                _c("img", {
+                  staticClass: "bh-image",
+                  attrs: { src: "/storage/bhouses/" + item.bhouse_img_path },
+                }),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("p", { staticClass: "title is-6" }),
+              _vm._v(_vm._s(item.bhouse_name)),
+              _c("p"),
+              _vm._v(" "),
+              _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(item.bhouse_desc) +
+                    "\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                _vm._v(
+                  "\n                        Located at: " +
+                    _vm._s(item.street) +
+                    ",  " +
+                    _vm._s(item.barangay.brgyDesc) +
+                    "\n                    "
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
             _c(
-              "b-field",
+              "div",
+              {
+                staticClass: "buttons",
+                staticStyle: { position: "absolute", bottom: "0" },
+              },
               [
                 _c(
-                  "p",
-                  { staticClass: "control" },
-                  [
-                    _c(
-                      "b-select",
-                      {
-                        attrs: { placeholder: "Please select..." },
-                        model: {
-                          value: _vm.search.category,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.search, "category", $$v)
-                          },
-                          expression: "search.category",
-                        },
-                      },
-                      [
-                        _c("option", { attrs: { value: "bhouse" } }, [
-                          _vm._v("BOARDING HOUSE"),
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "rule " } }, [
-                          _vm._v("RULES"),
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "amenities" } }, [
-                          _vm._v("AMENITIES"),
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "location" } }, [
-                          _vm._v("LOCATION (Purok/Street)"),
-                        ]),
-                      ]
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("b-input", {
-                  attrs: {
-                    type: "text",
-                    expanded: "",
-                    placeholder: "Search Boarding House",
-                  },
-                  model: {
-                    value: _vm.search.key,
-                    callback: function ($$v) {
-                      _vm.$set(_vm.search, "key", $$v)
+                  "b-button",
+                  {
+                    attrs: {
+                      type: "is-link",
+                      "icon-right": "chevron-right",
+                      tag: "a",
+                      href: "/client-bhouse-detail/" + item.bhouse_id,
                     },
-                    expression: "search.key",
                   },
-                }),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  { staticClass: "control" },
-                  [
-                    _c("b-button", {
-                      staticClass: "button is-link",
-                      attrs: { "icon-left": "magnify" },
-                      on: { click: _vm.loadBoardingHouses },
-                    }),
-                  ],
-                  1
+                  [_vm._v("SEE MORE...")]
                 ),
               ],
               1
             ),
-          ],
-          1
-        ),
-      ]),
-      _vm._v(" "),
-      _c("b-carousel-list", {
-        attrs: { data: _vm.items, "items-to-show": _vm.itemShow },
-        scopedSlots: _vm._u([
-          {
-            key: "item",
-            fn: function (list) {
-              return [
-                _c("div", { staticClass: "card" }, [
-                  _c("div", { staticClass: "card-image" }, [
-                    _c("figure", { staticClass: "image 5" }, [
-                      _c(
-                        "a",
-                        {
-                          on: {
-                            click: function ($event) {
-                              return _vm.info(list.index)
-                            },
-                          },
-                        },
-                        [
-                          _c("img", {
-                            staticClass: "bh-image",
-                            attrs: {
-                              src: "/storage/bhouses/" + list.bhouse_img_path,
-                            },
-                          }),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-content" }, [
-                    _c("div", { staticClass: "content" }, [
-                      _c("p", { staticClass: "title is-6" }, [
-                        _vm._v(_vm._s(list.bhouse_name)),
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(list.bhouse_desc) +
-                            "\n                        "
-                        ),
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                        _vm._v(
-                          "\n                            Located at: " +
-                            _vm._s(list.street) +
-                            "\n                        "
-                        ),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "buttons",
-                        staticStyle: { position: "absolute", bottom: "0" },
-                      },
-                      [
-                        _c(
-                          "b-button",
-                          {
-                            attrs: {
-                              type: "is-link",
-                              "icon-right": "chevron-right",
-                              tag: "a",
-                              href: "/client-bhouse-detail/" + list.bhouse_id,
-                            },
-                          },
-                          [_vm._v("SEE MORE...")]
-                        ),
-                      ],
-                      1
-                    ),
-                  ]),
-                ]),
-              ]
-            },
-          },
-        ]),
-        model: {
-          value: _vm.test,
-          callback: function ($$v) {
-            _vm.test = $$v
-          },
-          expression: "test",
-        },
+          ]),
+        ])
       }),
-      _vm._v(" "),
-      _vm._m(0),
-    ],
-    1
-  )
+      0
+    ),
+    _vm._v(" "),
+    _vm._m(0),
+  ])
 }
 var staticRenderFns = [
   function () {
@@ -57364,14 +57356,20 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "columns" }, [
               _c("div", { staticClass: "column" }, [
-                _c("h1", { staticClass: "title is-4" }, [
-                  _vm._v(" Rules and Regulations in the Boarding House"),
+                _c("div", { staticClass: "panel" }, [
+                  _c("div", { staticClass: "panel-heading" }, [
+                    _vm._v(
+                      "\n                                     Rules and Regulations in the Boarding House\n                                "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "panel-body" }, [
+                    _c("div", {
+                      staticClass: "rules-content",
+                      domProps: { innerHTML: _vm._s(_vm.data.bhouse_rule) },
+                    }),
+                  ]),
                 ]),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass: "rules-content",
-                  domProps: { innerHTML: _vm._s(_vm.data.bhouse_rule) },
-                }),
               ]),
             ]),
           ]),
@@ -60964,6 +60962,32 @@ var render = function () {
                               _vm.$set(_vm.fields, "bhouse_desc", $$v)
                             },
                             expression: "fields.bhouse_desc",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "AMENITIES",
+                          type: this.errors.amenities ? "is-danger" : "",
+                          message: this.errors.amenities
+                            ? this.errors.amenities[0]
+                            : "",
+                        },
+                      },
+                      [
+                        _c("b-input", {
+                          attrs: { type: "textarea", placeholder: "Amenities" },
+                          model: {
+                            value: _vm.fields.amenities,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.fields, "amenities", $$v)
+                            },
+                            expression: "fields.amenities",
                           },
                         }),
                       ],

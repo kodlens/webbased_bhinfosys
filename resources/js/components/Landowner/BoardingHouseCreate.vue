@@ -46,6 +46,12 @@
                                     <b-input type="textarea" v-model="fields.bhouse_desc" placeholder="Bhouse Description" />
                                 </b-field>
 
+                                <b-field label="AMENITIES"
+                                    :type="this.errors.amenities ? 'is-danger':''"
+                                    :message="this.errors.amenities ? this.errors.amenities[0] : ''">
+                                    <b-input type="textarea" v-model="fields.amenities" placeholder="Amenities" />
+                                </b-field>
+
                                 <!-- <div v-if="global_bhouse_id < 1">
                                     <b-field label="ATTACH BUSINESS PERMIT"
                                             :type="this.errors.business_permit_imgpath ? 'is-danger':''"
@@ -277,6 +283,7 @@ export default {
             formData.append('bhouse_name', this.fields.bhouse_name);
             formData.append('bhouse_rule', this.fields.bhouse_rule);
             formData.append('bhouse_desc', this.fields.bhouse_desc);
+             formData.append('amenities', this.fields.amenities);
             formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
             formData.append('lat', this.fields.lat);
             formData.append('long', this.fields.long);

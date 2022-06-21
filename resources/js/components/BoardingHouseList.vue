@@ -20,34 +20,39 @@
             </div>
         </div>
 
-        <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
+        <!-- <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
             <template #item="list">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image 5">
-                            <a @click="info(list.index)"><img class="bh-image" :src="`/storage/bhouses/${list.bhouse_img_path}`"></a>
-                        </figure>
-                        <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
+                
+            </template>
+        </b-carousel-list> -->
+
+        <div class="result-container">
+
+            <div class="card" v-for="(item, index) in bhouses" :key="index">
+                <div class="card-image">
+                    <figure class="image 5">
+                        <a ><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
+                    </figure>
+                    <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        <p class="title is-6"></p>{{ item.bhouse_name }}</p>
+                        <p class="subtitle is-7 mt-4">
+                            {{ item.bhouse_desc}}
+                        </p>
+
+                        <p class="subtitle is-7 mt-4">
+                            Located at: {{ item.street }},  {{ item.barangay.brgyDesc }}
+                        </p>
                     </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <p class="title is-6">{{ list.bhouse_name }}</p>
-                            <p class="subtitle is-7 mt-4">
-                                {{ list.bhouse_desc}}
-                            </p>
 
-                            <p class="subtitle is-7 mt-4">
-                                Located at: {{ list.street }}
-                            </p>
-                        </div>
-
-                        <div class="buttons" style="position: absolute; bottom: 0;">
-                            <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${list.bhouse_id}`">SEE MORE...</b-button>
-                        </div>
+                    <div class="buttons" style="position: absolute; bottom: 0;">
+                        <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${item.bhouse_id}`">SEE MORE...</b-button>
                     </div>
                 </div>
-            </template>
-        </b-carousel-list>
+            </div>
+        </div>
 
         <div class="columns">
             <div class="column">
@@ -66,7 +71,7 @@ export default {
         return {
 
             test: 0,
-            items: [],
+            bhouses: [],
             itemShow: 3,
 
             search: {
@@ -89,8 +94,8 @@ export default {
                 `category=${this.search.category}`
             ].join('&')
             axios.get(`/get-client-bhouses?${params}`).then(res=>{
-                this.items = res.data;
-                console.log(this.items)
+                this.bhouses = res.data;
+              
             }).catch(err => {
 
             });
@@ -123,6 +128,7 @@ export default {
 <style scoped>
     .card{
         margin: 15px;
+        width: 350px;
     }
     .carousel-list{
         box-shadow: none;
@@ -146,5 +152,11 @@ export default {
     .bh-image{
         height: 200px;
         object-fit: cover;
+    }
+
+    .result-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 </style>

@@ -82,6 +82,7 @@ class LandownerBoardingHouseController extends Controller
             'user_id' => $userid,
             'bhouse_rule' => $req->bhouse_rule,
             'bhouse_desc' => $req->bhouse_desc,
+            'amenities' => $req->amenities,
             'bhouse_img_path' => $bhousePath[2] != null ? $bhousePath[2]: '',
             'long' => $req->long,
             'lat' => $req->lat,
@@ -132,6 +133,7 @@ class LandownerBoardingHouseController extends Controller
         $data->bhouse_name = strtoupper($req->bhouse_name);
         $data->bhouse_rule = $req->bhouse_rule;
         $data->bhouse_desc = $req->bhouse_desc;
+        $data->amenities = $req->amenities;
 
         if($bhouseImg){
             $data->bhouse_img_path = $bhousePath[2];

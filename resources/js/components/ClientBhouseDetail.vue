@@ -47,8 +47,14 @@
 
                         <div class="columns">
                             <div class="column">
-                                <h1 class="title is-4"> Rules and Regulations in the Boarding House</h1>
-                                <div class="rules-content" v-html="data.bhouse_rule"></div>
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                         Rules and Regulations in the Boarding House
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="rules-content" v-html="data.bhouse_rule"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -103,6 +109,8 @@ export default {
                     //     return;
                     // }
                     navigator.geolocation.getCurrentPosition(this.getPosition);
+
+                    this.loadMap();
                 })
 
             }else{
@@ -118,7 +126,6 @@ export default {
             this.nlat = position.coords.latitude;
             this.nlong = position.coords.longitude;
 
-            this.loadMap();
         },
 
         loadMap(){
@@ -157,10 +164,13 @@ export default {
         }, //load map
 
         loadData(){
-            axios.get('/get-bhouse-detail/' + this.bhouse_id).then(res=>{
-                this.data = res.data;
-                console.log(this.data)
-            });
+            // axios.get('/get-bhouse-detail/' + this.bhouse_id).then(res=>{
+            //     this.data = res.data;
+            //     console.log(this.data)
+            // });
+            this.data = JSON.parse(this.propData)[0];
+
+            console.log(this.data);
         },
 
 
@@ -173,8 +183,12 @@ export default {
 
     },
 
+    created(){
+        this.initData();
+    },
+
     mounted() {
-       this.initData();
+      
        this.loadNavigator();
 
         //this.loadMap();
@@ -246,15 +260,12 @@ export default {
     }
 
     .rules-content{
-    background:dodgerblue;
-    color:white;
-    padding: 1em;
-    border-radius: 5px;
+        list-style-type: circle;
+    }
 
-}
-.buttons mt-5{
-    margin-left: 2em;
-}
+    .buttons mt-5{
+        margin-left: 2em;
+    }
 
     #mapid { height: 500px; z-index: 0;}
 
