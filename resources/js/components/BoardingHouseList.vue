@@ -16,8 +16,15 @@
                     <p class="control">
                         <b-button class="button is-link" icon-left="magnify" @click="loadBoardingHouses"></b-button>
                     </p>
+                   
                 </b-field>
             </div>
+        </div>
+
+        <div class="buttons is-centered">
+            <b-button class="button is-link" icon-left="filter">
+                FILTERS
+            </b-button>
         </div>
 
         <!-- <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
@@ -37,7 +44,7 @@
                 </div>
                 <div class="card-content">
                     <div class="content">
-                        <p class="title is-6"></p>{{ item.bhouse_name }}</p>
+                        <p class="title is-6">{{ item.bhouse_name }}</p>
                         <p class="subtitle is-7 mt-4">
                             {{ item.bhouse_desc}}
                         </p>

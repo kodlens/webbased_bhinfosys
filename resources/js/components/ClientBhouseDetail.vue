@@ -60,7 +60,9 @@
 
                     </div>
                 </div><!-- section -->
+                
 
+                <div class="location-title">Location</div>
                 <div id="mapid"></div>
 
 
@@ -267,6 +269,11 @@ export default {
         margin-left: 2em;
     }
 
+
+    .location-title{
+        font-weight: bold;
+        font-size: 1.3em;
+    }
     #mapid { height: 500px; z-index: 0;}
 
 </style>

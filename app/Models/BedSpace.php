@@ -18,8 +18,12 @@ class BedSpace extends Model
         return $this->hasMany(BedspaceImg::class, 'bedspace_id', 'bedspace_id');
     }
 
-//    public function user(){
-//        return $this->hasOne(User::class, 'user_id', 'user_id');
-//    }
+    public function bhouse(){
+        return $this->belongsTo(BoardingHouse::class, 'bhouse_id', 'bhouse_id');
+    }
+
+    public function room(){
+        return $this->belongsTo(Room::class, 'room_id', 'room_id');
+    }
 
 }

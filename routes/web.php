@@ -91,29 +91,14 @@ Route::get('/get-landowner-bhouses', [App\Http\Controllers\LandOwner\LandownerDa
 //BOARDING HOUSE
 Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
 Route::post('/boarding-house-update/{id}', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'update']);
-
 Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
 
-Route::post('/boarder-reservation-approved/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'approvedReservation']);
-Route::post('/boarder-reservation-cancel/{book_bedspace_id}', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'cancelReservation']);
+Route::resource('/amenities', App\Http\Controllers\LandOwner\AmenityController::class);
 
-//LADN OWNER ->>>BOADER LIST
-Route::resource('/boarder-list', App\Http\Controllers\LandOwner\BoarderListController::class);
-Route::get('/get-boarder-list', [App\Http\Controllers\LandOwner\BoarderListController::class, 'getBoarderList']);
-Route::post('/removeboarder-boarder-list/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'removeBoarder']);
-
-
-Route::get('/get-boarder-bill/{boarder_id}', [App\Http\Controllers\LandOwner\BoarderListController::class, 'showPaymentDetails']);
-
-//BOARDER PAYMENT LANDOWNER SIDE
-Route::resource('/boarder-payment', App\Http\Controllers\LandOwner\BoarderPaymentController::class);
-Route::get('/get-boarder-payment', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'getBoarderPayment']);
-Route::post('/boarder-payment-mark-paid/{payment_detail_id}', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'markPaid']);
-Route::get('/boarder-payment-receipt/{payment_detail_id}', [App\Http\Controllers\LandOwner\BoarderPaymentController::class, 'getReceiptInfo']);
-
-
-//Payment details
-Route::post('/boarder-submit-bill', [App\Http\Controllers\LandOwner\PaymentController::class, 'store']);
+//load open amenities
+Route::get('/load-amenities', function(){
+    return \App\Models\Amenity::orderBy('amenity')->get();
+});
 
 
 //BOARDING HOUSE ROOMS LAND OWNER
@@ -135,8 +120,6 @@ Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderRe
 //-------------LANDOWNER------------///
 //----------------------------------///
 
-
-
 //BOARDING HOUSE - BEDSPACE
 Route::get('/boarding-house-bedspace/{bhouse_id}/{bh_room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
 Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'showBedSpace']);
@@ -156,46 +139,15 @@ Route::get('/get-bedspace-imgs/{bedspaceid}', [App\Http\Controllers\LandOwner\Be
 Route::delete('/bedspace-imgs-delete/{bedspaceid}', [App\Http\Controllers\LandOwner\BedspaceImageController::class, 'destroy']);
 
 
-
-
 //-------------------------///
-
-//BOARDER DASHBOARD // CLIENT SIDE (BOARDER)
-Route::get('/boarder-dashboard', [App\Http\Controllers\Boarder\BoarderDashboardController::class, 'index']);
-
-Route::get('/get-bhouse-user', [App\Http\Controllers\Boarder\BoarderDashboardController::class, 'getUser']);
-
-
-
-//My Reservation
-Route::get('/my-reservation', [App\Http\Controllers\Boarder\MyReservationController::class, 'index']);
-Route::get('/get-my-reservation', [App\Http\Controllers\Boarder\MyReservationController::class, 'getMyReservation']);
-//upload proof of transaction
-Route::post('/upload-proof-transaction/{book_bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'uploadProofTransaction']);
-Route::post('/my-reservation-cancel/{bedspace_id}', [App\Http\Controllers\Boarder\MyReservationController::class, 'cancelReservation']);
-
-
-Route::get('/my-billing', [App\Http\Controllers\Boarder\MyPaymentController::class, 'index']);
-Route::get('/my-payment-receipt/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getReceiptInfo']);
-
-Route::get('/get-my-payment', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPayment']);
-Route::get('/get-my-payment-details/{payment_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'getMyPaymentDetail']);
-
-Route::post('/submit-pay-bill/{payment_detail_id}', [App\Http\Controllers\Boarder\MyPaymentController::class, 'submitPaymentBill']);
-
-
-
-//BOARDER DASHBOARD
-
-
-
-
 
 
 //CLIENT BOARDING HOUSES //
 Route::get('/get-client-bhouses', [App\Http\Controllers\ClientBhouseController::class, 'getBhouses']);
 Route::get('/client-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'showBhouseDetail']);
 Route::get('/get-bhouse-detail/{id}', [App\Http\Controllers\ClientBhouseController::class, 'getBhouseDetail']);
+
+
 
 
 

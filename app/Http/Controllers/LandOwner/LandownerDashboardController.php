@@ -29,7 +29,7 @@ class LandownerDashboardController extends Controller
     public function getLandOwnerBhouses(){
         $user = Auth::user();
 
-        $bhouses = BoardingHouse::with(['owner', 'province', 'city', 'barangay'])
+        $bhouses = BoardingHouse::with(['amenities', 'owner', 'province', 'city', 'barangay'])
             ->where('user_id', $user->user_id)
             ->get();
 

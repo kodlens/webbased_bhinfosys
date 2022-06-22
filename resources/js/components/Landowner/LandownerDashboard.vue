@@ -61,14 +61,14 @@
                                 <span class="card-content-title">Location: </span>
                                 {{ item.street }}, {{ item.barangay.brgyDesc }} {{ item.city.citymunDesc }}, {{ item.province.provDesc}}
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
                 </div><!--card-->
             </div><!--bhouses-->
         </div>
-           
+
     </div>
 </template>
 
@@ -80,6 +80,8 @@ export default {
         return{
             bhouses: [],
             user: {},
+            amenities: [],
+
         }
     },
 
@@ -89,6 +91,8 @@ export default {
                 this.bhouses = res.data;
             })
         },
+
+
 
         initData: function(){
             this.user = JSON.parse(this.propUser);

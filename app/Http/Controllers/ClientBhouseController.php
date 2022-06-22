@@ -20,8 +20,6 @@ class ClientBhouseController extends Controller
         $key = $req->key;
         $cat = $req->category;
 
-   
-
         if($cat == 'bhouse'){
             $data = BoardingHouse::with(['province', 'city', 'barangay'])
                 ->where('bhouse_name', 'like', '%' .$key .'%')
