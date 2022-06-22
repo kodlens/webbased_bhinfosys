@@ -96,7 +96,7 @@ Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHous
 Route::resource('/amenities', App\Http\Controllers\LandOwner\AmenityController::class);
 
 //load open amenities
-Route::get('/load-amenities', function(){
+Route::get('/load-open-amenities', function(){
     return \App\Models\Amenity::orderBy('amenity')->get();
 });
 

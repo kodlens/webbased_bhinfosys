@@ -54,7 +54,9 @@
                             </div>
                             <div class="card-w-content">
                                 <span class="card-content-title">Amenitites: </span>
-                                {{ item.amenities }}
+                                <span v-for="(a, ix) in item.amenities">
+                                    {{ a.amenity.amenity }},
+                                </span>
                             </div>
 
                                 <div class="card-w-content">

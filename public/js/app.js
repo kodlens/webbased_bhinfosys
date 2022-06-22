@@ -12772,6 +12772,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -12802,7 +12816,10 @@ __webpack_require__.r(__webpack_exports__);
       barangays: [],
       content: '<h2>I am Example</h2>',
       editorOption: {// Some Quill options...
-      }
+      },
+      filterTags: [],
+      amenities: [],
+      tags: []
     };
   },
   methods: {
@@ -12966,14 +12983,30 @@ __webpack_require__.r(__webpack_exports__);
           text = _ref.text;
       console.log('editor change!', quill, html, text);
       this.content = html;
-    }
-    /* QUILL METHODS*/
+    },
 
+    /* QUILL METHODS*/
+    //for amenities
+    getFilteredTags: function getFilteredTags(text) {
+      this.filterTags = this.amenities.filter(function (option) {
+        return option.amenity.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
+      });
+    },
+    loadAmenities: function loadAmenities() {
+      var _this6 = this;
+
+      axios.get('/load-open-amenities').then(function (res) {
+        _this6.amenities = res.data;
+      });
+    }
   },
   computed: {
     editor: function editor() {
       return this.$refs.myQuillEditor.quill;
     }
+  },
+  created: function created() {
+    this.loadAmenities();
   },
   mounted: function mounted() {
     this.loadProvince();
@@ -12995,6 +13028,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -35295,7 +35330,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#mapid[data-v-1c60377e] { height: 500px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#mapid[data-v-1c60377e] {\n    height: 500px;\n    z-index: 0;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -58287,18 +58322,47 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "b-field",
-                      {
-                        attrs: {
-                          label: "AMENITIES",
-                          type: this.errors.amenities ? "is-danger" : "",
-                          message: this.errors.amenities
-                            ? this.errors.amenities[0]
-                            : "",
-                        },
-                      },
+                      { staticClass: "mb-4", attrs: { label: "AMENITIES" } },
                       [
-                        _c("b-input", {
-                          attrs: { type: "textarea", placeholder: "Amenities" },
+                        _c("b-taginput", {
+                          attrs: {
+                            data: _vm.filterTags,
+                            autocomplete: "",
+                            field: "amenity",
+                            icon: "label",
+                            placeholder: "Add a tag",
+                            type: "is-info",
+                            "open-on-focus": true,
+                          },
+                          on: { typing: _vm.getFilteredTags },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "default",
+                              fn: function (props) {
+                                return [
+                                  _c("strong", [
+                                    _vm._v(_vm._s(props.option.amenity_id)),
+                                  ]),
+                                  _vm._v(
+                                    ": " +
+                                      _vm._s(props.option.amenity) +
+                                      "\n                                        "
+                                  ),
+                                ]
+                              },
+                            },
+                            {
+                              key: "empty",
+                              fn: function () {
+                                return [
+                                  _vm._v(
+                                    "\n                                            There are no items\n                                        "
+                                  ),
+                                ]
+                              },
+                              proxy: true,
+                            },
+                          ]),
                           model: {
                             value: _vm.fields.amenities,
                             callback: function ($$v) {
@@ -58806,16 +58870,26 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-w-content" }, [
-                      _c("span", { staticClass: "card-content-title" }, [
-                        _vm._v("Amenitites: "),
-                      ]),
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(item.amenities) +
-                          "\n                        "
-                      ),
-                    ]),
+                    _c(
+                      "div",
+                      { staticClass: "card-w-content" },
+                      [
+                        _c("span", { staticClass: "card-content-title" }, [
+                          _vm._v("Amenitites: "),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(item.amenities, function (a, ix) {
+                          return _c("span", [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(a.amenity.amenity) +
+                                ",\n                            "
+                            ),
+                          ])
+                        }),
+                      ],
+                      2
+                    ),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-w-content" }, [
                       _c("span", { staticClass: "card-content-title" }, [

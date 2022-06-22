@@ -46,10 +46,24 @@
                                     <b-input type="textarea" v-model="fields.bhouse_desc" placeholder="Bhouse Description" />
                                 </b-field>
 
-                                <b-field label="AMENITIES"
-                                    :type="this.errors.amenities ? 'is-danger':''"
-                                    :message="this.errors.amenities ? this.errors.amenities[0] : ''">
-                                    <b-input type="textarea" v-model="fields.amenities" placeholder="Amenities" />
+                                <b-field label="AMENITIES" class="mb-4">
+                                    <b-taginput
+                                        v-model="fields.amenities"
+                                        :data="filterTags"
+                                        autocomplete
+                                        field="amenity"
+                                        icon="label"
+                                        placeholder="Add a tag"
+                                        type="is-info"
+                                        :open-on-focus="true"
+                                        @typing="getFilteredTags">
+                                        <template v-slot="props">
+                                            <strong>{{props.option.amenity_id}}</strong>: {{props.option.amenity}}
+                                        </template>
+                                        <template #empty>
+                                            There are no items
+                                        </template>
+                                    </b-taginput>
                                 </b-field>
 
                                 <!-- <div v-if="global_bhouse_id < 1">
@@ -213,7 +227,12 @@ export default {
             content: '<h2>I am Example</h2>',
             editorOption: {
                 // Some Quill options...
-            }
+            },
+
+            filterTags: [],
+            amenities: [],
+            tags: []
+
         }
     },
 
@@ -389,8 +408,25 @@ export default {
         onEditorChange({ quill, html, text }) {
             console.log('editor change!', quill, html, text)
             this.content = html
-        }
+        },
         /* QUILL METHODS*/
+
+
+        //for amenities
+        getFilteredTags(text) {
+            this.filterTags = this.amenities.filter((option) => {
+                return option.amenity
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(text.toLowerCase()) >= 0
+            })
+        },
+
+        loadAmenities(){
+            axios.get('/load-open-amenities').then(res=>{
+                this.amenities = res.data;
+            })
+        },
 
     },
     computed: {
@@ -399,15 +435,15 @@ export default {
         }
     },
 
+    created() {
+        this.loadAmenities();
+    },
 
     mounted(){
 
         this.loadProvince();
         this.initData();
         this.loadMap();
-
-
-
     }
 
 
@@ -418,5 +454,8 @@ export default {
 
 
 <style scoped>
-    #mapid { height: 500px; }
+    #mapid {
+        height: 500px;
+        z-index: 0;
+    }
 </style>

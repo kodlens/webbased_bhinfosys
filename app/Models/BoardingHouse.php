@@ -18,7 +18,7 @@ class BoardingHouse extends Model
     'bhouse_img_path', 'amenities', 'bhouse_rule', 'long', 'lat', 'is_approve', 'province', 'city', 'barangay', 'street'];
 
     public function amenities(){
-        return $this->hasMany(Amenity::class, 'bhouse_id', 'bhouse_id');
+        return $this->hasMany(BhouseAmenity::class, 'bhouse_id', 'bhouse_id');
     }
 
     public function owner(){
