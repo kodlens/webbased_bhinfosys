@@ -12,7 +12,7 @@ class CreateRoomsTable extends Migration
      * @return void
      */
 
-    
+
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
@@ -21,9 +21,9 @@ class CreateRoomsTable extends Migration
             $table->foreign('bhouse_id')->references('bhouse_id')->on('boarding_houses')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-                
             $table->string('room_no')->nullable();
             $table->string('room_desc')->nullable();
+            $table->string('room_type')->nullable();
             $table->string('amenities')->nullable();
             $table->string('room_img_path')->nullable();
             $table->timestamps();

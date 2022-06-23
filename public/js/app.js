@@ -12786,6 +12786,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -12878,8 +12880,15 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('bhouse_name', this.fields.bhouse_name);
       formData.append('bhouse_rule', this.fields.bhouse_rule);
-      formData.append('bhouse_desc', this.fields.bhouse_desc);
-      formData.append('amenities', this.fields.amenities);
+      formData.append('bhouse_desc', this.fields.bhouse_desc); // this.fields.amenities.forEach(element => {
+      //     formData.append('amenities[]', element);
+      // });
+
+      for (var i = 0; i < this.fields.amenities.length; i++) {
+        formData.append('amenities[]', this.fields.amenities[i].amenity_id);
+        console.log(this.fields.amenities[i].amenity_id);
+      }
+
       formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
       formData.append('lat', this.fields.lat);
       formData.append('long', this.fields["long"]);
@@ -12960,7 +12969,6 @@ __webpack_require__.r(__webpack_exports__);
           _this5.cities = res.data;
           axios.get('/load-barangays?prov=' + _this5.fields.province + '&city_code=' + _this5.fields.city).then(function (res) {
             _this5.barangays = res.data;
-            console.log(tempData.barangay);
             _this5.fields.barangay = tempData.barangay;
           });
         });
@@ -12998,6 +13006,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-open-amenities').then(function (res) {
         _this6.amenities = res.data;
       });
+    },
+    removeAmenity: function removeAmenity() {
+      console.log("test");
     }
   },
   computed: {
@@ -58332,9 +58343,13 @@ var render = function () {
                             icon: "label",
                             placeholder: "Add a tag",
                             type: "is-info",
+                            closable: "",
                             "open-on-focus": true,
                           },
-                          on: { typing: _vm.getFilteredTags },
+                          on: {
+                            close: _vm.removeAmenity,
+                            typing: _vm.getFilteredTags,
+                          },
                           scopedSlots: _vm._u([
                             {
                               key: "default",

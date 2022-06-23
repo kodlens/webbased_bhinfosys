@@ -55,6 +55,8 @@
                                         icon="label"
                                         placeholder="Add a tag"
                                         type="is-info"
+                                        closable
+                                        @close="removeAmenity"
                                         :open-on-focus="true"
                                         @typing="getFilteredTags">
                                         <template v-slot="props">
@@ -302,7 +304,17 @@ export default {
             formData.append('bhouse_name', this.fields.bhouse_name);
             formData.append('bhouse_rule', this.fields.bhouse_rule);
             formData.append('bhouse_desc', this.fields.bhouse_desc);
-             formData.append('amenities', this.fields.amenities);
+
+            // this.fields.amenities.forEach(element => {
+            //     formData.append('amenities[]', element);
+            // });
+
+            for(let i = 0; i < this.fields.amenities.length; i++){
+                formData.append('amenities[]', this.fields.amenities[i].amenity_id);
+                console.log(this.fields.amenities[i].amenity_id);
+            }
+
+
             formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
             formData.append('lat', this.fields.lat);
             formData.append('long', this.fields.long);
@@ -371,22 +383,21 @@ export default {
                 console.log(this.fields)
             }
         },
+
+
         getData: function(data_id){
-
             this.isModalCreate = true;
-
             //nested axios for getting the address 1 by 1 or request by request
             axios.get('/boarding-house/' + data_id).then(res=>{
                 //this.fields = res.data;
                 var tempData = res.data;
+
                 //load city first
                 axios.get('/load-cities?prov=' + this.fields.province).then(res=>{
                     //load barangay
                     this.cities = res.data;
                     axios.get('/load-barangays?prov=' + this.fields.province + '&city_code='+this.fields.city).then(res=>{
                         this.barangays = res.data;
-
-                        console.log(tempData.barangay);
                         this.fields.barangay = tempData.barangay;
                     });
                 });
@@ -427,6 +438,10 @@ export default {
                 this.amenities = res.data;
             })
         },
+
+        removeAmenity(){
+            console.log("test");
+        }
 
     },
     computed: {

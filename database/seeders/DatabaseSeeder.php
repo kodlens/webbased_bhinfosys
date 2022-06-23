@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             BedSpaceSeeder::class,
             BedspaceImgSeeder::class,
             BhouseAmenitySeeder::class,
-
+            RoomTypeSeeder::class
         ]);
     }
 }

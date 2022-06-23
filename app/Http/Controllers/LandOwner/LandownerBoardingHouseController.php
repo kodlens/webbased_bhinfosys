@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
+use App\Models\BhouseAmenity;
 use App\Models\BoardingHouse;
 use Illuminate\Http\Request;
 
@@ -50,12 +51,12 @@ class LandownerBoardingHouseController extends Controller
 
     public function store(Request $req){
 
-
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
             'bhouse_rule' => ['required'],
             'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp'],
             'long' => ['required'],
+            'amenities.*' => ['required', 'min:1'],
             'lat' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
@@ -77,12 +78,11 @@ class LandownerBoardingHouseController extends Controller
             $bhousePath = explode('/', $pathFile); //split into array using /
         }
 
-        BoardingHouse::create([
+        $data = BoardingHouse::create([
             'bhouse_name' => strtoupper($req->bhouse_name),
             'user_id' => $userid,
             'bhouse_rule' => $req->bhouse_rule,
             'bhouse_desc' => $req->bhouse_desc,
-            'amenities' => $req->amenities,
             'bhouse_img_path' => $bhousePath[2] != null ? $bhousePath[2]: '',
             'long' => $req->long,
             'lat' => $req->lat,
@@ -92,6 +92,14 @@ class LandownerBoardingHouseController extends Controller
             'street' => strtoupper($req->street),
         ]);
 
+        foreach($req->amenities as $item){
+            BhouseAmenity::create([
+                'bhouse_id' => $data->bhouse_id,
+                'amenity_id' => $item
+            ]);
+        }
+
+
         return response()->json([
             'status' => 'saved'
         ], 200);
@@ -99,7 +107,7 @@ class LandownerBoardingHouseController extends Controller
 
 
     public function edit($id){
-        $bhouse = BoardingHouse::find($id);
+        $bhouse = BoardingHouse::with(['amenities'])->find($id);
         return view('landowner.boarding-house-create')
             ->with('bhouse', $bhouse)
             ->with('id', $id);
@@ -133,7 +141,6 @@ class LandownerBoardingHouseController extends Controller
         $data->bhouse_name = strtoupper($req->bhouse_name);
         $data->bhouse_rule = $req->bhouse_rule;
         $data->bhouse_desc = $req->bhouse_desc;
-        $data->amenities = $req->amenities;
 
         if($bhouseImg){
             $data->bhouse_img_path = $bhousePath[2];
@@ -147,6 +154,15 @@ class LandownerBoardingHouseController extends Controller
         $data->barangay = strtoupper($req->barangay);
         $data->street = strtoupper($req->street);
         $data->save();
+
+        foreach($req->amenities as $item){
+            BhouseAmenity::updateOrCreate(
+                [ 'bhouse_id' => $data->bhouse_id, 'amenity_id' => $item ],
+                [
+                    'bhouse_id' => $data->bhouse_id, 'amenity_id' => $item
+                ]
+            );
+        }
 
         return response()->json([
             'status' => 'updated'
