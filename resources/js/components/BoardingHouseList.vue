@@ -16,20 +16,20 @@
                     <p class="control">
                         <b-button class="button is-link" icon-left="magnify" @click="loadBoardingHouses"></b-button>
                     </p>
-                   
+
                 </b-field>
             </div>
         </div>
 
         <div class="buttons is-centered">
-            <b-button class="button is-link" icon-left="filter">
+            <b-button class="button is-link" @click="openModalFilter" icon-left="filter">
                 FILTERS
             </b-button>
         </div>
 
         <!-- <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
             <template #item="list">
-                
+
             </template>
         </b-carousel-list> -->
 
@@ -67,6 +67,54 @@
             </div>
         </div>
 
+
+
+
+        <!--modal create-->
+        <b-modal v-model="modalFilter" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="submit">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Filters</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalFilter = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Username"
+                                             :type="this.errors.username ? 'is-danger':''"
+                                             :message="this.errors.username ? this.errors.username[0] : ''">
+                                        <b-input v-model="fields.username" type="text" icon="account"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Close"
+                            @click="modalFilter=false"/>
+                        <button
+                            :class="btnClass"
+                            label="Save"
+                            type="is-success">SAVE</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
     </div><!--root div section -->
 
 </template>
@@ -84,6 +132,18 @@ export default {
             search: {
                 category: '',
                 key: '',
+            },
+
+            modalFilter: false,
+
+            errors: {},
+            fields: {},
+
+
+            btnClass: {
+                'is-loading': false,
+                'button': true,
+                'is-primary' : true
             }
         }
     },
@@ -102,7 +162,7 @@ export default {
             ].join('&')
             axios.get(`/get-client-bhouses?${params}`).then(res=>{
                 this.bhouses = res.data;
-              
+
             }).catch(err => {
 
             });
@@ -116,6 +176,14 @@ export default {
                 this.itemShow = 1;
             }
         },
+
+
+        openModalFilter: function(){
+            this.modalFilter = true;
+
+        },
+
+
     },
 
     mounted(){

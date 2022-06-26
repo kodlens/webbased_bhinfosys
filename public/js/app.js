@@ -9906,6 +9906,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9915,6 +9963,14 @@ __webpack_require__.r(__webpack_exports__);
       search: {
         category: '',
         key: ''
+      },
+      modalFilter: false,
+      errors: {},
+      fields: {},
+      btnClass: {
+        'is-loading': false,
+        'button': true,
+        'is-primary': true
       }
     };
   },
@@ -9938,6 +9994,9 @@ __webpack_require__.r(__webpack_exports__);
       if (window.innerWidth < 400) {
         this.itemShow = 1;
       }
+    },
+    openModalFilter: function openModalFilter() {
+      this.modalFilter = true;
     }
   },
   mounted: function mounted() {
@@ -54146,172 +54205,298 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "section" }, [
-    _c("div", { staticClass: "columns is-centered" }, [
-      _c(
-        "div",
-        { staticClass: "column is-6" },
-        [
-          _c(
-            "b-field",
-            [
-              _c(
-                "p",
-                { staticClass: "control" },
-                [
-                  _c(
-                    "b-select",
-                    {
-                      attrs: { placeholder: "Please select..." },
-                      model: {
-                        value: _vm.search.category,
-                        callback: function ($$v) {
-                          _vm.$set(_vm.search, "category", $$v)
-                        },
-                        expression: "search.category",
-                      },
-                    },
-                    [
-                      _c("option", { attrs: { value: "bhouse" } }, [
-                        _vm._v("BOARDING HOUSE"),
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "rule " } }, [
-                        _vm._v("RULES"),
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "amenities" } }, [
-                        _vm._v("AMENITIES"),
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "location" } }, [
-                        _vm._v("LOCATION (Purok/Street)"),
-                      ]),
-                    ]
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("b-input", {
-                attrs: {
-                  type: "text",
-                  expanded: "",
-                  placeholder: "Search Boarding House",
-                },
-                model: {
-                  value: _vm.search.key,
-                  callback: function ($$v) {
-                    _vm.$set(_vm.search, "key", $$v)
-                  },
-                  expression: "search.key",
-                },
-              }),
-              _vm._v(" "),
-              _c(
-                "p",
-                { staticClass: "control" },
-                [
-                  _c("b-button", {
-                    staticClass: "button is-link",
-                    attrs: { "icon-left": "magnify" },
-                    on: { click: _vm.loadBoardingHouses },
-                  }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
-        1
-      ),
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "buttons is-centered" },
-      [
+  return _c(
+    "div",
+    { staticClass: "section" },
+    [
+      _c("div", { staticClass: "columns is-centered" }, [
         _c(
-          "b-button",
-          { staticClass: "button is-link", attrs: { "icon-left": "filter" } },
-          [_vm._v("\n            FILTERS\n        ")]
-        ),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "result-container" },
-      _vm._l(_vm.bhouses, function (item, index) {
-        return _c("div", { key: index, staticClass: "card" }, [
-          _c("div", { staticClass: "card-image" }, [
-            _c("figure", { staticClass: "image 5" }, [
-              _c("a", [
-                _c("img", {
-                  staticClass: "bh-image",
-                  attrs: { src: "/storage/bhouses/" + item.bhouse_img_path },
-                }),
-              ]),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-content" }, [
-            _c("div", { staticClass: "content" }, [
-              _c("p", { staticClass: "title is-6" }, [
-                _vm._v(_vm._s(item.bhouse_name)),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(item.bhouse_desc) +
-                    "\n                    "
-                ),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                _vm._v(
-                  "\n                        Located at: " +
-                    _vm._s(item.street) +
-                    ",  " +
-                    _vm._s(item.barangay.brgyDesc) +
-                    "\n                    "
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
+          "div",
+          { staticClass: "column is-6" },
+          [
             _c(
-              "div",
-              {
-                staticClass: "buttons",
-                staticStyle: { position: "absolute", bottom: "0" },
-              },
+              "b-field",
               [
                 _c(
-                  "b-button",
-                  {
-                    attrs: {
-                      type: "is-link",
-                      "icon-right": "chevron-right",
-                      tag: "a",
-                      href: "/client-bhouse-detail/" + item.bhouse_id,
-                    },
+                  "p",
+                  { staticClass: "control" },
+                  [
+                    _c(
+                      "b-select",
+                      {
+                        attrs: { placeholder: "Please select..." },
+                        model: {
+                          value: _vm.search.category,
+                          callback: function ($$v) {
+                            _vm.$set(_vm.search, "category", $$v)
+                          },
+                          expression: "search.category",
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "bhouse" } }, [
+                          _vm._v("BOARDING HOUSE"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "rule " } }, [
+                          _vm._v("RULES"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "amenities" } }, [
+                          _vm._v("AMENITIES"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "location" } }, [
+                          _vm._v("LOCATION (Purok/Street)"),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("b-input", {
+                  attrs: {
+                    type: "text",
+                    expanded: "",
+                    placeholder: "Search Boarding House",
                   },
-                  [_vm._v("SEE MORE...")]
+                  model: {
+                    value: _vm.search.key,
+                    callback: function ($$v) {
+                      _vm.$set(_vm.search, "key", $$v)
+                    },
+                    expression: "search.key",
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "control" },
+                  [
+                    _c("b-button", {
+                      staticClass: "button is-link",
+                      attrs: { "icon-left": "magnify" },
+                      on: { click: _vm.loadBoardingHouses },
+                    }),
+                  ],
+                  1
                 ),
               ],
               1
             ),
-          ]),
-        ])
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _vm._m(0),
-  ])
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "buttons is-centered" },
+        [
+          _c(
+            "b-button",
+            {
+              staticClass: "button is-link",
+              attrs: { "icon-left": "filter" },
+              on: { click: _vm.openModalFilter },
+            },
+            [_vm._v("\n            FILTERS\n        ")]
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "result-container" },
+        _vm._l(_vm.bhouses, function (item, index) {
+          return _c("div", { key: index, staticClass: "card" }, [
+            _c("div", { staticClass: "card-image" }, [
+              _c("figure", { staticClass: "image 5" }, [
+                _c("a", [
+                  _c("img", {
+                    staticClass: "bh-image",
+                    attrs: { src: "/storage/bhouses/" + item.bhouse_img_path },
+                  }),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-content" }, [
+              _c("div", { staticClass: "content" }, [
+                _c("p", { staticClass: "title is-6" }, [
+                  _vm._v(_vm._s(item.bhouse_name)),
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(item.bhouse_desc) +
+                      "\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                  _vm._v(
+                    "\n                        Located at: " +
+                      _vm._s(item.street) +
+                      ",  " +
+                      _vm._s(item.barangay.brgyDesc) +
+                      "\n                    "
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "buttons",
+                  staticStyle: { position: "absolute", bottom: "0" },
+                },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: {
+                        type: "is-link",
+                        "icon-right": "chevron-right",
+                        tag: "a",
+                        href: "/client-bhouse-detail/" + item.bhouse_id,
+                      },
+                    },
+                    [_vm._v("SEE MORE...")]
+                  ),
+                ],
+                1
+              ),
+            ]),
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalFilter,
+            callback: function ($$v) {
+              _vm.modalFilter = $$v
+            },
+            expression: "modalFilter",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submit.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Filters"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.modalFilter = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Username",
+                                type: this.errors.username ? "is-danger" : "",
+                                message: this.errors.username
+                                  ? this.errors.username[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c("b-input", {
+                                attrs: { type: "text", icon: "account" },
+                                model: {
+                                  value: _vm.fields.username,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "username", $$v)
+                                  },
+                                  expression: "fields.username",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "footer",
+                  { staticClass: "modal-card-foot" },
+                  [
+                    _c("b-button", {
+                      attrs: { label: "Close" },
+                      on: {
+                        click: function ($event) {
+                          _vm.modalFilter = false
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        class: _vm.btnClass,
+                        attrs: { label: "Save", type: "is-success" },
+                      },
+                      [_vm._v("SAVE")]
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function () {
