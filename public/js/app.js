@@ -9954,6 +9954,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9967,6 +9996,11 @@ __webpack_require__.r(__webpack_exports__);
       modalFilter: false,
       errors: {},
       fields: {},
+      amenities: [],
+      filter: {
+        min_price: 250,
+        max_price: 500
+      },
       btnClass: {
         'is-loading': false,
         'button': true,
@@ -9986,6 +10020,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.bhouses = res.data;
       })["catch"](function (err) {});
     },
+    loadAmenities: function loadAmenities() {
+      var _this2 = this;
+
+      axios.get("/load-open-amenities?").then(function (res) {
+        _this2.amenities = res.data;
+      });
+    },
     onResize: function onResize() {
       if (window.innerWidth < 600) {
         this.itemShow = 2;
@@ -10003,6 +10044,7 @@ __webpack_require__.r(__webpack_exports__);
     this.onResize();
     window.addEventListener('resize', this.onResize);
     this.loadBoardingHouses();
+    this.loadAmenities();
   },
   beforeDestroy: function beforeDestroy() {
     if (typeof window === 'undefined') return;
@@ -54435,28 +54477,126 @@ var render = function () {
                         [
                           _c(
                             "b-field",
-                            {
-                              attrs: {
-                                label: "Username",
-                                type: this.errors.username ? "is-danger" : "",
-                                message: this.errors.username
-                                  ? this.errors.username[0]
-                                  : "",
-                              },
-                            },
+                            { attrs: { label: "Price Range", grouped: "" } },
                             [
-                              _c("b-input", {
-                                attrs: { type: "text", icon: "account" },
-                                model: {
-                                  value: _vm.fields.username,
-                                  callback: function ($$v) {
-                                    _vm.$set(_vm.fields, "username", $$v)
+                              _c(
+                                "b-field",
+                                {
+                                  attrs: {
+                                    label: "min price",
+                                    "label-position": "on-border",
                                   },
-                                  expression: "fields.username",
                                 },
-                              }),
+                                [
+                                  _c("b-numberinput", {
+                                    attrs: {
+                                      "controls-alignment": "right",
+                                      "controls-position": "compact",
+                                    },
+                                    model: {
+                                      value: _vm.filter.min_price,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.filter, "min_price", $$v)
+                                      },
+                                      expression: "filter.min_price",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-field",
+                                {
+                                  attrs: {
+                                    label: "max price",
+                                    "label-position": "on-border",
+                                  },
+                                },
+                                [
+                                  _c("b-numberinput", {
+                                    attrs: {
+                                      "controls-alignment": "right",
+                                      min: 0,
+                                      "controls-position": "compact",
+                                    },
+                                    model: {
+                                      value: _vm.filter.max_price,
+                                      callback: function ($$v) {
+                                        _vm.$set(_vm.filter, "max_price", $$v)
+                                      },
+                                      expression: "filter.max_price",
+                                    },
+                                  }),
+                                ],
+                                1
+                              ),
                             ],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "subtitle" }, [
+                            _vm._v("Type of place"),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Private Room" } },
+                            [
+                              _c(
+                                "b-checkbox",
+                                { attrs: { type: "checkbox" } },
+                                [
+                                  _vm._v(
+                                    "\n                                        Your own home in a home.\n                                    "
+                                  ),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Shared Room" } },
+                            [
+                              _c(
+                                "b-checkbox",
+                                { attrs: { type: "checkbox" } },
+                                [
+                                  _vm._v(
+                                    "\n                                        A sleeping space and common areas that may be shared with others.\n                                    "
+                                  ),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "subtitle" }, [
+                            _vm._v("Amenities"),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "is-flex is-flex-wrap-wrap" },
+                            _vm._l(_vm.amenities, function (el, ix) {
+                              return _c(
+                                "div",
+                                { key: ix },
+                                [
+                                  _c("b-checkbox", [
+                                    _vm._v(_vm._s(el.amenity)),
+                                  ]),
+                                ],
+                                1
+                              )
+                            }),
+                            0
                           ),
                         ],
                         1
@@ -54484,7 +54624,7 @@ var render = function () {
                         class: _vm.btnClass,
                         attrs: { label: "Save", type: "is-success" },
                       },
-                      [_vm._v("SAVE")]
+                      [_vm._v("SEARCH")]
                     ),
                   ],
                   1

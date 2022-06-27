@@ -92,11 +92,40 @@
                         <div class="">
                             <div class="columns">
                                 <div class="column">
-                                    <b-field label="Username"
-                                             :type="this.errors.username ? 'is-danger':''"
-                                             :message="this.errors.username ? this.errors.username[0] : ''">
-                                        <b-input v-model="fields.username" type="text" icon="account"></b-input>
+                                    <b-field label="Price Range" grouped>
+                                        <b-field label="min price" label-position="on-border">
+                                            <b-numberinput controls-alignment="right" controls-position="compact" v-model="filter.min_price"></b-numberinput>
+                                        </b-field>
+
+                                        <b-field label="max price" label-position="on-border">
+                                            <b-numberinput controls-alignment="right" :min="0" controls-position="compact" v-model="filter.max_price"></b-numberinput>
+                                        </b-field>
                                     </b-field>
+
+                                    <hr>
+                                    <div class="subtitle">Type of place</div>
+
+                                    <b-field label="Private Room">
+                                        <b-checkbox type="checkbox">
+                                            Your own home in a home.
+                                        </b-checkbox>
+                                    </b-field>
+
+                                    <b-field label="Shared Room">
+                                        <b-checkbox type="checkbox">
+                                            A sleeping space and common areas that may be shared with others.
+                                        </b-checkbox>
+                                    </b-field>
+
+                                    <hr>
+
+                                    <div class="subtitle">Amenities</div>
+
+                                    <div class="is-flex is-flex-wrap-wrap">
+                                        <div v-for="(el, ix) in amenities" :key="ix">
+                                            <b-checkbox>{{ el.amenity }}</b-checkbox>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +137,7 @@
                         <button
                             :class="btnClass"
                             label="Save"
-                            type="is-success">SAVE</button>
+                            type="is-success">SEARCH</button>
                     </footer>
                 </div>
             </form><!--close form-->
@@ -138,6 +167,12 @@ export default {
 
             errors: {},
             fields: {},
+            amenities: [],
+
+            filter: {
+                min_price: 250,
+                max_price: 500,
+            },
 
 
             btnClass: {
@@ -168,6 +203,12 @@ export default {
             });
         },
 
+        loadAmenities: function(){
+            axios.get(`/load-open-amenities?`).then(res=>{
+                this.amenities = res.data;
+            });
+        },
+
         onResize(){
             if(window.innerWidth < 600){
                 this.itemShow = 2;
@@ -191,6 +232,7 @@ export default {
         window.addEventListener('resize', this.onResize);
 
         this.loadBoardingHouses();
+        this.loadAmenities();
 
     },
     beforeDestroy () {
