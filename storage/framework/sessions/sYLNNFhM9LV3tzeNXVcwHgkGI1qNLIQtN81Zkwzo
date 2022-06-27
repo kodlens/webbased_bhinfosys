@@ -1,1 +1,1 @@
-a:3:{s:6:"_token";s:40:"nHLhc5gMA1IIYFFzVkYgwbSTtEcUwylmiI82JNVO";s:9:"_previous";a:1:{s:3:"url";s:41:"http://localhost:8000/load-open-amenities";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
+a:3:{s:6:"_token";s:40:"nHLhc5gMA1IIYFFzVkYgwbSTtEcUwylmiI82JNVO";s:9:"_previous";a:1:{s:3:"url";s:127:"http://localhost:8000/get-client-bhouses?amenities=%5B5%2C6%2C2%5D&bhousename=boa&max_price=500&min_price=250&room_type=PRIVATE";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}

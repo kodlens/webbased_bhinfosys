@@ -17,6 +17,8 @@ class ClientBhouseController extends Controller
 
     public function getBhouses(Request $req){
 
+
+
         $key = $req->key;
         $cat = $req->category;
 
@@ -40,6 +42,13 @@ class ClientBhouseController extends Controller
             $data = BoardingHouse::with(['province', 'city', 'barangay'])
                 ->get()->take(3);
         }
+
+
+        //return $req;
+        $data = BoardingHouse::with(['province', 'city', 'barangay', 'amenities', 'rooms'])
+            ->where('bhouse_name', 'like', '%' .$req->bhousename .'%')
+            ->get();
+
 
         return $data;
     }

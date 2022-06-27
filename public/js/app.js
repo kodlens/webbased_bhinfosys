@@ -9983,6 +9983,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9998,8 +10006,11 @@ __webpack_require__.r(__webpack_exports__);
       fields: {},
       amenities: [],
       filter: {
+        bhouse_name: '',
+        room_type: '',
         min_price: 250,
-        max_price: 500
+        max_price: 500,
+        amenities: []
       },
       btnClass: {
         'is-loading': false,
@@ -10015,7 +10026,7 @@ __webpack_require__.r(__webpack_exports__);
     loadBoardingHouses: function loadBoardingHouses() {
       var _this = this;
 
-      var params = ["key=".concat(this.search.key), "category=".concat(this.search.category)].join('&');
+      var params = ["bhousename=".concat(this.filter.bhouse_name), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities)))].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.bhouses = res.data;
       })["catch"](function (err) {});
@@ -54254,61 +54265,24 @@ var render = function () {
       _c("div", { staticClass: "columns is-centered" }, [
         _c(
           "div",
-          { staticClass: "column is-6" },
+          { staticClass: "column is-8" },
           [
             _c(
               "b-field",
+              { attrs: { expanded: "" } },
               [
-                _c(
-                  "p",
-                  { staticClass: "control" },
-                  [
-                    _c(
-                      "b-select",
-                      {
-                        attrs: { placeholder: "Please select..." },
-                        model: {
-                          value: _vm.search.category,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.search, "category", $$v)
-                          },
-                          expression: "search.category",
-                        },
-                      },
-                      [
-                        _c("option", { attrs: { value: "bhouse" } }, [
-                          _vm._v("BOARDING HOUSE"),
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "rule " } }, [
-                          _vm._v("RULES"),
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "amenities" } }, [
-                          _vm._v("AMENITIES"),
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "location" } }, [
-                          _vm._v("LOCATION (Purok/Street)"),
-                        ]),
-                      ]
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
                 _c("b-input", {
                   attrs: {
                     type: "text",
+                    placeholder: "Use filter to search boarding houses",
                     expanded: "",
-                    placeholder: "Search Boarding House",
                   },
                   model: {
-                    value: _vm.search.key,
+                    value: _vm.filter.bhouse_name,
                     callback: function ($$v) {
-                      _vm.$set(_vm.search, "key", $$v)
+                      _vm.$set(_vm.filter, "bhouse_name", $$v)
                     },
-                    expression: "search.key",
+                    expression: "filter.bhouse_name",
                   },
                 }),
                 _vm._v(" "),
@@ -54316,11 +54290,19 @@ var render = function () {
                   "p",
                   { staticClass: "control" },
                   [
-                    _c("b-button", {
-                      staticClass: "button is-link",
-                      attrs: { "icon-left": "magnify" },
-                      on: { click: _vm.loadBoardingHouses },
-                    }),
+                    _c(
+                      "b-button",
+                      {
+                        staticClass: "button is-link",
+                        attrs: { "icon-left": "filter" },
+                        on: { click: _vm.openModalFilter },
+                      },
+                      [
+                        _vm._v(
+                          "\n                            FILTERS\n                        "
+                        ),
+                      ]
+                    ),
                   ],
                   1
                 ),
@@ -54331,92 +54313,6 @@ var render = function () {
           1
         ),
       ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "buttons is-centered" },
-        [
-          _c(
-            "b-button",
-            {
-              staticClass: "button is-link",
-              attrs: { "icon-left": "filter" },
-              on: { click: _vm.openModalFilter },
-            },
-            [_vm._v("\n            FILTERS\n        ")]
-          ),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "result-container" },
-        _vm._l(_vm.bhouses, function (item, index) {
-          return _c("div", { key: index, staticClass: "card" }, [
-            _c("div", { staticClass: "card-image" }, [
-              _c("figure", { staticClass: "image 5" }, [
-                _c("a", [
-                  _c("img", {
-                    staticClass: "bh-image",
-                    attrs: { src: "/storage/bhouses/" + item.bhouse_img_path },
-                  }),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-content" }, [
-              _c("div", { staticClass: "content" }, [
-                _c("p", { staticClass: "title is-6" }, [
-                  _vm._v(_vm._s(item.bhouse_name)),
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(item.bhouse_desc) +
-                      "\n                    "
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                  _vm._v(
-                    "\n                        Located at: " +
-                      _vm._s(item.street) +
-                      ",  " +
-                      _vm._s(item.barangay.brgyDesc) +
-                      "\n                    "
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "buttons",
-                  staticStyle: { position: "absolute", bottom: "0" },
-                },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: {
-                        type: "is-link",
-                        "icon-right": "chevron-right",
-                        tag: "a",
-                        href: "/client-bhouse-detail/" + item.bhouse_id,
-                      },
-                    },
-                    [_vm._v("SEE MORE...")]
-                  ),
-                ],
-                1
-              ),
-            ]),
-          ])
-        }),
-        0
-      ),
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
@@ -54440,198 +54336,222 @@ var render = function () {
           },
         },
         [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function ($event) {
-                  $event.preventDefault()
-                  return _vm.submit.apply(null, arguments)
+          _c("div", { staticClass: "modal-card" }, [
+            _c("header", { staticClass: "modal-card-head" }, [
+              _c("p", { staticClass: "modal-card-title" }, [_vm._v("Filters")]),
+              _vm._v(" "),
+              _c("button", {
+                staticClass: "delete",
+                attrs: { type: "button" },
+                on: {
+                  click: function ($event) {
+                    _vm.modalFilter = false
+                  },
                 },
-              },
-            },
-            [
-              _c("div", { staticClass: "modal-card" }, [
-                _c("header", { staticClass: "modal-card-head" }, [
-                  _c("p", { staticClass: "modal-card-title" }, [
-                    _vm._v("Filters"),
-                  ]),
-                  _vm._v(" "),
-                  _c("button", {
-                    staticClass: "delete",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function ($event) {
-                        _vm.modalFilter = false
-                      },
-                    },
-                  }),
-                ]),
-                _vm._v(" "),
-                _c("section", { staticClass: "modal-card-body" }, [
-                  _c("div", {}, [
-                    _c("div", { staticClass: "columns" }, [
+              }),
+            ]),
+            _vm._v(" "),
+            _c("section", { staticClass: "modal-card-body" }, [
+              _c("div", {}, [
+                _c("div", { staticClass: "columns" }, [
+                  _c(
+                    "div",
+                    { staticClass: "column" },
+                    [
                       _c(
-                        "div",
-                        { staticClass: "column" },
+                        "b-field",
+                        { attrs: { label: "Price Range", grouped: "" } },
                         [
                           _c(
                             "b-field",
-                            { attrs: { label: "Price Range", grouped: "" } },
+                            {
+                              attrs: {
+                                label: "min price",
+                                "label-position": "on-border",
+                              },
+                            },
                             [
-                              _c(
-                                "b-field",
-                                {
-                                  attrs: {
-                                    label: "min price",
-                                    "label-position": "on-border",
-                                  },
+                              _c("b-numberinput", {
+                                attrs: {
+                                  "controls-alignment": "right",
+                                  "controls-position": "compact",
                                 },
-                                [
-                                  _c("b-numberinput", {
-                                    attrs: {
-                                      "controls-alignment": "right",
-                                      "controls-position": "compact",
-                                    },
-                                    model: {
-                                      value: _vm.filter.min_price,
-                                      callback: function ($$v) {
-                                        _vm.$set(_vm.filter, "min_price", $$v)
-                                      },
-                                      expression: "filter.min_price",
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-field",
-                                {
-                                  attrs: {
-                                    label: "max price",
-                                    "label-position": "on-border",
+                                model: {
+                                  value: _vm.filter.min_price,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.filter, "min_price", $$v)
                                   },
+                                  expression: "filter.min_price",
                                 },
-                                [
-                                  _c("b-numberinput", {
-                                    attrs: {
-                                      "controls-alignment": "right",
-                                      min: 0,
-                                      "controls-position": "compact",
-                                    },
-                                    model: {
-                                      value: _vm.filter.max_price,
-                                      callback: function ($$v) {
-                                        _vm.$set(_vm.filter, "max_price", $$v)
-                                      },
-                                      expression: "filter.max_price",
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "subtitle" }, [
-                            _vm._v("Type of place"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-field",
-                            { attrs: { label: "Private Room" } },
-                            [
-                              _c(
-                                "b-checkbox",
-                                { attrs: { type: "checkbox" } },
-                                [
-                                  _vm._v(
-                                    "\n                                        Your own home in a home.\n                                    "
-                                  ),
-                                ]
-                              ),
+                              }),
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
                             "b-field",
-                            { attrs: { label: "Shared Room" } },
+                            {
+                              attrs: {
+                                label: "max price",
+                                "label-position": "on-border",
+                              },
+                            },
                             [
-                              _c(
-                                "b-checkbox",
-                                { attrs: { type: "checkbox" } },
-                                [
-                                  _vm._v(
-                                    "\n                                        A sleeping space and common areas that may be shared with others.\n                                    "
-                                  ),
-                                ]
-                              ),
+                              _c("b-numberinput", {
+                                attrs: {
+                                  "controls-alignment": "right",
+                                  min: 0,
+                                  "controls-position": "compact",
+                                },
+                                model: {
+                                  value: _vm.filter.max_price,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.filter, "max_price", $$v)
+                                  },
+                                  expression: "filter.max_price",
+                                },
+                              }),
                             ],
                             1
-                          ),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "subtitle" }, [
-                            _vm._v("Amenities"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "is-flex is-flex-wrap-wrap" },
-                            _vm._l(_vm.amenities, function (el, ix) {
-                              return _c(
-                                "div",
-                                { key: ix },
-                                [
-                                  _c("b-checkbox", [
-                                    _vm._v(_vm._s(el.amenity)),
-                                  ]),
-                                ],
-                                1
-                              )
-                            }),
-                            0
                           ),
                         ],
                         1
                       ),
-                    ]),
-                  ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "subtitle" }, [
+                        _vm._v("Type of place"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Private Room" } },
+                        [
+                          _c(
+                            "b-radio",
+                            {
+                              attrs: {
+                                type: "checkbox",
+                                "native-value": "PRIVATE",
+                              },
+                              model: {
+                                value: _vm.filter.room_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.filter, "room_type", $$v)
+                                },
+                                expression: "filter.room_type",
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Your own home in a home.\n                                    "
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Shared Room" } },
+                        [
+                          _c(
+                            "b-radio",
+                            {
+                              attrs: {
+                                type: "checkbox",
+                                "native-value": "SHARED ROOM",
+                              },
+                              model: {
+                                value: _vm.filter.room_type,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.filter, "room_type", $$v)
+                                },
+                                expression: "filter.room_type",
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        A sleeping space and common areas that may be shared with others.\n                                    "
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "subtitle" }, [
+                        _vm._v("Amenities"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "is-flex is-flex-wrap-wrap is-justify-content-space-between",
+                        },
+                        _vm._l(_vm.amenities, function (el, ix) {
+                          return _c(
+                            "div",
+                            { key: ix },
+                            [
+                              _c(
+                                "b-checkbox",
+                                {
+                                  attrs: { "native-value": el.amenity_id },
+                                  model: {
+                                    value: _vm.filter.amenities,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.filter, "amenities", $$v)
+                                    },
+                                    expression: "filter.amenities",
+                                  },
+                                },
+                                [_vm._v(_vm._s(el.amenity))]
+                              ),
+                            ],
+                            1
+                          )
+                        }),
+                        0
+                      ),
+                    ],
+                    1
+                  ),
                 ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c(
+              "footer",
+              { staticClass: "modal-card-foot" },
+              [
+                _c("b-button", {
+                  attrs: { label: "Close" },
+                  on: {
+                    click: function ($event) {
+                      _vm.modalFilter = false
+                    },
+                  },
+                }),
                 _vm._v(" "),
                 _c(
-                  "footer",
-                  { staticClass: "modal-card-foot" },
-                  [
-                    _c("b-button", {
-                      attrs: { label: "Close" },
-                      on: {
-                        click: function ($event) {
-                          _vm.modalFilter = false
-                        },
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        class: _vm.btnClass,
-                        attrs: { label: "Save", type: "is-success" },
-                      },
-                      [_vm._v("SEARCH")]
-                    ),
-                  ],
-                  1
+                  "button",
+                  {
+                    class: _vm.btnClass,
+                    attrs: { label: "Save", type: "is-success" },
+                    on: { click: _vm.loadBoardingHouses },
+                  },
+                  [_vm._v("SEARCH")]
                 ),
-              ]),
-            ]
-          ),
+              ],
+              1
+            ),
+          ]),
         ]
       ),
     ],

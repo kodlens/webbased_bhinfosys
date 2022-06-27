@@ -37,4 +37,10 @@ class BoardingHouse extends Model
     public function barangay(){
         return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
     }
+
+
+    public function rooms(){
+        return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id')
+            ->hasM;
+    }
 }
