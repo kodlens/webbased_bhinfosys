@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LandOwner;
 
 use App\Http\Controllers\Controller;
+use App\Models\RoomType;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -21,13 +22,10 @@ class LandOwnerRoomController extends Controller
         //$this->middleware('landowner');
     }
 
-
     public function index($id){
         return view('landowner.room.boarding-house-room')
             ->with('id', $id);
     }
-
-
 
     public function getRooms(Request $req, $bhouse_id){
         //get the rooms by user
@@ -45,6 +43,8 @@ class LandOwnerRoomController extends Controller
         return $data;
     }
 
+
+
     public function getBhouseRoomEdit($id){
         return Room::find($id);
     }
@@ -55,6 +55,7 @@ class LandOwnerRoomController extends Controller
             'room_no' => ['required', 'max: 100'],
             'room_desc' => ['required'],
             'room_img_path' => ['required', 'mimes:jpg,png,bmp'],
+            'room_type' => ['required'],
         ], $message = [
             'room_img_path.mimes' => 'Type of the file must be jpg, png or bmp.'
         ]);
@@ -72,6 +73,7 @@ class LandOwnerRoomController extends Controller
             'room_no' => strtoupper($req->room_no),
             'room_desc' => strtoupper($req->room_desc),
             'room_img_path' => $room_img_path[2] != null ? $room_img_path[2]: '',
+            'room_type' => strtoupper($req->room_type)
         ]);
 
         return response()->json([
@@ -104,6 +106,7 @@ class LandOwnerRoomController extends Controller
 
         $data->room_no = strtoupper($req->room_no);
         $data->room_desc = strtoupper($req->room_desc);
+        $data->room_type = strtoupper($req->room_type);
         if($roomImgPath){
             $data->room_img_path = $room_img_path[2];
         }

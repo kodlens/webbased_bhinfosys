@@ -13,7 +13,7 @@ class Room extends Model
     protected $primaryKey = 'room_id';
 
     protected $fillable = ['bhouse_id', 'room_no',
-        'room_desc', 'room_img_path'
+        'room_desc', 'room_img_path', 'room_type'
     ];
 
 }

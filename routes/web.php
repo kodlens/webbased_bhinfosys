@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\RoomType;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -105,6 +106,10 @@ Route::get('/load-open-amenities', function(){
 Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'index']);
 Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
 Route::post('/boarding-house-rooms-update/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'update']);
+
+Route::get('/load-open-room-types', function(){
+    return RoomType::orderBy('room_type', 'asc')->get();
+});
 
 
 Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);

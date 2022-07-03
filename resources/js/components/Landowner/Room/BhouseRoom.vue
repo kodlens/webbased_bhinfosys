@@ -146,6 +146,14 @@
                                         <b-input v-model="fields.room_desc" type="textarea"></b-input>
                                     </b-field>
 
+                                    <b-field label="Room Description"
+                                             :type="this.errors.room_type ? 'is-danger':''"
+                                             :message="this.errors.room_type ? this.errors.room_type[0] : ''">
+                                        <b-select v-model="fields.room_type">
+                                            <option v-for="(item, index) in roomTypes" :key="index" :value="item.room_type">{{ item.room_type }}</option>
+                                        </b-select>
+                                    </b-field>
+
                                     <div v-if="global_room_id < 1">
                                         <b-field label="ROOM IMAGE"
                                                  :type="this.errors.room_img_path ? 'is-danger':''"
@@ -293,6 +301,8 @@ export default {
                 'button': true,
                 'is-loading':false,
             },
+
+            roomTypes: [],
         }
     },
 
@@ -372,6 +382,7 @@ export default {
             formData.append('room_no', this.fields.room_no ? this.fields.room_no : '');
             formData.append('room_desc', this.fields.room_desc ? this.fields.room_desc : '');
             formData.append('room_img_path', this.fields.room_img ? this.fields.room_img : '');
+            formData.append('room_type', this.fields.room_type ? this.fields.room_type : '');
 
             if(this.global_room_id > 0){
                 //update
@@ -422,7 +433,14 @@ export default {
         },
 
         initData: function(){
+            this.loadOpenRoomTypes();
             this.global_bhouse_id = parseInt(this.propDataId);
+        },
+
+        loadOpenRoomTypes(){
+            axios.get('/load-open-room-types').then(res=>{
+                this.roomTypes = res.data;
+            });
         },
 
         //alert box ask for deletion

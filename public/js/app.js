@@ -13620,6 +13620,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -13655,7 +13663,8 @@ __webpack_require__.r(__webpack_exports__);
         'is-success': true,
         'button': true,
         'is-loading': false
-      }
+      },
+      roomTypes: []
     };
   },
   methods: {
@@ -13729,6 +13738,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('room_no', this.fields.room_no ? this.fields.room_no : '');
       formData.append('room_desc', this.fields.room_desc ? this.fields.room_desc : '');
       formData.append('room_img_path', this.fields.room_img ? this.fields.room_img : '');
+      formData.append('room_type', this.fields.room_type ? this.fields.room_type : '');
 
       if (this.global_room_id > 0) {
         //update
@@ -13779,11 +13789,19 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     initData: function initData() {
+      this.loadOpenRoomTypes();
       this.global_bhouse_id = parseInt(this.propDataId);
+    },
+    loadOpenRoomTypes: function loadOpenRoomTypes() {
+      var _this4 = this;
+
+      axios.get('/load-open-room-types').then(function (res) {
+        _this4.roomTypes = res.data;
+      });
     },
     //alert box ask for deletion
     confirmDelete: function confirmDelete(delete_id) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
@@ -13792,19 +13810,19 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Delete?',
         onConfirm: function onConfirm() {
-          return _this4.deleteSubmit(delete_id);
+          return _this5.deleteSubmit(delete_id);
         }
       });
     },
     //execute delete after confirming
     deleteSubmit: function deleteSubmit(delete_id) {
-      var _this5 = this;
+      var _this6 = this;
 
       axios["delete"]('/boarding-house-room-delete/' + delete_id).then(function (res) {
-        _this5.loadAsyncData();
+        _this6.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this5.errors = err.response.data.errors;
+          _this6.errors = err.response.data.errors;
         }
       });
     },
@@ -59901,6 +59919,45 @@ var render = function () {
                                   expression: "fields.room_desc",
                                 },
                               }),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Room Description",
+                                type: this.errors.room_type ? "is-danger" : "",
+                                message: this.errors.room_type
+                                  ? this.errors.room_type[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  model: {
+                                    value: _vm.fields.room_type,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "room_type", $$v)
+                                    },
+                                    expression: "fields.room_type",
+                                  },
+                                },
+                                _vm._l(_vm.roomTypes, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.room_type },
+                                    },
+                                    [_vm._v(_vm._s(item.room_type))]
+                                  )
+                                }),
+                                0
+                              ),
                             ],
                             1
                           ),
