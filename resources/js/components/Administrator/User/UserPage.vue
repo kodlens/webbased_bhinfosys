@@ -75,7 +75,7 @@
                             <b-table-column field="active" label="Active" v-slot="props">
                                 <b-icon v-if="props.row.active === 1" type="is-success is-small" icon="check-outline"></b-icon>
                                 <b-icon v-else icon="close-thick" type="is-danger is-small"></b-icon>
-                                
+
                             </b-table-column>
 
                             <b-table-column label="Action" v-slot="props">
@@ -474,6 +474,7 @@ export default{
 
         openModal(){
             this.isModalCreate=true;
+            this.global_id = 0;
             this.fields = {};
             this.errors = {};
         },

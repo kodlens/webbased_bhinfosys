@@ -9576,6 +9576,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     openModal: function openModal() {
       this.isModalCreate = true;
+      this.global_id = 0;
       this.fields = {};
       this.errors = {};
     },
@@ -10026,6 +10027,7 @@ __webpack_require__.r(__webpack_exports__);
     loadBoardingHouses: function loadBoardingHouses() {
       var _this = this;
 
+      this.modalFilter = false;
       var params = ["bhousename=".concat(this.filter.bhouse_name), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities)))].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.bhouses = res.data;
@@ -35285,7 +35287,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n        text-align: center;\n        \n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 2em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 1em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: .8em;\n        font-style: italic;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.banner-wrapper[data-v-fa44bb0e]{\n\n        margin: auto;\n        padding: 40px;\n        background: rgb(46, 46, 46);\n        color:white;\n        border-radius: 10px;\n        text-align: center;\n\n/*\n        position: absolute;\n        top: 0; */\n}\n.banner-text[data-v-fa44bb0e]{\n        font-size: 2em;\n}\n.banner-sub-text[data-v-fa44bb0e]{\n        font-size: 1em;\n}\nblockquote[data-v-fa44bb0e]{\n        font-size: .8em;\n        font-style: italic;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55145,7 +55147,7 @@ var staticRenderFns = [
                 },
                 [
                   _vm._v(
-                    "\n                        BOADING HOUSE INFORMATION SYSTEM\n                    "
+                    "\n                        BOARDING HOUSE INFORMATION SYSTEM\n                    "
                   ),
                 ]
               ),

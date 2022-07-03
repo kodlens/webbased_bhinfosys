@@ -5,7 +5,7 @@
             <div class="hero-body">
                 <div class="banner-wrapper animate__animated animate__backInLeft">
                     <p class="title banner-text animate__animated animate__backInLeft">
-                        BOADING HOUSE INFORMATION SYSTEM
+                        BOARDING HOUSE INFORMATION SYSTEM
                     </p>
                     <p class="subtitle banner-sub-text animate__animated animate__backInRight">
                         A web base boarding house finder.
@@ -33,7 +33,7 @@
                 <div class = "columns">
                     <div class="column">
                         <div class="footertwo-logo-wrapper">
-                            
+
                         </div>
                     </div>
 
@@ -46,8 +46,8 @@
                     </div>
                     <div class="column">
                         <div class="p-5">
-                 
-                             
+
+
                         </div>
                     </div>
 <!--                     <div class="column">-->
@@ -83,7 +83,7 @@ export default {
 
 
 <style scoped>
-  
+
     .banner-wrapper{
 
         margin: auto;
@@ -92,7 +92,7 @@ export default {
         color:white;
         border-radius: 10px;
         text-align: center;
-        
+
 /*
         position: absolute;
         top: 0; */

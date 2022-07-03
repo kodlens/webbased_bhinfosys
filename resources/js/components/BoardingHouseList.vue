@@ -202,6 +202,7 @@ export default {
         },
 
         loadBoardingHouses: function(){
+            this.modalFilter = false;
             const params = [
                 `bhousename=${this.filter.bhouse_name}`,
                 `min_price=${this.filter.min_price}`,
