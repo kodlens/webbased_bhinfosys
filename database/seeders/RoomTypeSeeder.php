@@ -22,7 +22,7 @@ class RoomTypeSeeder extends Seeder
                 'room_type' => "PRIVATE",
             ],
             [
-                'room_type' => "SHARED BEDSPACE",
+                'room_type' => "SHARED ROOM",
             ],
         ];
 

@@ -17,37 +17,53 @@ class ClientBhouseController extends Controller
 
     public function getBhouses(Request $req){
 
+        $amenities = json_decode($req->amenities);
+        //return $amenities;
 
 
-        $key = $req->key;
-        $cat = $req->category;
+        //$arr_amenities = [];
 
-        if($cat == 'bhouse'){
-            $data = BoardingHouse::with(['province', 'city', 'barangay'])
-                ->where('bhouse_name', 'like', '%' .$key .'%')
-                ->get();
-        }else if($cat == 'rule'){
-            $data = BoardingHouse::with(['province', 'city', 'barangay'])
-                ->where('bhouse_rule', 'like', '%' . $key .'%')
-                ->get();
-        }else if($cat == 'amenities'){
-            $data = BoardingHouse::with(['province', 'city', 'barangay'])
-                ->where('amenities', 'like', '%' .$key .'%')
-                ->get();
-        }else if($cat == 'location'){
-            $data = BoardingHouse::with(['province', 'city', 'barangay'])
-                ->where('street', 'like', '%' .$key .'%')
-                ->get();
-        }else{
-            $data = BoardingHouse::with(['province', 'city', 'barangay'])
-                ->get()->take(3);
-        }
+//        foreach ($req->amenities as $i){
+//            //array_push($arr_amenities, $i);
+//            return $i;
+//        }
 
+
+
+        $room_type = $req->room_type;
+        $price_min = $req->min_price;
+        $price_max = $req->max_price;
+
+        //return $amenities;
 
         //return $req;
-        $data = BoardingHouse::with(['province', 'city', 'barangay', 'amenities', 'rooms'])
-            ->where('bhouse_name', 'like', '%' .$req->bhousename .'%')
-            ->get();
+
+        if($amenities){
+            $data = BoardingHouse::with(['province', 'city', 'barangay', 'amenities', 'rooms', 'bedspaces'])
+                ->where('bhouse_name', 'like', '%' .$req->bhousename .'%')
+                ->wherehas('amenities', function ($q) use ($amenities){
+                    $q->whereIn('amenity_id', $amenities);
+                })
+                ->wherehas('rooms', function ($q) use ($room_type){
+                    $q->where('room_type', 'like', $room_type . '%');
+                })
+                ->wherehas('bedspaces', function ($q) use ($price_min, $price_max){
+                    $q->whereBetween('price', [$price_min, $price_max]);
+                })
+                ->get();
+        }else{
+            $data = BoardingHouse::with(['province', 'city', 'barangay', 'amenities', 'rooms', 'bedspaces'])
+                ->where('bhouse_name', 'like', '%' .$req->bhousename .'%')
+
+                ->wherehas('rooms', function ($q) use ($room_type){
+                    $q->where('room_type', 'like', $room_type . '%');
+                })
+                ->wherehas('bedspaces', function ($q) use ($price_min, $price_max){
+                    $q->whereBetween('price', [$price_min, $price_max]);
+                })
+                ->get();
+        }
+
 
 
         return $data;

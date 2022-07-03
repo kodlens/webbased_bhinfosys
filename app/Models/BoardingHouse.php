@@ -40,7 +40,16 @@ class BoardingHouse extends Model
 
 
     public function rooms(){
-        return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id')
-            ->hasM;
+        return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id');
+    }
+
+    public function bedspaces(){
+        return $this->hasManyThrough(
+            BedSpace::class,
+            Room::class,
+            'bhouse_id',
+            'room_id',
+            'bhouse_id',
+            'room_id');
     }
 }

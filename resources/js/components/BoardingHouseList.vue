@@ -40,33 +40,33 @@
             </template>
         </b-carousel-list> -->
 
-<!--        <div class="result-container">-->
+        <div class="result-container">
 
-<!--            <div class="card" v-for="(item, index) in bhouses" :key="index">-->
-<!--                <div class="card-image">-->
-<!--                    <figure class="image 5">-->
-<!--                        <a ><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>-->
-<!--                    </figure>-->
-<!--                    &lt;!&ndash;                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>&ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="card-content">-->
-<!--                    <div class="content">-->
-<!--                        <p class="title is-6">{{ item.bhouse_name }}</p>-->
-<!--                        <p class="subtitle is-7 mt-4">-->
-<!--                            {{ item.bhouse_desc}}-->
-<!--                        </p>-->
+            <div class="card" v-for="(item, index) in bhouses" :key="index">
+                <div class="card-image">
+                    <figure class="image 5">
+                        <a ><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
+                    </figure>
+                    <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        <p class="title is-6">{{ item.bhouse_name }}</p>
+                        <p class="subtitle is-7 mt-4">
+                            {{ item.bhouse_desc}}
+                        </p>
 
-<!--                        <p class="subtitle is-7 mt-4">-->
-<!--                            Located at: {{ item.street }},  {{ item.barangay.brgyDesc }}-->
-<!--                        </p>-->
-<!--                    </div>-->
+                        <p class="subtitle is-7 mt-4">
+                            Located at: {{ item.street }},  {{ item.barangay.brgyDesc }}
+                        </p>
+                    </div>
 
-<!--                    <div class="buttons" style="position: absolute; bottom: 0;">-->
-<!--                        <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${item.bhouse_id}`">SEE MORE...</b-button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+                    <div class="buttons" style="position: absolute; bottom: 0;">
+                        <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${item.bhouse_id}`">SEE MORE...</b-button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="columns">
             <div class="column">
@@ -180,8 +180,8 @@ export default {
             filter: {
                 bhouse_name: '',
                 room_type: '',
-                min_price: 250,
-                max_price: 500,
+                min_price: 700,
+                max_price: 1500,
                 amenities: [],
             },
 

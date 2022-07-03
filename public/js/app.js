@@ -10008,8 +10008,8 @@ __webpack_require__.r(__webpack_exports__);
       filter: {
         bhouse_name: '',
         room_type: '',
-        min_price: 250,
-        max_price: 500,
+        min_price: 700,
+        max_price: 1500,
         amenities: []
       },
       btnClass: {
@@ -54313,6 +54313,75 @@ var render = function () {
           1
         ),
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "result-container" },
+        _vm._l(_vm.bhouses, function (item, index) {
+          return _c("div", { key: index, staticClass: "card" }, [
+            _c("div", { staticClass: "card-image" }, [
+              _c("figure", { staticClass: "image 5" }, [
+                _c("a", [
+                  _c("img", {
+                    staticClass: "bh-image",
+                    attrs: { src: "/storage/bhouses/" + item.bhouse_img_path },
+                  }),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-content" }, [
+              _c("div", { staticClass: "content" }, [
+                _c("p", { staticClass: "title is-6" }, [
+                  _vm._v(_vm._s(item.bhouse_name)),
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(item.bhouse_desc) +
+                      "\n                        "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
+                  _vm._v(
+                    "\n                            Located at: " +
+                      _vm._s(item.street) +
+                      ",  " +
+                      _vm._s(item.barangay.brgyDesc) +
+                      "\n                        "
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "buttons",
+                  staticStyle: { position: "absolute", bottom: "0" },
+                },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      attrs: {
+                        type: "is-link",
+                        "icon-right": "chevron-right",
+                        tag: "a",
+                        href: "/client-bhouse-detail/" + item.bhouse_id,
+                      },
+                    },
+                    [_vm._v("SEE MORE...")]
+                  ),
+                ],
+                1
+              ),
+            ]),
+          ])
+        }),
+        0
+      ),
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
