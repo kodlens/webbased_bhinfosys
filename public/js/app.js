@@ -9771,7 +9771,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'is-danger',
         message: 'Are you sure you want deactivate this data?',
         cancelText: 'Cancel',
-        confirmText: 'Delete',
+        confirmText: 'Disable',
         onConfirm: function onConfirm() {
           return _this10.deactivate(dataId);
         }
@@ -35497,7 +35497,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-container[data-v-5aacca1e]{\n    display: flex;\n    justify-content: center;\n}\n.card[data-v-5aacca1e]{\n    width: 500px;\n    margin: 15px;\n}\n.card-content-title[data-v-5aacca1e]{\n    font-weight: bold;\n}\n.card-w-content[data-v-5aacca1e]{\n    margin: 10px 0 0 0;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-container[data-v-5aacca1e]{\r\n    display: flex;\r\n    justify-content: center;\n}\n.card[data-v-5aacca1e]{\r\n    width: 500px;\r\n    margin: 15px;\n}\n.card-content-title[data-v-5aacca1e]{\r\n    font-weight: bold;\n}\n.card-w-content[data-v-5aacca1e]{\r\n    margin: 10px 0 0 0;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53243,7 +53243,7 @@ var render = function () {
                                         },
                                       },
                                     },
-                                    [_vm._v("Deactivate")]
+                                    [_vm._v("Disable")]
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -53256,7 +53256,7 @@ var render = function () {
                                         },
                                       },
                                     },
-                                    [_vm._v("Activate")]
+                                    [_vm._v("Enable")]
                                   ),
                                 ],
                                 1
@@ -54963,13 +54963,16 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "desc" }, [_vm._v(" Amenities: ")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "bhouse-desc" }, [
-                    _vm._v(
-                      "\n                                    " +
-                        _vm._s(_vm.data.amenities) +
-                        "\n                                "
-                    ),
-                  ]),
+                  _c(
+                    "div",
+                    { staticClass: "bhouse-desc" },
+                    _vm._l(_vm.data.amenities, function (i, ix) {
+                      return _c("span", { key: ix }, [
+                        _vm._v(_vm._s(i.amenity) + ", "),
+                      ])
+                    }),
+                    0
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "desc" }, [
                     _vm._v(" Description: "),
@@ -54990,11 +54993,11 @@ var render = function () {
                   _c("div", { staticClass: "landnames" }, [
                     _vm._v(
                       "\n                                    " +
-                        _vm._s(_vm.data.fname) +
+                        _vm._s(_vm.data.owner.fname) +
                         " " +
-                        _vm._s(_vm.data.mname) +
+                        _vm._s(_vm.data.owner.mname) +
                         " " +
-                        _vm._s(_vm.data.lname) +
+                        _vm._s(_vm.data.owner.lname) +
                         "\n                                "
                     ),
                   ]),
@@ -55006,7 +55009,7 @@ var render = function () {
                   _c("div", { staticClass: "connos" }, [
                     _vm._v(
                       "\n                                   " +
-                        _vm._s(_vm.data.contact_no) +
+                        _vm._s(_vm.data.owner.contact_no) +
                         "\n                                "
                     ),
                   ]),
@@ -55018,11 +55021,11 @@ var render = function () {
                       "\n                                     " +
                         _vm._s(_vm.data.street) +
                         ", " +
-                        _vm._s(_vm.data.brgyDesc) +
+                        _vm._s(_vm.data.barangay.brgyDesc) +
                         ", " +
-                        _vm._s(_vm.data.citymunDesc) +
+                        _vm._s(_vm.data.city.citymunDesc) +
                         ", " +
-                        _vm._s(_vm.data.provDesc) +
+                        _vm._s(_vm.data.province.provDesc) +
                         "\n                                "
                     ),
                   ]),

@@ -91,8 +91,8 @@
                                     <b-dropdown-item aria-role="listitem" @click="getData(props.row.user_id)">Modify</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.user_id)">Delete</b-dropdown-item>
                                     <b-dropdown-item aria-role="listitem" @click="openModalResetPassword(props.row.user_id)">Reset Password</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem" @click="confirmDeactivate(props.row.user_id)">Deactivate</b-dropdown-item>
-                                    <b-dropdown-item aria-role="listitem" @click="activate(props.row.user_id)">Activate</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" @click="confirmDeactivate(props.row.user_id)">Disable</b-dropdown-item>
+                                    <b-dropdown-item aria-role="listitem" @click="activate(props.row.user_id)">Enable</b-dropdown-item>
 
                                 </b-dropdown>
 
@@ -654,7 +654,7 @@ export default{
                 type: 'is-danger',
                 message: 'Are you sure you want deactivate this data?',
                 cancelText: 'Cancel',
-                confirmText: 'Delete',
+                confirmText: 'Disable',
                 onConfirm: () => this.deactivate(dataId)
             });
         },

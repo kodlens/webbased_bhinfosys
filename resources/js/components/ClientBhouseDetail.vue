@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="desc"> Amenities: </div>
                                     <div class="bhouse-desc">
-                                        {{ data.amenities }}
+                                        <span v-for="(i, ix) in data.amenities" :key="ix">{{ i.amenity }}, </span>
                                     </div>
                                     <div class="desc"> Description: </div>
                                     <div class="bhouse-desc">
@@ -27,15 +27,15 @@
                                     </div>
                                     <div class="landname"> Landowner: </div>
                                     <div class="landnames">
-                                        {{ data.fname }} {{ data.mname }} {{ data.lname }}
+                                        {{ data.owner.fname }} {{ data.owner.mname }} {{ data.owner.lname }}
                                     </div>
                                     <div class="conno"> Contact No.: </div>
                                     <div class="connos">
-                                       {{ data.contact_no }}
+                                       {{ data.owner.contact_no }}
                                     </div>
                                      <div class="loc"> Location: </div>
                                     <div class="locs">
-                                         {{ data.street }}, {{ data.brgyDesc }}, {{ data.citymunDesc}}, {{ data.provDesc }}
+                                         {{ data.street }}, {{ data.barangay.brgyDesc }}, {{ data.city.citymunDesc}}, {{ data.province.provDesc }}
                                     </div>
 
                                     <div class="buttons mt-5">
@@ -60,7 +60,7 @@
 
                     </div>
                 </div><!-- section -->
-                
+
 
                 <div class="location-title">Location</div>
                 <div id="mapid"></div>
@@ -190,7 +190,7 @@ export default {
     },
 
     mounted() {
-      
+
        this.loadNavigator();
 
         //this.loadMap();
