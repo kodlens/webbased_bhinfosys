@@ -54519,28 +54519,7 @@ var render = function () {
                     [
                       _c(
                         "b-field",
-                        { attrs: { label: "Bhouse Name" } },
-                        [
-                          _c("b-input", {
-                            attrs: {
-                              type: "text",
-                              "controls-position": "compact",
-                            },
-                            model: {
-                              value: _vm.filter.bhousename,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.filter, "bhousename", $$v)
-                              },
-                              expression: "filter.bhousename",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-field",
-                        { attrs: { label: "Bhouse Rule" } },
+                        { attrs: { label: "Rules" } },
                         [
                           _c("b-input", {
                             attrs: {

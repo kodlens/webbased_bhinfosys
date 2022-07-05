@@ -100,10 +100,10 @@
                         <div class="columns">
                             <div class="column">
 
-                                <b-field label="Bhouse Name">
-                                    <b-input type="text" controls-position="compact" v-model="filter.bhousename"></b-input>
-                                </b-field>
-                                <b-field label="Bhouse Rule">
+<!--                                <b-field label="Bhouse Name">-->
+<!--                                    <b-input type="text" controls-position="compact" v-model="filter.bhousename"></b-input>-->
+<!--                                </b-field>-->
+                                <b-field label="Rules">
                                     <b-input type="text" controls-position="compact" v-model="filter.bhouserule"></b-input>
                                 </b-field>
 
