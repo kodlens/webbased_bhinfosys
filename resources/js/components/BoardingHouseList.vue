@@ -99,6 +99,45 @@
                     <div class="">
                         <div class="columns">
                             <div class="column">
+
+                                <b-field label="Bhouse Name">
+                                    <b-input type="text" controls-position="compact" v-model="filter.bhousename"></b-input>
+                                </b-field>
+                                <b-field label="Bhouse Rule">
+                                    <b-input type="text" controls-position="compact" v-model="filter.bhouserule"></b-input>
+                                </b-field>
+
+                                <b-field grouped>
+                                    <b-field label="Province" expanded
+                                             :type="this.errors.province ? 'is-danger':''"
+                                             :message="this.errors.province ? this.errors.province[0] : ''">
+                                        <b-select v-model="filter.province" @input="loadCity" expanded>
+                                            <option v-for="(item, index) in provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
+                                        </b-select>
+                                    </b-field>
+                                    <b-field label="City" expanded
+                                             :type="this.errors.city ? 'is-danger':''"
+                                             :message="this.errors.city ? this.errors.city[0] : ''">
+                                        <b-select v-model="filter.city" @input="loadBarangay" expanded>
+                                            <option v-for="(item, index) in cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
+                                        </b-select>
+                                    </b-field>
+                                </b-field>
+                                <b-field grouped>
+                                    <b-field label="Barangay" expanded
+                                             :type="this.errors.barangay ? 'is-danger':''"
+                                             :message="this.errors.barangay ? this.errors.barangay[0] : ''">
+                                        <b-select v-model="filter.barangay" expanded>
+                                            <option v-for="(item, index) in barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
+                                        </b-select>
+                                    </b-field>
+                                    <b-field label="Street">
+                                        <b-input v-model="filter.street"
+                                                 placeholder="Street">
+                                        </b-input>
+                                    </b-field>
+                                </b-field>
+
                                 <b-field label="Price Range" grouped>
                                     <b-field label="min price" label-position="on-border">
                                         <b-numberinput controls-alignment="right" controls-position="compact" v-model="filter.min_price"></b-numberinput>
@@ -178,13 +217,21 @@ export default {
             amenities: [],
 
             filter: {
-                bhouse_name: '',
+                bhousename: '',
+                bhouserule: '',
                 room_type: '',
                 min_price: 700,
                 max_price: 1500,
                 amenities: [],
+                province: '',
+                city: '',
+                barangay: '',
+                street: '',
             },
 
+            provinces: [],
+            cities: [],
+            barangays: [],
 
             btnClass: {
                 'is-loading': false,
@@ -204,11 +251,16 @@ export default {
         loadBoardingHouses: function(){
             this.modalFilter = false;
             const params = [
-                `bhousename=${this.filter.bhouse_name}`,
+                `bhousename=${this.filter.bhousename}`,
                 `min_price=${this.filter.min_price}`,
                 `max_price=${this.filter.max_price}`,
                 `room_type=${this.filter.room_type}`,
                 `amenities=${encodeURIComponent(JSON.stringify(this.filter.amenities))}`,
+                `bhouserule=${this.filter.bhouserule}`,
+                `province=${this.filter.province}`,
+                `city=${this.filter.city}`,
+                `barangay=${this.filter.barangay}`,
+                `street=${this.filter.street}`,
             ].join('&');
 
 
@@ -242,9 +294,26 @@ export default {
         },
 
 
+        //ADDRESS
+        loadProvince: function(){
+            axios.get('/load-provinces').then(res=>{
+                this.provinces = res.data;
+            })
+        },
+        loadCity: function(){
+            axios.get('/load-cities?prov=' + this.filter.province).then(res=>{
+                this.cities = res.data;
+            })
+        },
+        loadBarangay: function(){
+            axios.get('/load-barangays?prov=' + this.filter.province + '&city_code='+this.filter.city).then(res=>{
+                this.barangays = res.data;
+            })
+        },
     },
 
     mounted(){
+        this.loadProvince();
         this.onResize();
         window.addEventListener('resize', this.onResize);
 

@@ -9992,6 +9992,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10007,12 +10046,20 @@ __webpack_require__.r(__webpack_exports__);
       fields: {},
       amenities: [],
       filter: {
-        bhouse_name: '',
+        bhousename: '',
+        bhouserule: '',
         room_type: '',
         min_price: 700,
         max_price: 1500,
-        amenities: []
+        amenities: [],
+        province: '',
+        city: '',
+        barangay: '',
+        street: ''
       },
+      provinces: [],
+      cities: [],
+      barangays: [],
       btnClass: {
         'is-loading': false,
         'button': true,
@@ -10028,7 +10075,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.modalFilter = false;
-      var params = ["bhousename=".concat(this.filter.bhouse_name), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities)))].join('&');
+      var params = ["bhousename=".concat(this.filter.bhousename), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "bhouserule=".concat(this.filter.bhouserule), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.bhouses = res.data;
       })["catch"](function (err) {});
@@ -10051,9 +10098,32 @@ __webpack_require__.r(__webpack_exports__);
     },
     openModalFilter: function openModalFilter() {
       this.modalFilter = true;
+    },
+    //ADDRESS
+    loadProvince: function loadProvince() {
+      var _this3 = this;
+
+      axios.get('/load-provinces').then(function (res) {
+        _this3.provinces = res.data;
+      });
+    },
+    loadCity: function loadCity() {
+      var _this4 = this;
+
+      axios.get('/load-cities?prov=' + this.filter.province).then(function (res) {
+        _this4.cities = res.data;
+      });
+    },
+    loadBarangay: function loadBarangay() {
+      var _this5 = this;
+
+      axios.get('/load-barangays?prov=' + this.filter.province + '&city_code=' + this.filter.city).then(function (res) {
+        _this5.barangays = res.data;
+      });
     }
   },
   mounted: function mounted() {
+    this.loadProvince();
     this.onResize();
     window.addEventListener('resize', this.onResize);
     this.loadBoardingHouses();
@@ -35497,7 +35567,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-container[data-v-5aacca1e]{\r\n    display: flex;\r\n    justify-content: center;\n}\n.card[data-v-5aacca1e]{\r\n    width: 500px;\r\n    margin: 15px;\n}\n.card-content-title[data-v-5aacca1e]{\r\n    font-weight: bold;\n}\n.card-w-content[data-v-5aacca1e]{\r\n    margin: 10px 0 0 0;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-container[data-v-5aacca1e]{\n    display: flex;\n    justify-content: center;\n}\n.card[data-v-5aacca1e]{\n    width: 500px;\n    margin: 15px;\n}\n.card-content-title[data-v-5aacca1e]{\n    font-weight: bold;\n}\n.card-w-content[data-v-5aacca1e]{\n    margin: 10px 0 0 0;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -54447,6 +54517,205 @@ var render = function () {
                     "div",
                     { staticClass: "column" },
                     [
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Bhouse Name" } },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              type: "text",
+                              "controls-position": "compact",
+                            },
+                            model: {
+                              value: _vm.filter.bhousename,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.filter, "bhousename", $$v)
+                              },
+                              expression: "filter.bhousename",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { label: "Bhouse Rule" } },
+                        [
+                          _c("b-input", {
+                            attrs: {
+                              type: "text",
+                              "controls-position": "compact",
+                            },
+                            model: {
+                              value: _vm.filter.bhouserule,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.filter, "bhouserule", $$v)
+                              },
+                              expression: "filter.bhouserule",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { grouped: "" } },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Province",
+                                expanded: "",
+                                type: this.errors.province ? "is-danger" : "",
+                                message: this.errors.province
+                                  ? this.errors.province[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { expanded: "" },
+                                  on: { input: _vm.loadCity },
+                                  model: {
+                                    value: _vm.filter.province,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.filter, "province", $$v)
+                                    },
+                                    expression: "filter.province",
+                                  },
+                                },
+                                _vm._l(_vm.provinces, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.provCode },
+                                    },
+                                    [_vm._v(_vm._s(item.provDesc))]
+                                  )
+                                }),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "City",
+                                expanded: "",
+                                type: this.errors.city ? "is-danger" : "",
+                                message: this.errors.city
+                                  ? this.errors.city[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { expanded: "" },
+                                  on: { input: _vm.loadBarangay },
+                                  model: {
+                                    value: _vm.filter.city,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.filter, "city", $$v)
+                                    },
+                                    expression: "filter.city",
+                                  },
+                                },
+                                _vm._l(_vm.cities, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.citymunCode },
+                                    },
+                                    [_vm._v(_vm._s(item.citymunDesc))]
+                                  )
+                                }),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-field",
+                        { attrs: { grouped: "" } },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Barangay",
+                                expanded: "",
+                                type: this.errors.barangay ? "is-danger" : "",
+                                message: this.errors.barangay
+                                  ? this.errors.barangay[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-select",
+                                {
+                                  attrs: { expanded: "" },
+                                  model: {
+                                    value: _vm.filter.barangay,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.filter, "barangay", $$v)
+                                    },
+                                    expression: "filter.barangay",
+                                  },
+                                },
+                                _vm._l(_vm.barangays, function (item, index) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: index,
+                                      domProps: { value: item.brgyCode },
+                                    },
+                                    [_vm._v(_vm._s(item.brgyDesc))]
+                                  )
+                                }),
+                                0
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Street" } },
+                            [
+                              _c("b-input", {
+                                attrs: { placeholder: "Street" },
+                                model: {
+                                  value: _vm.filter.street,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.filter, "street", $$v)
+                                  },
+                                  expression: "filter.street",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
                         "b-field",
                         { attrs: { label: "Price Range", grouped: "" } },
