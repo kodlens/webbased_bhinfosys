@@ -2,7 +2,7 @@
 /public/hot
 /vendor
 /storage/framework
-/storage/app
+/storage/app/*
 /public/storage
 .env
 .env.backup
