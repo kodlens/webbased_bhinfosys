@@ -115,7 +115,7 @@ class LandownerBoardingHouseController extends Controller
 
     public function update(Request $req, $id){
 
-        //return $req;
+
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
             'bhouse_rule' => ['required', 'string'],
@@ -155,14 +155,37 @@ class LandownerBoardingHouseController extends Controller
         $data->street = strtoupper($req->street);
         $data->save();
 
-        foreach($req->amenities as $item){
-            BhouseAmenity::updateOrCreate(
-                [ 'bhouse_id' => $data->bhouse_id, 'amenity_id' => $item ],
-                [
-                    'bhouse_id' => $data->bhouse_id, 'amenity_id' => $item
-                ]
-            );
+
+
+        if($req->amenities){
+            foreach($req->amenities as $item){
+                BhouseAmenity::updateOrCreate(
+                    [ 'bhouse_id' => $id, 'amenity_id' => $item ],
+                    [
+                        'bhouse_id' => $id, 'amenity_id' => $item
+                    ]
+                );
+            }
+
+            $bhouseAmenities = BhouseAmenity::where('bhouse_id', $id)->get();
+            foreach($bhouseAmenities as $amenity){
+                if(!in_array($amenity->amenity_id, $req->amenities)){
+                    BhouseAmenity::where('amenity_id',$amenity->amenity_id)
+                        ->where('bhouse_id', $id)
+                        ->delete();
+                }
+            }
+
+        }else{
+            //if wala amenities, delete all amenities
+            BhouseAmenity::where('bhouse_id', $id)
+                ->delete();
         }
+
+
+
+
+
 
         return response()->json([
             'status' => 'updated'

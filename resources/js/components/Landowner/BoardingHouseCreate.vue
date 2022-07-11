@@ -311,7 +311,7 @@ export default {
 
             for(let i = 0; i < this.fields.amenities.length; i++){
                 formData.append('amenities[]', this.fields.amenities[i].amenity_id);
-                console.log(this.fields.amenities[i].amenity_id);
+                //console.log(this.fields.amenities[i].amenity_id);
             }
 
 

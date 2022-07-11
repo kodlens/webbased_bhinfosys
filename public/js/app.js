@@ -13069,8 +13069,7 @@ __webpack_require__.r(__webpack_exports__);
       // });
 
       for (var i = 0; i < this.fields.amenities.length; i++) {
-        formData.append('amenities[]', this.fields.amenities[i].amenity_id);
-        console.log(this.fields.amenities[i].amenity_id);
+        formData.append('amenities[]', this.fields.amenities[i].amenity_id); //console.log(this.fields.amenities[i].amenity_id);
       }
 
       formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
