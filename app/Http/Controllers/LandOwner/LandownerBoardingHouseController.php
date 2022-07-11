@@ -183,10 +183,6 @@ class LandownerBoardingHouseController extends Controller
         }
 
 
-
-
-
-
         return response()->json([
             'status' => 'updated'
         ], 200);

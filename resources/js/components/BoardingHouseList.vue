@@ -112,6 +112,7 @@
                                              :type="this.errors.province ? 'is-danger':''"
                                              :message="this.errors.province ? this.errors.province[0] : ''">
                                         <b-select v-model="filter.province" @input="loadCity" expanded>
+                                            <option value="">(none)</option>
                                             <option v-for="(item, index) in provinces" :key="index" :value="item.provCode">{{ item.provDesc }}</option>
                                         </b-select>
                                     </b-field>
@@ -119,6 +120,7 @@
                                              :type="this.errors.city ? 'is-danger':''"
                                              :message="this.errors.city ? this.errors.city[0] : ''">
                                         <b-select v-model="filter.city" @input="loadBarangay" expanded>
+                                            <option value="">(none)</option>
                                             <option v-for="(item, index) in cities" :key="index" :value="item.citymunCode">{{ item.citymunDesc }}</option>
                                         </b-select>
                                     </b-field>
@@ -128,6 +130,7 @@
                                              :type="this.errors.barangay ? 'is-danger':''"
                                              :message="this.errors.barangay ? this.errors.barangay[0] : ''">
                                         <b-select v-model="filter.barangay" expanded>
+                                            <option value="">(none)</option>
                                             <option v-for="(item, index) in barangays" :key="index" :value="item.brgyCode">{{ item.brgyDesc }}</option>
                                         </b-select>
                                     </b-field>
