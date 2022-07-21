@@ -613,6 +613,7 @@ export default{
             this.isModalResetPassword = true;
             this.global_id = dataId;
         },
+        
         submitResetPassword: function(){
             axios.post('/user-reset-password/' +this.global_id, this.fields).then(res=>{
                 if(res.data.status === 'reseted'){

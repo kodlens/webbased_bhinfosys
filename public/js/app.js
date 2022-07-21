@@ -35353,7 +35353,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n    color: blue;\n}\n.desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.landname[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.landnames[data-v-147bde05]{\n    margin-left: 6em;\n}\n.conno[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.connos[data-v-147bde05]{\n    margin-left: 6em;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-left: 6em;\n}\n.loc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.locs[data-v-147bde05]{\n    margin-left: 6em;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n    margin-left: 3em;\n}\n.column[data-v-147bde05]{\n    padding: 2em;\n    background: white;\n}\n.title[data-v-147bde05]{\ncolor:blue;\nfont-weight: bold;\npadding-left: 4.5em;\n}\n.rules-content[data-v-147bde05]{\n    list-style-type: circle;\n}\n.buttons mt-5[data-v-147bde05]{\n    margin-left: 2em;\n}\n.location-title[data-v-147bde05]{\n    font-weight: bold;\n    font-size: 1.3em;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bhouse-title[data-v-147bde05]{\n    font-size: 1.5em;\n    font-weight: bold;\n    color: blue;\n}\n.desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.landname[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.landnames[data-v-147bde05]{\n    margin-left: 6em;\n}\n.conno[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.connos[data-v-147bde05]{\n    margin-left: 6em;\n}\n.bhouse-desc[data-v-147bde05]{\n    font-size: 1em;\n    margin-left: 6em;\n}\n.loc[data-v-147bde05]{\n    font-size: 1em;\n    margin-top: 5px;\n    font-weight: bold;\n}\n.locs[data-v-147bde05]{\n    margin-left: 6em;\n}\n.bhouse-loc[data-v-147bde05]{\n    margin-top: 15px;\n    margin-left: 3em;\n}\n.column[data-v-147bde05]{\n    padding: 2em;\n    background: white;\n}\n.title[data-v-147bde05]{\ncolor:blue;\nfont-weight: bold;\npadding-left: 4.5em;\n}\n.rules-content[data-v-147bde05]{\n    list-style-type: circle;\n}\n.buttons mt-5[data-v-147bde05]{\n    margin-left: 2em;\n}\n.location-title[data-v-147bde05]{\n    font-weight: bold;\n    font-size: 1.3em;\n}\n#mapid[data-v-147bde05] { height: 500px; z-index: 0;}\n.display-bhouse[data-v-147bde05]{\n    display: flex;\n}\n.left-item[data-v-147bde05]{\n    display: flex;\n    flex-direction: column;\n    width: 50%;\n    padding: 10px;\n}\n.right-item[data-v-147bde05]{\n    padding: 10px;\n    width: 50%;\n}\n.line-design[data-v-147bde05]{\n    height: 10px;\n    width: 100%;\n    background-color: rgb(85, 85, 255);\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55210,145 +55210,152 @@ var render = function () {
           _c("div", {}, [
             _c("div", { staticClass: "columns" }, [
               _c("div", { staticClass: "column" }, [
-                _c("div", { staticClass: "bhouse-image" }, [
-                  _c("img", {
-                    attrs: {
-                      src: "/storage/bhouses/" + _vm.data.bhouse_img_path,
-                    },
-                  }),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "column" }, [
-                _c("div", { staticClass: "bhouse-right" }, [
-                  _c("div", { staticClass: "bhouse-title" }, [
-                    _vm._v(
-                      "\n                                    " +
-                        _vm._s(_vm.data.bhouse_name) +
-                        "\n                                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "desc" }, [_vm._v(" Amenities: ")]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "bhouse-desc" },
-                    _vm._l(_vm.data.amenities, function (i, ix) {
-                      return _c("span", { key: ix }, [
-                        _vm._v(_vm._s(i.amenity) + ", "),
-                      ])
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "desc" }, [
-                    _vm._v(" Description: "),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "bhouse-desc" }, [
-                    _vm._v(
-                      "\n                                   " +
-                        _vm._s(_vm.data.bhouse_desc) +
-                        "\n                                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "landname" }, [
-                    _vm._v(" Landowner: "),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "landnames" }, [
-                    _vm._v(
-                      "\n                                    " +
-                        _vm._s(_vm.data.owner.fname) +
-                        " " +
-                        _vm._s(_vm.data.owner.mname) +
-                        " " +
-                        _vm._s(_vm.data.owner.lname) +
-                        "\n                                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "conno" }, [
-                    _vm._v(" Contact No.: "),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "connos" }, [
-                    _vm._v(
-                      "\n                                   " +
-                        _vm._s(_vm.data.owner.contact_no) +
-                        "\n                                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "loc" }, [_vm._v(" Location: ")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "locs" }, [
-                    _vm._v(
-                      "\n                                     " +
-                        _vm._s(_vm.data.street) +
-                        ", " +
-                        _vm._s(_vm.data.barangay.brgyDesc) +
-                        ", " +
-                        _vm._s(_vm.data.city.citymunDesc) +
-                        ", " +
-                        _vm._s(_vm.data.province.provDesc) +
-                        "\n                                "
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "buttons mt-5" },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          attrs: {
-                            type: "is-link",
-                            tag: "a",
-                            href: "/client-bh-rooms/" + _vm.bhouse_id,
-                          },
+                _c("div", { staticClass: "line-design" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "display-bhouse" }, [
+                  _c("div", { staticClass: "left-item" }, [
+                    _c("div", { staticClass: "bhouse-image" }, [
+                      _c("img", {
+                        attrs: {
+                          src: "/storage/bhouses/" + _vm.data.bhouse_img_path,
                         },
-                        [_vm._v("VIEW ROOMS")]
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "bhouse-right" }, [
+                      _c("div", { staticClass: "bhouse-title" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.data.bhouse_name) +
+                            "\n                                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "desc" }, [
+                        _vm._v(" Amenities: "),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "bhouse-desc" },
+                        _vm._l(_vm.data.amenities, function (i, ix) {
+                          return _c("span", { key: ix }, [
+                            _vm._v(_vm._s(i.amenity) + ", "),
+                          ])
+                        }),
+                        0
                       ),
-                    ],
-                    1
-                  ),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "columns" }, [
-              _c("div", { staticClass: "column" }, [
-                _c("div", { staticClass: "panel" }, [
-                  _c("div", { staticClass: "panel-heading" }, [
-                    _vm._v(
-                      "\n                                     Rules and Regulations in the Boarding House\n                                "
-                    ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "desc" }, [
+                        _vm._v(" Description: "),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "bhouse-desc" }, [
+                        _vm._v(
+                          "\n                                        " +
+                            _vm._s(_vm.data.bhouse_desc) +
+                            "\n                                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "landname" }, [
+                        _vm._v(" Landowner: "),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "landnames" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.data.owner.fname) +
+                            " " +
+                            _vm._s(_vm.data.owner.mname) +
+                            " " +
+                            _vm._s(_vm.data.owner.lname) +
+                            "\n                                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "conno" }, [
+                        _vm._v(" Contact No.: "),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "connos" }, [
+                        _vm._v(
+                          "\n                                        " +
+                            _vm._s(_vm.data.owner.contact_no) +
+                            "\n                                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "loc" }, [
+                        _vm._v(" Location: "),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "locs" }, [
+                        _vm._v(
+                          "\n                                            " +
+                            _vm._s(_vm.data.street) +
+                            ", " +
+                            _vm._s(_vm.data.barangay.brgyDesc) +
+                            ", " +
+                            _vm._s(_vm.data.city.citymunDesc) +
+                            ", " +
+                            _vm._s(_vm.data.province.provDesc) +
+                            "\n                                        "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "loc" }, [
+                        _vm._v(
+                          " Rules and Regulations in the Boarding House: "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass: "rules-content locs",
+                        domProps: { innerHTML: _vm._s(_vm.data.bhouse_rule) },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "buttons mt-5 is-centered" },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                type: "is-link",
+                                tag: "a",
+                                href: "/client-bh-rooms/" + _vm.bhouse_id,
+                              },
+                            },
+                            [_vm._v("VIEW ROOMS")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "panel-body" }, [
-                    _c("div", {
-                      staticClass: "rules-content",
-                      domProps: { innerHTML: _vm._s(_vm.data.bhouse_rule) },
-                    }),
-                  ]),
+                  _vm._m(0),
                 ]),
               ]),
             ]),
           ]),
         ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "location-title" }, [_vm._v("Location")]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "mapid" } }),
       ]),
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "right-item" }, [
+      _c("div", { attrs: { id: "mapid" } }),
+    ])
+  },
+]
 render._withStripped = true
 
 

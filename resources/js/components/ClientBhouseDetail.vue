@@ -8,62 +8,62 @@
                     <div class="">
                         <div class="columns">
                             <div class="column">
-                                <div class="bhouse-image">
-                                    <img :src="`/storage/bhouses/${data.bhouse_img_path}`" />
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="bhouse-right">
-                                    <div class="bhouse-title">
-                                        {{data.bhouse_name}}
+                                
+                                <div class="line-design"></div>
+                                <div class="display-bhouse">
+                                    <div class="left-item">
+                                        <div class="bhouse-image">
+                                            <img :src="`/storage/bhouses/${data.bhouse_img_path}`" />
+                                        </div>
+    
+                                        <div class="bhouse-right">
+                                            <div class="bhouse-title">
+                                                {{data.bhouse_name}}
+                                            </div>
+                                            <div class="desc"> Amenities: </div>
+                                            <div class="bhouse-desc">
+                                                <span v-for="(i, ix) in data.amenities" :key="ix">{{ i.amenity }}, </span>
+                                            </div>
+                                            <div class="desc"> Description: </div>
+                                            <div class="bhouse-desc">
+                                            {{ data.bhouse_desc }}
+                                            </div>
+                                            <div class="landname"> Landowner: </div>
+                                            <div class="landnames">
+                                                {{ data.owner.fname }} {{ data.owner.mname }} {{ data.owner.lname }}
+                                            </div>
+                                            <div class="conno"> Contact No.: </div>
+                                            <div class="connos">
+                                            {{ data.owner.contact_no }}
+                                            </div>
+                                            <div class="loc"> Location: </div>
+                                            <div class="locs">
+                                                {{ data.street }}, {{ data.barangay.brgyDesc }}, {{ data.city.citymunDesc}}, {{ data.province.provDesc }}
+                                            </div>
+                                            <div class="loc"> Rules and Regulations in the Boarding House: </div>
+                                            <div class="rules-content locs" v-html="data.bhouse_rule"></div>
+    
+                                            <div class="buttons mt-5 is-centered">
+                                                <b-button type="is-link" tag="a" :href="`/client-bh-rooms/${bhouse_id}`">VIEW ROOMS</b-button>
+                                            </div>
+                                        </div>
+                                    </div><!--left-item-->
+    
+                                    <div class="right-item">
+                                        <!-- <div class="location-title">Location</div> -->
+                                        <div id="mapid"></div>
                                     </div>
-                                    <div class="desc"> Amenities: </div>
-                                    <div class="bhouse-desc">
-                                        <span v-for="(i, ix) in data.amenities" :key="ix">{{ i.amenity }}, </span>
-                                    </div>
-                                    <div class="desc"> Description: </div>
-                                    <div class="bhouse-desc">
-                                       {{ data.bhouse_desc }}
-                                    </div>
-                                    <div class="landname"> Landowner: </div>
-                                    <div class="landnames">
-                                        {{ data.owner.fname }} {{ data.owner.mname }} {{ data.owner.lname }}
-                                    </div>
-                                    <div class="conno"> Contact No.: </div>
-                                    <div class="connos">
-                                       {{ data.owner.contact_no }}
-                                    </div>
-                                     <div class="loc"> Location: </div>
-                                    <div class="locs">
-                                         {{ data.street }}, {{ data.barangay.brgyDesc }}, {{ data.city.citymunDesc}}, {{ data.province.provDesc }}
-                                    </div>
-
-                                    <div class="buttons mt-5">
-                                        <b-button type="is-link" tag="a" :href="`/client-bh-rooms/${bhouse_id}`">VIEW ROOMS</b-button>
-                                    </div>
-                                </div>
+                                </div> <!--display bhouse div-->
+                                
                             </div>
                         </div><!--cols-->
 
-                        <div class="columns">
-                            <div class="column">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                         Rules and Regulations in the Boarding House
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="rules-content" v-html="data.bhouse_rule"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div><!-- section -->
 
 
-                <div class="location-title">Location</div>
-                <div id="mapid"></div>
+                
 
 
             </div>
@@ -275,5 +275,30 @@ export default {
         font-size: 1.3em;
     }
     #mapid { height: 500px; z-index: 0;}
+
+
+    .display-bhouse{
+        display: flex;
+
+    }
+
+
+    .left-item{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 10px;
+    }
+    .right-item{
+        padding: 10px;
+        width: 50%;
+    }
+
+    .line-design{
+        height: 10px;
+        width: 100%;
+        background-color: rgb(85, 85, 255);
+    }
+
 
 </style>
