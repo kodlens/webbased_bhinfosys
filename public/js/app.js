@@ -8959,7 +8959,7 @@ __webpack_require__.r(__webpack_exports__);
       data: [],
       total: 0,
       loading: false,
-      sortField: 'bhouse_id',
+      sortField: 'boarding_house_rule_id',
       sortOrder: 'desc',
       page: 1,
       perPage: 10,
@@ -8967,6 +8967,7 @@ __webpack_require__.r(__webpack_exports__);
       search: {
         rule: ''
       },
+      fields: {},
       modalRule: false,
       errors: {},
       rule_id: 0,

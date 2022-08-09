@@ -148,7 +148,7 @@ export default {
             data: [],
             total: 0,
             loading: false,
-            sortField: 'bhouse_id',
+            sortField: 'boarding_house_rule_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 10,
@@ -157,6 +157,8 @@ export default {
             search: {
                 rule: '',
             },
+
+            fields: {},
 
             modalRule:  false,
 

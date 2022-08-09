@@ -21,5 +21,10 @@ class BHRuleController extends Controller
         return view('administrator.bh-rules');
     }
 
+    public function getBhRules(Request $req){
+        return BoardingHouseRule::with(['bhouse'])->paginate($req->perpage);
+
+    }
+
 
 }
