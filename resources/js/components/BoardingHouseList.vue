@@ -21,10 +21,14 @@
 <!--            </div>-->
 <!--        </div>-->
 
+
+
+
+
         <div class="columns is-centered">
             <div class="column is-8">
                 <b-field expanded>
-                    <b-input type="text" v-model="filter.bhouse_name" placeholder="Use filter to search boarding houses" expanded></b-input>
+<!--                    <b-input type="text" v-model="filter.bhouse_name" placeholder="Use filter to search boarding houses" expanded></b-input>-->
                     <p class="control">
                         <b-button class="button is-link" @click="openModalFilter" icon-left="filter">
                             FILTERS

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AminitySeeder::class,
+            RuleSeeder::class,
             BoardingHouseSeeder::class,
             RoomSeeder::class,
             BedSpaceSeeder::class,

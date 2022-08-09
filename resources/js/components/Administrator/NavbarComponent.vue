@@ -23,13 +23,15 @@
                         <b-menu-list label="Menu">
                             <b-menu-item icon="information-outline" label="Dashboard" tag="a" href="/dashboard"></b-menu-item>
 
+                            <b-menu-item icon="domain" label="Rules" tag="a" href="/bh-rules"></b-menu-item>
+
                             <b-menu-item icon="domain" label="BH List" tag="a" href="/bh-lists"></b-menu-item>
 
                             <b-menu-item icon="account-multiple" label="Users" tag="a" href="/users"></b-menu-item>
-                            
+
                             <!-- <b-menu-item icqon="account" label="User Account">
-                                
-                               
+
+
                                 <b-menu-item label="Request Account" tag="a" href="/request-accounts"></b-menu-item>
                             </b-menu-item> -->
                         </b-menu-list>
@@ -83,7 +85,7 @@ export default {
     }
 
     .burger-button{
-        display: flex; 
+        display: flex;
         flex-direction: column;
     }
 

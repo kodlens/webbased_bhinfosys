@@ -79,6 +79,11 @@ Route::post('bh-request-deactivate/{id}', [App\Http\Controllers\Administrator\BH
 Route::resource('/bh-lists', App\Http\Controllers\Administrator\BhListController::class);
 Route::get('/get-bh-lists', [App\Http\Controllers\Administrator\BhListController::class, 'getBhLists']);
 
+
+Route::resource('/bh-rules', App\Http\Controllers\Administrator\BHRuleController::class);
+Route::get('/get-bh-rules', [App\Http\Controllers\Administrator\BHRuleController::class, 'getBhRules']);
+
+
 //---------------------------//
 //---------------------------//
 

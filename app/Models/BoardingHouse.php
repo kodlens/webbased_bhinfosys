@@ -26,6 +26,10 @@ class BoardingHouse extends Model
         return $this->hasOne(User::class, 'user_id', 'user_id');
     }
 
+    public function bh_rules(){
+        return $this->hasMany(BoardingHouseRule::class, 'bhouse_id', 'bhouse_id');
+    }
+
     public function province(){
         return $this->hasOne(Province::class, 'provCode', 'province');
     }
