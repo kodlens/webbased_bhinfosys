@@ -20,14 +20,12 @@
 
                             <b-field label="Search">
                                 <b-input type="text"
-                                         v-model="search.lname" placeholder="Rule..."
+                                         v-model="search.rule" placeholder="Rule..."
                                          @keyup.native.enter="loadAsyncData"/>
                                 <p class="control">
                                     <b-button type="is-primary" icon-right="account-filter" @click="loadAsyncData"/>
                                 </p>
                             </b-field>
-
-
 
                             <b-table
                                 :data="data"
@@ -46,29 +44,26 @@
                                 @sort="onSort">
 
                                 <b-table-column field="boarding_house_rule_id" label="ID" v-slot="props">
-                                    {{ props.row.boarding_house_rule_id }}
+                                    {{ props.row.rule_id }}
                                 </b-table-column>
 
-                                <b-table-column field="bhouse_name" label="BH Name" sortable v-slot="props">
-                                    {{ props.row.bhouse.bhouse_name }}
+                                <b-table-column field="rule" label="BH Name" sortable v-slot="props">
+                                    {{ props.row.rule }}
                                 </b-table-column>
 
-                                <b-table-column field="rule" label="Rule" v-slot="props">
-                                    {{ props.row.rules.rule }}
-                                </b-table-column>
 
                                 <b-table-column label="Options" v-slot="props">
                                     <div class="is-flex">
                                         <!-- <b-tooltip label="View permit" v-if="props.row.is_approve === 0">
                                             <b-button class="button is-small is-link mr-1" tag="a" icon-right="desktop-mac" @click="viewPermit(props.row.bhouse_id)"></b-button>
+                                        </b-tooltip>-->
+
+                                        <b-tooltip label="Edit">
+                                            <b-button class="button is-small is-warning mr-1" icon-right="pencil" @click="getData(props.row.rule_id)"></b-button>
                                         </b-tooltip>
 
-                                        <b-tooltip label="Deactivate">
-                                            <b-button class="button is-small is-danger mr-1" tag="a" icon-right="laptop-off" @click="deactivateBhouse(props.row.bhouse_id)"></b-button>
-                                        </b-tooltip> -->
-
                                         <b-tooltip label="Delete" class="is-danger">
-                                            <b-button class="button is-small is-danger mr-1"  icon-right="trash-can-outline" @click="confirmDelete(props.row.bhouse_id)"></b-button>
+                                            <b-button class="button is-small is-danger mr-1"  icon-right="trash-can-outline" @click="confirmDelete(props.row.rule_id)"></b-button>
                                         </b-tooltip>
 
                                     </div>
@@ -76,7 +71,7 @@
                             </b-table>
 
                             <div class="buttons">
-                                <b-button label="NEW" type="is-primary" @click=""></b-button>
+                                <b-button label="NEW" type="is-primary" @click="openModal"></b-button>
                             </div>
 
                         </div><!--section -->
@@ -91,16 +86,16 @@
 
         <!--modal display business permit-->
         <b-modal v-model="modalRule" has-modal-card
-                 trap-focus
-                 :width="640"
-                 aria-role="dialog"
-                 aria-label="Modal"
-                 aria-modal>
+             trap-focus
+             :width="640"
+             aria-role="dialog"
+             aria-label="Modal"
+             aria-modal>
 
             <form @submit.prevent="submit">
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Business Permit</p>
+                        <p class="modal-card-title">Rule Information</p>
                         <button
                             type="button"
                             class="delete"
@@ -120,16 +115,14 @@
                     </section>
                     <footer class="modal-card-foot">
                         <b-button
-                            type="is-danger"
                             icon-left="close-box-outline"
                             label="Close"
                             @click="modalRule=false"/>
-                        <b-button
+                        <button
                             :class="btnClass"
-                            label="APPROVE"
-                            @click="approvePermit"
-                            icon-left="thumb-up-outline"
-                            type="is-success"></b-button>
+                            icon-left="thumb-up-outline">
+                            SAVE
+                        </button>
                     </footer>
                 </div>
             </form><!--close form-->
@@ -148,11 +141,12 @@ export default {
             data: [],
             total: 0,
             loading: false,
-            sortField: 'boarding_house_rule_id',
+            sortField: 'rule_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 10,
             defaultSortDirection: 'asc',
+
 
             search: {
                 rule: '',
@@ -168,6 +162,7 @@ export default {
             btnClass: {
                 'button': true,
                 'is-loading':false,
+                'is-primary': true
             },
 
         }
@@ -180,8 +175,7 @@ export default {
         loadAsyncData() {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
-                `lname=${this.search.lname}`,
-                `fname=${this.search.fname}`,
+                `rule=${this.search.rule}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
@@ -228,40 +222,12 @@ export default {
         },
 
 
-
-
-        viewPermit: function(dataId){
-            this.bhouse_id = dataId;
-            this.errors = {};
-            this.imgpath = '';
-            this.modalPermit=true;
-
-            axios.get('/bh-request/' + dataId).then(res=>{
-                if(res.data.business_permit_imgpath == null){
-                    this.errors.bpermit_img = "No image found.";
-                }
-                this.imgpath = res.data.business_permit_imgpath;
-            });
+        openModal(){
+            this.clearFields();
+            this.modalRule = true;
         },
 
-        approvePermit: function(){
-            axios.post('/bh-request-approved/' +this.bhouse_id).then(res=>{
-                if(res.data.status === 'approved'){
-                    //alert('Boarding house approved successfully.');
 
-                    this.modalPermit = false;
-
-                    this.$buefy.dialog.alert({
-                        title: 'APPROVED!',
-                        message: 'Boarding house approved successfully',
-                        type: 'is-success',
-                        onConfirm: ()=>{
-                            this.loadAsyncData();
-                        }
-                    });
-                }
-            })
-        },
         deactivateBhouse: function(dataId){
             axios.post('/bh-request-deactivate/' + dataId).then(res=>{
                 if(res.data.status === 'deactivated'){
@@ -291,7 +257,7 @@ export default {
         },
         //execute delete after confirming
         deleteSubmit(delete_id) {
-            axios.delete('/bh-lists/' + delete_id).then(res => {
+            axios.delete('/bh-rules/' + delete_id).then(res => {
                 this.loadAsyncData();
             }).catch(err => {
                 if (err.response.status === 422) {
@@ -304,28 +270,26 @@ export default {
         getData: function(data_id){
             this.clearFields();
             this.global_id = data_id;
-            this.isModalCreate = true;
+            this.modalRule = true;
 
 
             //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/appointment-type/'+data_id).then(res=>{
+            axios.get('/bh-rules/'+data_id).then(res=>{
                 this.fields = res.data;
             });
         },
 
         clearFields(){
-            this.fields = {
-                appointment_type: '',
-            };
+            this.fields = {};
         },
 
 
         submit: function(){
             if(this.global_id > 0){
                 //update
-                axios.put('/appointment-type/'+this.global_id, this.fields).then(res=>{
+                axios.put('/bh-rules/'+this.global_id, this.fields).then(res=>{
                     if(res.data.status === 'updated'){
-                        this.$buefy.dialog.confirm({
+                        this.$buefy.dialog.alert({
                             title: 'UPDATED!',
                             message: 'Successfully updated.',
                             type: 'is-success',
@@ -333,7 +297,7 @@ export default {
                                 this.loadAsyncData();
                                 this.clearFields();
                                 this.global_id = 0;
-                                this.isModalCreate = false;
+                                this.modalRule = false;
                             }
                         })
                     }
@@ -344,15 +308,15 @@ export default {
                 })
             }else{
                 //INSERT HERE
-                axios.post('/appointment-type', this.fields).then(res=>{
+                axios.post('/bh-rules', this.fields).then(res=>{
                     if(res.data.status === 'saved'){
-                        this.$buefy.dialog.confirm({
+                        this.$buefy.dialog.alert({
                             title: 'SAVED!',
                             message: 'Successfully saved.',
                             type: 'is-success',
                             confirmText: 'OK',
                             onConfirm: () => {
-                                this.isModalCreate = false;
+                                this.modalRule = false;
                                 this.loadAsyncData();
                                 this.clearFields();
                                 this.global_id = 0;

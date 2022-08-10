@@ -8946,20 +8946,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       data: [],
       total: 0,
       loading: false,
-      sortField: 'boarding_house_rule_id',
+      sortField: 'rule_id',
       sortOrder: 'desc',
       page: 1,
       perPage: 10,
@@ -8973,7 +8966,8 @@ __webpack_require__.r(__webpack_exports__);
       rule_id: 0,
       btnClass: {
         'button': true,
-        'is-loading': false
+        'is-loading': false,
+        'is-primary': true
       }
     };
   },
@@ -8984,7 +8978,7 @@ __webpack_require__.r(__webpack_exports__);
     loadAsyncData: function loadAsyncData() {
       var _this = this;
 
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "lname=".concat(this.search.lname), "fname=".concat(this.search.fname), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "rule=".concat(this.search.rule), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
       axios.get("/get-bh-rules?".concat(params)).then(function (_ref) {
         var data = _ref.data;
@@ -9024,51 +9018,21 @@ __webpack_require__.r(__webpack_exports__);
     setPerPage: function setPerPage() {
       this.loadAsyncData();
     },
-    viewPermit: function viewPermit(dataId) {
-      var _this2 = this;
-
-      this.bhouse_id = dataId;
-      this.errors = {};
-      this.imgpath = '';
-      this.modalPermit = true;
-      axios.get('/bh-request/' + dataId).then(function (res) {
-        if (res.data.business_permit_imgpath == null) {
-          _this2.errors.bpermit_img = "No image found.";
-        }
-
-        _this2.imgpath = res.data.business_permit_imgpath;
-      });
-    },
-    approvePermit: function approvePermit() {
-      var _this3 = this;
-
-      axios.post('/bh-request-approved/' + this.bhouse_id).then(function (res) {
-        if (res.data.status === 'approved') {
-          //alert('Boarding house approved successfully.');
-          _this3.modalPermit = false;
-
-          _this3.$buefy.dialog.alert({
-            title: 'APPROVED!',
-            message: 'Boarding house approved successfully',
-            type: 'is-success',
-            onConfirm: function onConfirm() {
-              _this3.loadAsyncData();
-            }
-          });
-        }
-      });
+    openModal: function openModal() {
+      this.clearFields();
+      this.modalRule = true;
     },
     deactivateBhouse: function deactivateBhouse(dataId) {
-      var _this4 = this;
+      var _this2 = this;
 
       axios.post('/bh-request-deactivate/' + dataId).then(function (res) {
         if (res.data.status === 'deactivated') {
-          _this4.$buefy.dialog.alert({
+          _this2.$buefy.dialog.alert({
             title: 'DEACTIVATED!',
             message: 'Boarding house deactivated successfully',
             type: 'is-success',
             onConfirm: function onConfirm() {
-              _this4.loadAsyncData();
+              _this2.loadAsyncData();
             }
           });
         }
@@ -9076,7 +9040,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     //alert box ask for deletion
     confirmDelete: function confirmDelete(delete_id) {
-      var _this5 = this;
+      var _this3 = this;
 
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
@@ -9085,88 +9049,86 @@ __webpack_require__.r(__webpack_exports__);
         cancelText: 'Cancel',
         confirmText: 'Delete',
         onConfirm: function onConfirm() {
-          return _this5.deleteSubmit(delete_id);
+          return _this3.deleteSubmit(delete_id);
         }
       });
     },
     //execute delete after confirming
     deleteSubmit: function deleteSubmit(delete_id) {
-      var _this6 = this;
+      var _this4 = this;
 
-      axios["delete"]('/bh-lists/' + delete_id).then(function (res) {
-        _this6.loadAsyncData();
+      axios["delete"]('/bh-rules/' + delete_id).then(function (res) {
+        _this4.loadAsyncData();
       })["catch"](function (err) {
         if (err.response.status === 422) {
-          _this6.errors = err.response.data.errors;
+          _this4.errors = err.response.data.errors;
         }
       });
     },
     //update code here
     getData: function getData(data_id) {
-      var _this7 = this;
+      var _this5 = this;
 
       this.clearFields();
       this.global_id = data_id;
-      this.isModalCreate = true; //nested axios for getting the address 1 by 1 or request by request
+      this.modalRule = true; //nested axios for getting the address 1 by 1 or request by request
 
-      axios.get('/appointment-type/' + data_id).then(function (res) {
-        _this7.fields = res.data;
+      axios.get('/bh-rules/' + data_id).then(function (res) {
+        _this5.fields = res.data;
       });
     },
     clearFields: function clearFields() {
-      this.fields = {
-        appointment_type: ''
-      };
+      this.fields = {};
     },
     submit: function submit() {
-      var _this8 = this;
+      var _this6 = this;
 
       if (this.global_id > 0) {
         //update
-        axios.put('/appointment-type/' + this.global_id, this.fields).then(function (res) {
+        axios.put('/bh-rules/' + this.global_id, this.fields).then(function (res) {
           if (res.data.status === 'updated') {
-            _this8.$buefy.dialog.confirm({
+            _this6.$buefy.dialog.alert({
               title: 'UPDATED!',
               message: 'Successfully updated.',
               type: 'is-success',
               onConfirm: function onConfirm() {
-                _this8.loadAsyncData();
+                _this6.loadAsyncData();
 
-                _this8.clearFields();
+                _this6.clearFields();
 
-                _this8.global_id = 0;
-                _this8.isModalCreate = false;
+                _this6.global_id = 0;
+                _this6.modalRule = false;
               }
             });
           }
         })["catch"](function (err) {
           if (err.response.status === 422) {
-            _this8.errors = err.response.data.errors;
+            _this6.errors = err.response.data.errors;
           }
         });
       } else {
         //INSERT HERE
-        axios.post('/appointment-type', this.fields).then(function (res) {
+        axios.post('/bh-rules', this.fields).then(function (res) {
           if (res.data.status === 'saved') {
-            _this8.$buefy.dialog.confirm({
+            _this6.$buefy.dialog.alert({
               title: 'SAVED!',
               message: 'Successfully saved.',
               type: 'is-success',
               confirmText: 'OK',
               onConfirm: function onConfirm() {
-                _this8.isModalCreate = false;
+                _this6.modalRule = false;
 
-                _this8.loadAsyncData();
+                _this6.loadAsyncData();
 
-                _this8.clearFields();
+                _this6.clearFields();
 
-                _this8.global_id = 0;
+                _this6.global_id = 0;
               }
             });
           }
         })["catch"](function (err) {
           if (err.response.status === 422) {
-            _this8.errors = err.response.data.errors;
+            _this6.errors = err.response.data.errors;
           }
         });
       }
@@ -53010,11 +52972,11 @@ var render = function () {
                           },
                         },
                         model: {
-                          value: _vm.search.lname,
+                          value: _vm.search.rule,
                           callback: function ($$v) {
-                            _vm.$set(_vm.search, "lname", $$v)
+                            _vm.$set(_vm.search, "rule", $$v)
                           },
-                          expression: "search.lname",
+                          expression: "search.rule",
                         },
                       }),
                       _vm._v(" "),
@@ -53065,7 +53027,7 @@ var render = function () {
                               return [
                                 _vm._v(
                                   "\n                                " +
-                                    _vm._s(props.row.boarding_house_rule_id) +
+                                    _vm._s(props.row.rule_id) +
                                     "\n                            "
                                 ),
                               ]
@@ -53076,7 +53038,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("b-table-column", {
                         attrs: {
-                          field: "bhouse_name",
+                          field: "rule",
                           label: "BH Name",
                           sortable: "",
                         },
@@ -53087,25 +53049,7 @@ var render = function () {
                               return [
                                 _vm._v(
                                   "\n                                " +
-                                    _vm._s(props.row.bhouse.bhouse_name) +
-                                    "\n                            "
-                                ),
-                              ]
-                            },
-                          },
-                        ]),
-                      }),
-                      _vm._v(" "),
-                      _c("b-table-column", {
-                        attrs: { field: "rule", label: "Rule" },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "default",
-                            fn: function (props) {
-                              return [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(props.row.rules.rule) +
+                                    _vm._s(props.row.rule) +
                                     "\n                            "
                                 ),
                               ]
@@ -53127,6 +53071,26 @@ var render = function () {
                                   [
                                     _c(
                                       "b-tooltip",
+                                      { attrs: { label: "Edit" } },
+                                      [
+                                        _c("b-button", {
+                                          staticClass:
+                                            "button is-small is-warning mr-1",
+                                          attrs: { "icon-right": "pencil" },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.getData(
+                                                props.row.rule_id
+                                              )
+                                            },
+                                          },
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-tooltip",
                                       {
                                         staticClass: "is-danger",
                                         attrs: { label: "Delete" },
@@ -53141,7 +53105,7 @@ var render = function () {
                                           on: {
                                             click: function ($event) {
                                               return _vm.confirmDelete(
-                                                props.row.bhouse_id
+                                                props.row.rule_id
                                               )
                                             },
                                           },
@@ -53167,7 +53131,7 @@ var render = function () {
                     [
                       _c("b-button", {
                         attrs: { label: "NEW", type: "is-primary" },
-                        on: { click: function ($event) {} },
+                        on: { click: _vm.openModal },
                       }),
                     ],
                     1
@@ -53214,7 +53178,7 @@ var render = function () {
               _c("div", { staticClass: "modal-card" }, [
                 _c("header", { staticClass: "modal-card-head" }, [
                   _c("p", { staticClass: "modal-card-title" }, [
-                    _vm._v("Business Permit"),
+                    _vm._v("Rule Information"),
                   ]),
                   _vm._v(" "),
                   _c("button", {
@@ -53265,7 +53229,6 @@ var render = function () {
                   [
                     _c("b-button", {
                       attrs: {
-                        type: "is-danger",
                         "icon-left": "close-box-outline",
                         label: "Close",
                       },
@@ -53276,15 +53239,18 @@ var render = function () {
                       },
                     }),
                     _vm._v(" "),
-                    _c("b-button", {
-                      class: _vm.btnClass,
-                      attrs: {
-                        label: "APPROVE",
-                        "icon-left": "thumb-up-outline",
-                        type: "is-success",
+                    _c(
+                      "button",
+                      {
+                        class: _vm.btnClass,
+                        attrs: { "icon-left": "thumb-up-outline" },
                       },
-                      on: { click: _vm.approvePermit },
-                    }),
+                      [
+                        _vm._v(
+                          "\n                        SAVE\n                    "
+                        ),
+                      ]
+                    ),
                   ],
                   1
                 ),

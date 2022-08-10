@@ -10,8 +10,8 @@ class BoardingHouseRule extends Model
     use HasFactory;
 
     protected $table = 'boarding_house_rules';
-    protected $primaryKey = 'boarding_house_rule_id';
 
+    protected $primaryKey = 'boarding_house_rule_id';
 
     protected $fillable = ['bhouse_id', 'rule_id'];
 

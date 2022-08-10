@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoardinggHouseRulesTable extends Migration
+class CreateBoardingHouseRulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBoardinggHouseRulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boardingg_house_rules', function (Blueprint $table) {
+        Schema::create('boarding_house_rules', function (Blueprint $table) {
             $table->id('boarding_house_rule_id');
 
             $table->unsignedBigInteger('bhouse_id');
@@ -35,6 +35,6 @@ class CreateBoardinggHouseRulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boardingg_house_rules');
+        Schema::dropIfExists('boarding_house_rules');
     }
 }
