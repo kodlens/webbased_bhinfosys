@@ -38,6 +38,17 @@
             </div>
         </div>
 
+
+        <div class="columns">
+            <div class="column">
+
+                <div class="bhouse-container">
+
+                </div>
+
+            </div>
+        </div>
+
         <!-- <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
             <template #item="list">
 
@@ -49,7 +60,7 @@
             <div class="card" v-for="(item, index) in bhouses" :key="index">
                 <div class="card-image">
                     <figure class="image 5">
-                        <a ><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
+                        <a><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
                     </figure>
                     <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
                 </div>
@@ -383,5 +394,12 @@ export default {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+
+    .bhouse-container{
+        height: 600px;
+        border: 1px solid green;
+        overflow: auto;
     }
 </style>
