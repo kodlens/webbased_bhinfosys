@@ -5,6 +5,7 @@ namespace App\Http\Controllers\LandOwner;
 use App\Http\Controllers\Controller;
 use App\Models\BhouseAmenity;
 use App\Models\BoardingHouse;
+use App\Models\BoardingHouseRule;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\File;
@@ -99,6 +100,13 @@ class LandownerBoardingHouseController extends Controller
             ]);
         }
 
+        foreach($req->rules as $item){
+            BoardingHouseRule::create([
+                'bhouse_id' => $data->bhouse_id,
+                'rule_id' => $item
+            ]);
+        }
+
 
         return response()->json([
             'status' => 'saved'
@@ -107,14 +115,14 @@ class LandownerBoardingHouseController extends Controller
 
 
     public function edit($id){
-        $bhouse = BoardingHouse::with(['amenities'])->find($id);
+        $bhouse = BoardingHouse::with(['amenities', 'rules'])->find($id);
+
         return view('landowner.boarding-house-create')
             ->with('bhouse', $bhouse)
             ->with('id', $id);
     }
 
     public function update(Request $req, $id){
-
 
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
@@ -156,7 +164,7 @@ class LandownerBoardingHouseController extends Controller
         $data->save();
 
 
-
+        //insert update or delete amenities
         if($req->amenities){
             foreach($req->amenities as $item){
                 BhouseAmenity::updateOrCreate(
@@ -179,6 +187,35 @@ class LandownerBoardingHouseController extends Controller
         }else{
             //if wala amenities, delete all amenities
             BhouseAmenity::where('bhouse_id', $id)
+                ->delete();
+        }
+
+        //insert update or delete rules
+        if($req->rules){
+            foreach($req->rules as $item){
+                BoardingHouseRule::updateOrCreate(
+                    [
+                        'bhouse_id' => $id,
+                        'rule_id' => $item ],
+                    [
+                        'bhouse_id' => $id,
+                        'rule_id' => $item
+                    ]
+                );
+            }
+
+            $bhouseRules = BoardingHouseRule::where('bhouse_id', $id)->get();
+            foreach($bhouseRules as $rule){
+                if(!in_array($rule->rule_id, $req->rules)){
+                    BoardingHouseRule::where('rule_id',$rule->rule_id)
+                        ->where('bhouse_id', $id)
+                        ->delete();
+                }
+            }
+
+        }else{
+            //if wala amenities, delete all amenities
+            BoardingHouseRule::where('bhouse_id', $id)
                 ->delete();
         }
 

@@ -10381,6 +10381,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10395,9 +10404,10 @@ __webpack_require__.r(__webpack_exports__);
       errors: {},
       fields: {},
       amenities: [],
+      rules: [],
       filter: {
         bhousename: '',
-        bhouserule: '',
+        rules: [],
         room_type: '',
         min_price: 700,
         max_price: 1500,
@@ -10425,7 +10435,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.modalFilter = false;
-      var params = ["bhousename=".concat(this.filter.bhousename), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "bhouserule=".concat(this.filter.bhouserule), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join('&');
+      var params = ["rules=".concat(encodeURIComponent(JSON.stringify(this.filter.rules))), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.bhouses = res.data;
       })["catch"](function (err) {});
@@ -10435,6 +10445,13 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/load-open-amenities?").then(function (res) {
         _this2.amenities = res.data;
+      });
+    },
+    loadRules: function loadRules() {
+      var _this3 = this;
+
+      axios.get("/load-open-rules?").then(function (res) {
+        _this3.rules = res.data;
       });
     },
     onResize: function onResize() {
@@ -10451,24 +10468,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     //ADDRESS
     loadProvince: function loadProvince() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('/load-provinces').then(function (res) {
-        _this3.provinces = res.data;
+        _this4.provinces = res.data;
       });
     },
     loadCity: function loadCity() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get('/load-cities?prov=' + this.filter.province).then(function (res) {
-        _this4.cities = res.data;
+        _this5.cities = res.data;
       });
     },
     loadBarangay: function loadBarangay() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get('/load-barangays?prov=' + this.filter.province + '&city_code=' + this.filter.city).then(function (res) {
-        _this5.barangays = res.data;
+        _this6.barangays = res.data;
       });
     }
   },
@@ -10478,6 +10495,7 @@ __webpack_require__.r(__webpack_exports__);
     window.addEventListener('resize', this.onResize);
     this.loadBoardingHouses();
     this.loadAmenities();
+    this.loadRules();
   },
   beforeDestroy: function beforeDestroy() {
     if (typeof window === 'undefined') return;
@@ -13321,7 +13339,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -13337,7 +13354,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       fields: {
         bhouse_name: '',
-        bhouse_rule: '',
         lat: 0,
         "long": 0,
         province: '',
@@ -13355,7 +13371,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       filterTags: [],
       amenities: [],
-      tags: []
+      tags: [],
+      filteredTagRules: [],
+      isSelectOnlyRule: false,
+      rules: [],
+      tagsRule: []
     };
   },
   methods: {
@@ -13420,6 +13440,11 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var i = 0; i < this.fields.amenities.length; i++) {
         formData.append('amenities[]', this.fields.amenities[i].amenity_id); //console.log(this.fields.amenities[i].amenity_id);
+      } //for rules
+
+
+      for (var _i = 0; _i < this.fields.rules.length; _i++) {
+        formData.append('rules[]', this.fields.rules[_i].rule_id);
       }
 
       formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
@@ -13484,15 +13509,15 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.global_bhouse_id > 0) {
         this.fields = JSON.parse(this.propData);
-        this.getData(this.global_bhouse_id);
         console.log(this.fields);
+        this.getData(this.global_bhouse_id); //console.log(this.fields)
       }
     },
     getData: function getData(data_id) {
       var _this5 = this;
 
-      this.isModalCreate = true; //nested axios for getting the address 1 by 1 or request by request
-
+      //this.isModalCreate = true;
+      //nested axios for getting the address 1 by 1 or request by request
       axios.get('/boarding-house/' + data_id).then(function (res) {
         //this.fields = res.data;
         var tempData = res.data; //load city first
@@ -13507,30 +13532,15 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-
-    /* QUILL METHODS*/
-    onEditorBlur: function onEditorBlur(quill) {
-      console.log('editor blur!', quill);
-    },
-    onEditorFocus: function onEditorFocus(quill) {
-      console.log('editor focus!', quill);
-    },
-    onEditorReady: function onEditorReady(quill) {
-      console.log('editor ready!', quill);
-    },
-    onEditorChange: function onEditorChange(_ref) {
-      var quill = _ref.quill,
-          html = _ref.html,
-          text = _ref.text;
-      console.log('editor change!', quill, html, text);
-      this.content = html;
-    },
-
-    /* QUILL METHODS*/
     //for amenities
     getFilteredTags: function getFilteredTags(text) {
       this.filterTags = this.amenities.filter(function (option) {
         return option.amenity.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
+      });
+    },
+    getFilteredTagRules: function getFilteredTagRules(text) {
+      this.filteredTagRules = this.rules.filter(function (option) {
+        return option.rule.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0;
       });
     },
     loadAmenities: function loadAmenities() {
@@ -13538,6 +13548,13 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/load-open-amenities').then(function (res) {
         _this6.amenities = res.data;
+      });
+    },
+    loadRules: function loadRules() {
+      var _this7 = this;
+
+      axios.get('/load-open-rules').then(function (res) {
+        _this7.rules = res.data;
       });
     },
     removeAmenity: function removeAmenity() {
@@ -13551,6 +13568,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.loadAmenities();
+    this.loadRules();
   },
   mounted: function mounted() {
     this.loadProvince();
@@ -55328,27 +55346,6 @@ var render = function () {
                     [
                       _c(
                         "b-field",
-                        { attrs: { label: "Rules" } },
-                        [
-                          _c("b-input", {
-                            attrs: {
-                              type: "text",
-                              "controls-position": "compact",
-                            },
-                            model: {
-                              value: _vm.filter.bhouserule,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.filter, "bhouserule", $$v)
-                              },
-                              expression: "filter.bhouserule",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-field",
                         { attrs: { grouped: "" } },
                         [
                           _c(
@@ -55648,9 +55645,14 @@ var render = function () {
                       _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
-                      _c("div", { staticClass: "subtitle" }, [
-                        _vm._v("Amenities"),
-                      ]),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "subtitle",
+                          staticStyle: { "font-weight": "bold" },
+                        },
+                        [_vm._v("Amenities")]
+                      ),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -55676,6 +55678,50 @@ var render = function () {
                                   },
                                 },
                                 [_vm._v(_vm._s(el.amenity))]
+                              ),
+                            ],
+                            1
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "subtitle",
+                          staticStyle: {
+                            "font-weight": "bold",
+                            "margin-top": "20px",
+                          },
+                        },
+                        [_vm._v("Rules")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "is-flex is-flex-wrap-wrap is-justify-content-space-between",
+                        },
+                        _vm._l(_vm.rules, function (el, ix) {
+                          return _c(
+                            "div",
+                            { key: ix },
+                            [
+                              _c(
+                                "b-checkbox",
+                                {
+                                  attrs: { "native-value": el.rule_id },
+                                  model: {
+                                    value: _vm.filter.rules,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.filter, "rules", $$v)
+                                    },
+                                    expression: "filter.rules",
+                                  },
+                                },
+                                [_vm._v(_vm._s(el.rule))]
                               ),
                             ],
                             1
@@ -59660,7 +59706,7 @@ var render = function () {
               _c("div", { staticClass: "panel is-primary" }, [
                 _c("div", { staticClass: "panel-heading" }, [
                   _vm._v(
-                    "\n                                NEW BOARDING HOUSE\n                            "
+                    "\n                            NEW BOARDING HOUSE\n                        "
                   ),
                 ]),
                 _vm._v(" "),
@@ -59696,25 +59742,52 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "b-field",
-                      {
-                        attrs: {
-                          label: "BHOUSE RULE",
-                          type: "this.errors.bhouse_rule ? 'is-danger':''",
-                          message: this.errors.bhouse_rule
-                            ? this.errors.bhouse_rule[0]
-                            : "",
-                        },
-                      },
+                      { attrs: { label: "BHOUSE RULES" } },
                       [
-                        _c("quill-editor", {
-                          ref: "myQuillEditor",
-                          attrs: { options: _vm.editorOption },
-                          model: {
-                            value: _vm.fields.bhouse_rule,
-                            callback: function ($$v) {
-                              _vm.$set(_vm.fields, "bhouse_rule", $$v)
+                        _c("b-taginput", {
+                          attrs: {
+                            data: _vm.filteredTagRules,
+                            autocomplete: "",
+                            field: "rule",
+                            icon: "label",
+                            type: "is-info",
+                            placeholder: "Add a rule",
+                          },
+                          on: { typing: _vm.getFilteredTagRules },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "default",
+                              fn: function (props) {
+                                return [
+                                  _c("strong", [
+                                    _vm._v(_vm._s(props.option.rule_id)),
+                                  ]),
+                                  _vm._v(
+                                    ": " +
+                                      _vm._s(props.option.rule) +
+                                      "\n                                    "
+                                  ),
+                                ]
+                              },
                             },
-                            expression: "fields.bhouse_rule",
+                            {
+                              key: "empty",
+                              fn: function () {
+                                return [
+                                  _vm._v(
+                                    "\n                                        There are no items\n                                    "
+                                  ),
+                                ]
+                              },
+                              proxy: true,
+                            },
+                          ]),
+                          model: {
+                            value: _vm.fields.rules,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.fields, "rules", $$v)
+                            },
+                            expression: "fields.rules",
                           },
                         }),
                       ],
@@ -59780,7 +59853,7 @@ var render = function () {
                                   _vm._v(
                                     ": " +
                                       _vm._s(props.option.amenity) +
-                                      "\n                                        "
+                                      "\n                                    "
                                   ),
                                 ]
                               },
@@ -59790,7 +59863,7 @@ var render = function () {
                               fn: function () {
                                 return [
                                   _vm._v(
-                                    "\n                                            There are no items\n                                        "
+                                    "\n                                        There are no items\n                                    "
                                   ),
                                 ]
                               },
@@ -59874,9 +59947,9 @@ var render = function () {
                                   _vm.fields.bhouse_img
                                     ? _c("span", { staticClass: "file-name" }, [
                                         _vm._v(
-                                          "\n                                                " +
+                                          "\n                                            " +
                                             _vm._s(_vm.fields.bhouse_img.name) +
-                                            "\n                                            "
+                                            "\n                                        "
                                         ),
                                       ])
                                     : _vm._e(),

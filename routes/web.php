@@ -101,9 +101,15 @@ Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHous
 
 Route::resource('/amenities', App\Http\Controllers\LandOwner\AmenityController::class);
 
-//load open amenities
+
+
+//load OPEN amenities
 Route::get('/load-open-amenities', function(){
-    return \App\Models\Amenity::orderBy('amenity')->get();
+    return \App\Models\Amenity::orderBy('amenity', 'asc')->get();
+});
+//load OPEN rules
+Route::get('/load-open-rules', function(){
+    return \App\Models\Rule::orderBy('rule', 'asc')->get();
 });
 
 

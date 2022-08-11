@@ -26,8 +26,9 @@ class BoardingHouse extends Model
         return $this->hasOne(User::class, 'user_id', 'user_id');
     }
 
-    public function bh_rules(){
-        return $this->hasMany(BoardingHouseRule::class, 'bhouse_id', 'bhouse_id');
+    public function rules(){
+        return $this->hasMany(BoardingHouseRule::class, 'bhouse_id', 'bhouse_id')
+            ->leftJoin('rules', 'boarding_house_rules.rule_id', 'rules.rule_id');
     }
 
     public function province(){

@@ -107,9 +107,9 @@
 <!--                                <b-field label="Bhouse Name">-->
 <!--                                    <b-input type="text" controls-position="compact" v-model="filter.bhousename"></b-input>-->
 <!--                                </b-field>-->
-                                <b-field label="Rules">
-                                    <b-input type="text" controls-position="compact" v-model="filter.bhouserule"></b-input>
-                                </b-field>
+<!--                                <b-field label="Rules">-->
+<!--                                    <b-input type="text" controls-position="compact" v-model="filter.bhouserule"></b-input>-->
+<!--                                </b-field>-->
 
                                 <b-field grouped>
                                     <b-field label="Province" expanded
@@ -172,13 +172,22 @@
 
                                 <hr>
 
-                                <div class="subtitle">Amenities</div>
+                                <div class="subtitle" style="font-weight: bold;">Amenities</div>
 
                                 <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
                                     <div v-for="(el, ix) in amenities" :key="ix">
                                         <b-checkbox v-model="filter.amenities" :native-value="el.amenity_id">{{ el.amenity }}</b-checkbox>
                                     </div>
                                 </div>
+
+                                <div class="subtitle" style="font-weight: bold; margin-top: 20px;">Rules</div>
+
+                                <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+                                    <div v-for="(el, ix) in rules" :key="ix">
+                                        <b-checkbox v-model="filter.rules" :native-value="el.rule_id">{{ el.rule }}</b-checkbox>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -222,10 +231,11 @@ export default {
             errors: {},
             fields: {},
             amenities: [],
+            rules: [],
 
             filter: {
                 bhousename: '',
-                bhouserule: '',
+                rules: [],
                 room_type: '',
                 min_price: 700,
                 max_price: 1500,
@@ -258,12 +268,11 @@ export default {
         loadBoardingHouses: function(){
             this.modalFilter = false;
             const params = [
-                `bhousename=${this.filter.bhousename}`,
+                `rules=${encodeURIComponent(JSON.stringify(this.filter.rules))}`,
                 `min_price=${this.filter.min_price}`,
                 `max_price=${this.filter.max_price}`,
                 `room_type=${this.filter.room_type}`,
                 `amenities=${encodeURIComponent(JSON.stringify(this.filter.amenities))}`,
-                `bhouserule=${this.filter.bhouserule}`,
                 `province=${this.filter.province}`,
                 `city=${this.filter.city}`,
                 `barangay=${this.filter.barangay}`,
@@ -273,7 +282,6 @@ export default {
 
             axios.get(`/get-client-bhouses?${params}`).then(res=>{
                 this.bhouses = res.data;
-
             }).catch(err => {
 
             });
@@ -282,6 +290,12 @@ export default {
         loadAmenities: function(){
             axios.get(`/load-open-amenities?`).then(res=>{
                 this.amenities = res.data;
+            });
+        },
+
+        loadRules: function(){
+            axios.get(`/load-open-rules?`).then(res=>{
+                this.rules = res.data;
             });
         },
 
@@ -326,6 +340,7 @@ export default {
 
         this.loadBoardingHouses();
         this.loadAmenities();
+        this.loadRules();
 
     },
     beforeDestroy () {

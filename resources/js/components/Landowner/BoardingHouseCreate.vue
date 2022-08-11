@@ -18,25 +18,24 @@
                                     <b-input type="text" v-model="fields.bhouse_name" placeholder="Bhouse Name" />
                                 </b-field>
 
-
-<!--                                    :type="this.errors.bhouse_rule ? 'is-danger':''"
-                                    :message="this.errors.bhouse_rule ? this.errors.bhouse_rule[0] : ''">
-                                    <b-input type="textarea" v-model="fields.bhouse_rule" placeholder="Bhouse Rule" />-->
-
-
-                                <b-field label="BHOUSE RULE"
-                                         type="this.errors.bhouse_rule ? 'is-danger':''"
-                                         :message="this.errors.bhouse_rule ? this.errors.bhouse_rule[0] : ''">
-                                    <quill-editor
-                                        ref="myQuillEditor"
-                                        v-model="fields.bhouse_rule"
-                                        :options="editorOption"
-                                    />
+                                <b-field label="BHOUSE RULES">
+                                    <b-taginput
+                                        v-model="fields.rules"
+                                        :data="filteredTagRules"
+                                        autocomplete
+                                        field="rule"
+                                        icon="label"
+                                        type="is-info"
+                                        placeholder="Add a rule"
+                                        @typing="getFilteredTagRules">
+                                        <template v-slot="props">
+                                            <strong>{{props.option.rule_id}}</strong>: {{props.option.rule}}
+                                        </template>
+                                        <template #empty>
+                                            There are no items
+                                        </template>
+                                    </b-taginput>
                                 </b-field>
-
-<!--                                    @blur="onEditorBlur($event)"
-                                    @focus="onEditorFocus($event)"
-                                    @ready="onEditorReady($event)"-->
 
 
 
@@ -211,11 +210,13 @@ export default {
         return{
             fields: {
                 bhouse_name: '',
-                bhouse_rule: '',
                 lat: 0,
                 long: 0,
                 province: '', city: '', barangay: '', street: '',
             },
+
+
+
 
 
             errors: {},
@@ -233,7 +234,12 @@ export default {
 
             filterTags: [],
             amenities: [],
-            tags: []
+            tags: [],
+
+            filteredTagRules: [],
+            isSelectOnlyRule: false,
+            rules: [],
+            tagsRule: [],
 
         }
     },
@@ -314,6 +320,11 @@ export default {
                 //console.log(this.fields.amenities[i].amenity_id);
             }
 
+            //for rules
+            for(let i = 0; i < this.fields.rules.length; i++){
+                formData.append('rules[]', this.fields.rules[i].rule_id);
+            }
+
 
             formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
             formData.append('lat', this.fields.lat);
@@ -379,14 +390,14 @@ export default {
 
             if(this.global_bhouse_id > 0){
                 this.fields = JSON.parse(this.propData);
+                console.log(this.fields);
                 this.getData(this.global_bhouse_id);
-                console.log(this.fields)
+                //console.log(this.fields)
             }
         },
 
-
         getData: function(data_id){
-            this.isModalCreate = true;
+            //this.isModalCreate = true;
             //nested axios for getting the address 1 by 1 or request by request
             axios.get('/boarding-house/' + data_id).then(res=>{
                 //this.fields = res.data;
@@ -406,23 +417,6 @@ export default {
 
 
 
-        /* QUILL METHODS*/
-        onEditorBlur(quill) {
-            console.log('editor blur!', quill)
-        },
-        onEditorFocus(quill) {
-            console.log('editor focus!', quill)
-        },
-        onEditorReady(quill) {
-            console.log('editor ready!', quill)
-        },
-        onEditorChange({ quill, html, text }) {
-            console.log('editor change!', quill, html, text)
-            this.content = html
-        },
-        /* QUILL METHODS*/
-
-
         //for amenities
         getFilteredTags(text) {
             this.filterTags = this.amenities.filter((option) => {
@@ -433,9 +427,24 @@ export default {
             })
         },
 
+        getFilteredTagRules(text){
+            this.filteredTagRules = this.rules.filter((option) => {
+                return option.rule
+                    .toString()
+                    .toLowerCase()
+                    .indexOf(text.toLowerCase()) >= 0
+            })
+        },
+
         loadAmenities(){
             axios.get('/load-open-amenities').then(res=>{
                 this.amenities = res.data;
+            })
+        },
+
+        loadRules(){
+            axios.get('/load-open-rules').then(res=>{
+                this.rules = res.data;
             })
         },
 
@@ -452,6 +461,7 @@ export default {
 
     created() {
         this.loadAmenities();
+        this.loadRules();
     },
 
     mounted(){
