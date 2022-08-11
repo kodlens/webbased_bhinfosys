@@ -43,7 +43,16 @@
             <div class="column">
 
                 <div class="bhouse-container">
+                    <div class="left-container">
+                        <div class="bh-info" v-for="(item, index) in bhouses" :key="index">
+                            <div class="image">
+                                <a><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
+                            </div>
+                        </div>
+                    </div><!--left container -->
+                    <div class="right-container">
 
+                    </div>
                 </div>
 
             </div>
@@ -400,6 +409,13 @@ export default {
     .bhouse-container{
         height: 600px;
         border: 1px solid green;
+        display: flex;
         overflow: auto;
+        padding: 10px;
+    }
+
+    .bh-info{
+        border: 1px solid red;
+        display: block;
     }
 </style>

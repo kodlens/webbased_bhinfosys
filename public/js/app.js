@@ -10401,6 +10401,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -35681,7 +35690,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    border: 1px solid green;\n    overflow: auto;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    border: 1px solid green;\n    display: flex;\n    overflow: auto;\n    padding: 10px;\n}\n.bh-info[data-v-26ea6427]{\n    border: 1px solid red;\n    display: block;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55242,7 +55251,33 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column" }, [
+          _c("div", { staticClass: "bhouse-container" }, [
+            _c(
+              "div",
+              { staticClass: "left-container" },
+              _vm._l(_vm.bhouses, function (item, index) {
+                return _c("div", { key: index, staticClass: "bh-info" }, [
+                  _c("div", { staticClass: "image" }, [
+                    _c("a", [
+                      _c("img", {
+                        staticClass: "bh-image",
+                        attrs: {
+                          src: "/storage/bhouses/" + item.bhouse_img_path,
+                        },
+                      }),
+                    ]),
+                  ]),
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "right-container" }),
+          ]),
+        ]),
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -55313,7 +55348,7 @@ var render = function () {
         0
       ),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "b-modal",
@@ -55782,16 +55817,6 @@ var render = function () {
   )
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column" }, [
-        _c("div", { staticClass: "bhouse-container" }),
-      ]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
