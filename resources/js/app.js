@@ -75,6 +75,17 @@ import 'quill/dist/quill.bubble.css' // for bubble theme
 Vue.use(VueQuillEditor, /* { default global options } */)
 
 
+// 
+
+
+Vue.filter('formatDecimalComma', function(value) {
+
+    var num = parseInt(value);
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+});
+
+
+
 const app = new Vue({
     el: '#app',
 });

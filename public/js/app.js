@@ -10410,6 +10410,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10507,7 +10527,24 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/load-barangays?prov=' + this.filter.province + '&city_code=' + this.filter.city).then(function (res) {
         _this6.barangays = res.data;
       });
-    }
+    },
+    loadMap: function loadMap() {
+      //init map
+      var mymap = L.map('mapid').setView([8.062883879533972, 123.74886274337767], 17); //to call data inside nested function
+
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
+      }).addTo(mymap);
+      console.log(this.nlat); //add route in leaflet
+
+      L.marker([8.060483124452544, 123.752703666687]).addTo(mymap);
+    } //load map
+
   },
   mounted: function mounted() {
     this.loadProvince();
@@ -10516,6 +10553,7 @@ __webpack_require__.r(__webpack_exports__);
     this.loadBoardingHouses();
     this.loadAmenities();
     this.loadRules();
+    this.loadMap();
   },
   beforeDestroy: function beforeDestroy() {
     if (typeof window === 'undefined') return;
@@ -10938,8 +10976,7 @@ __webpack_require__.r(__webpack_exports__);
       //     this.data = res.data;
       //     console.log(this.data)
       // });
-      this.data = JSON.parse(this.propData)[0];
-      console.log(this.data);
+      this.data = JSON.parse(this.propData)[0]; //console.log(this.data);
     },
     initData: function initData() {
       //this.data = JSON.parse(this.propData);
@@ -15276,7 +15313,13 @@ Vue.component((_chenfengyuan_vue_qrcode__WEBPACK_IMPORTED_MODULE_1___default().n
 
 Vue.use((vue_quill_editor__WEBPACK_IMPORTED_MODULE_3___default())
 /* { default global options } */
-);
+); // 
+
+Vue.filter('formatDecimalComma', function (value) {
+  var num = parseInt(value);
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  ;
+});
 var app = new Vue({
   el: '#app'
 });
@@ -35690,7 +35733,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    border: 1px solid green;\n    display: flex;\n    overflow: auto;\n    padding: 10px;\n}\n.bh-info[data-v-26ea6427]{\n    border: 1px solid red;\n    display: block;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.left-container[data-v-26ea6427]{\n     overflow: auto;\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    /* border: 1px solid green; */\n    display: flex;\n    padding: 10px;\n    background-color: white;\n    border-radius: 5px;\n}\n.box-shadow[data-v-26ea6427]{\n    box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n}\n.bh-info[data-v-26ea6427]{\n    margin: 10px;\n    width: 350px;\n}\n.bhouse-title[data-v-26ea6427]{\n    font-weight: bold;\n}\n.bhouse-desc[data-v-26ea6427]{\n}\n.bh-info-body[data-v-26ea6427]{\n    padding: 20px;\n}\n#mapid[data-v-26ea6427] { \n    height: 500px; \n    width: 400px;\n    z-index: 0;\n    border: 1px solid blue;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55253,28 +55296,77 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "columns" }, [
         _c("div", { staticClass: "column" }, [
-          _c("div", { staticClass: "bhouse-container" }, [
+          _c("div", { staticClass: "bhouse-container box-shadow" }, [
             _c(
               "div",
-              { staticClass: "left-container" },
+              { staticClass: "left-container debug" },
               _vm._l(_vm.bhouses, function (item, index) {
-                return _c("div", { key: index, staticClass: "bh-info" }, [
-                  _c("div", { staticClass: "image" }, [
-                    _c("a", [
-                      _c("img", {
-                        staticClass: "bh-image",
-                        attrs: {
-                          src: "/storage/bhouses/" + item.bhouse_img_path,
-                        },
-                      }),
+                return _c(
+                  "div",
+                  { key: index, staticClass: "bh-info box-shadow" },
+                  [
+                    _c("div", { staticClass: "image" }, [
+                      _c("a", [
+                        _c("img", {
+                          staticClass: "bh-image",
+                          attrs: {
+                            src: "/storage/bhouses/" + item.bhouse_img_path,
+                          },
+                        }),
+                      ]),
                     ]),
-                  ]),
-                ])
+                    _vm._v(" "),
+                    _c("div", { staticClass: "bh-info-body" }, [
+                      _c("div", { staticClass: "bhouse-title" }, [
+                        _vm._v(_vm._s(item.bhouse_name)),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "bhouse-desc" }, [
+                        _vm._v(_vm._s(item.bhouse_desc)),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "bhouse-location" },
+                        [
+                          _c("b-icon", {
+                            attrs: { icon: "map-marker-radius" },
+                          }),
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(item.barangay.brgyDesc) +
+                              ", " +
+                              _vm._s(item.city.citymunDesc) +
+                              "\n                                "
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        [
+                          _c("b-icon", { attrs: { icon: "currency-php" } }),
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(
+                                _vm._f("formatDecimalComma")(
+                                  item.bedspaces[0].price
+                                )
+                              ) +
+                              "\n                                "
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]
+                )
               }),
               0
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "right-container" }),
+            _vm._m(0),
           ]),
         ]),
       ]),
@@ -55348,7 +55440,7 @@ var render = function () {
         0
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "b-modal",
@@ -55817,6 +55909,14 @@ var render = function () {
   )
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "right-container debug" }, [
+      _c("div", { attrs: { id: "mapid" } }),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

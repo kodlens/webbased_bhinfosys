@@ -42,16 +42,36 @@
         <div class="columns">
             <div class="column">
 
-                <div class="bhouse-container">
-                    <div class="left-container">
-                        <div class="bh-info" v-for="(item, index) in bhouses" :key="index">
+                <div class="bhouse-container box-shadow">
+
+                    <div class="left-container debug">
+
+                        <div class="bh-info box-shadow" v-for="(item, index) in bhouses" :key="index">
                             <div class="image">
                                 <a><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
                             </div>
-                        </div>
-                    </div><!--left container -->
-                    <div class="right-container">
 
+                            <div class="bh-info-body">
+                                <div class="bhouse-title">{{ item.bhouse_name }}</div>
+                                <div class="bhouse-desc">{{ item.bhouse_desc }}</div>
+
+                                <div class="bhouse-location">
+                                    <b-icon icon="map-marker-radius"></b-icon>
+                                    {{ item.barangay.brgyDesc}}, {{ item.city.citymunDesc }}
+                                </div>
+
+                                <div>
+                                    <b-icon icon="currency-php"></b-icon>
+                                    {{ item.bedspaces[0].price | formatDecimalComma }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!--left container -->
+
+                    <div class="right-container debug">
+                        <div id="mapid"></div>
                     </div>
                 </div>
 
@@ -351,6 +371,34 @@ export default {
                 this.barangays = res.data;
             })
         },
+
+
+
+
+
+
+       
+        
+        loadMap(){
+            //init map
+            var mymap = L.map('mapid').setView([8.062883879533972, 123.74886274337767], 17);
+            //to call data inside nested function
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
+            }).addTo(mymap);
+            console.log(this.nlat)
+            //add route in leaflet
+            L.marker([8.060483124452544, 123.752703666687]).addTo(mymap);
+
+        }, //load map
+
+     
     },
 
     mounted(){
@@ -361,6 +409,7 @@ export default {
         this.loadBoardingHouses();
         this.loadAmenities();
         this.loadRules();
+        this.loadMap();
 
     },
     beforeDestroy () {
@@ -406,16 +455,50 @@ export default {
     }
 
 
+
+
+
+
+
+    .left-container{
+         overflow: auto;
+    }
     .bhouse-container{
         height: 600px;
-        border: 1px solid green;
+        /* border: 1px solid green; */
         display: flex;
-        overflow: auto;
         padding: 10px;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    .box-shadow{
+        box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);
+        -webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);
+        -moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);
     }
 
     .bh-info{
-        border: 1px solid red;
-        display: block;
+        margin: 10px;
+        width: 350px;
     }
+    .bhouse-title{
+        font-weight: bold;
+        
+    }
+    .bhouse-desc{
+       
+    }
+
+    .bh-info-body{
+        padding: 20px;
+    }
+
+    #mapid { 
+        height: 500px; 
+        width: 400px;
+        z-index: 0;
+        border: 1px solid blue;
+    }
+
 </style>

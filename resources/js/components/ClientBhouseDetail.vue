@@ -172,7 +172,7 @@ export default {
             // });
             this.data = JSON.parse(this.propData)[0];
 
-            console.log(this.data);
+            //console.log(this.data);
         },
 
 

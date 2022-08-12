@@ -1,6 +1,19 @@
 
 
 
+<?php $__env->startSection('extracss'); ?>
+    <link rel="stylesheet" href="<?php echo e(asset('/css/leaflet.css ')); ?>">
+
+    <link rel="stylesheet" href="<?php echo e(asset('/css/leaflet-routing-machine.css ')); ?>">
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('extrajs'); ?>
+    <script src="<?php echo e(asset('/js/leaflet.js')); ?>"></script>
+
+    <script src="<?php echo e(asset('/js/leaflet-routing-machine.js')); ?>"></script>
+<?php $__env->stopSection(); ?>
+
+
 <?php $__env->startSection('content'); ?>
 
     <home-page></home-page>
