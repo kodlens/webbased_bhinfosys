@@ -10430,6 +10430,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10478,6 +10489,8 @@ __webpack_require__.r(__webpack_exports__);
       var params = ["rules=".concat(encodeURIComponent(JSON.stringify(this.filter.rules))), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join('&');
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.bhouses = res.data;
+
+        _this.loadMap(res.data);
       })["catch"](function (err) {});
     },
     loadAmenities: function loadAmenities() {
@@ -10528,7 +10541,7 @@ __webpack_require__.r(__webpack_exports__);
         _this6.barangays = res.data;
       });
     },
-    loadMap: function loadMap() {
+    loadMap: function loadMap(boardingHouses) {
       //init map
       var mymap = L.map('mapid').setView([8.062883879533972, 123.74886274337767], 17); //to call data inside nested function
 
@@ -10542,7 +10555,10 @@ __webpack_require__.r(__webpack_exports__);
       }).addTo(mymap);
       console.log(this.nlat); //add route in leaflet
 
-      L.marker([8.060483124452544, 123.752703666687]).addTo(mymap);
+      boardingHouses.forEach(function (el) {
+        console.log(el.lat);
+        L.marker([el.lat, el["long"]]).addTo(mymap);
+      });
     } //load map
 
   },
@@ -10553,7 +10569,6 @@ __webpack_require__.r(__webpack_exports__);
     this.loadBoardingHouses();
     this.loadAmenities();
     this.loadRules();
-    this.loadMap();
   },
   beforeDestroy: function beforeDestroy() {
     if (typeof window === 'undefined') return;
@@ -35733,7 +35748,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.left-container[data-v-26ea6427]{\n     overflow: auto;\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    /* border: 1px solid green; */\n    display: flex;\n    padding: 10px;\n    background-color: white;\n    border-radius: 5px;\n}\n.box-shadow[data-v-26ea6427]{\n    box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n}\n.bh-info[data-v-26ea6427]{\n    margin: 10px;\n    width: 350px;\n}\n.bhouse-title[data-v-26ea6427]{\n    font-weight: bold;\n}\n.bhouse-desc[data-v-26ea6427]{\n}\n.bh-info-body[data-v-26ea6427]{\n    padding: 20px;\n}\n#mapid[data-v-26ea6427] { \n    height: 500px; \n    width: 400px;\n    z-index: 0;\n    border: 1px solid blue;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.btn-container[data-v-26ea6427]{\n    border-bottom: 2px solid rgb(170, 170, 170);\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    /* border: 1px solid green; */\n    width: 1200px;\n    padding: 10px;\n    background-color: white;\n    border-radius: 5px;\n    margin: auto;\n}\n.bhouse-container-body[data-v-26ea6427]{\n    display: flex;\n}\n.left-container[data-v-26ea6427]{\n    overflow: auto;\n    height: 500px;\n}\n.box-shadow[data-v-26ea6427]{\n    box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n}\n.bh-info[data-v-26ea6427]{\n    margin: 10px 10px 20px 10px;\n    width: 350px;\n}\n.bhouse-title[data-v-26ea6427]{\n    font-weight: bold;\n}\n.bhouse-desc[data-v-26ea6427]{\n}\n.bh-info-body[data-v-26ea6427]{\n    padding: 20px;\n}\n#mapid[data-v-26ea6427] { \n    height: 500px; \n    width: 780px;\n    z-index: 0;\n    /* border: 1px solid blue; */\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55268,26 +55283,7 @@ var render = function () {
           { staticClass: "column is-8" },
           [
             _c("b-field", { attrs: { expanded: "" } }, [
-              _c(
-                "p",
-                { staticClass: "control" },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      staticClass: "button is-link",
-                      attrs: { "icon-left": "filter" },
-                      on: { click: _vm.openModalFilter },
-                    },
-                    [
-                      _vm._v(
-                        "\n                            FILTERS\n                        "
-                      ),
-                    ]
-                  ),
-                ],
-                1
-              ),
+              _c("p", { staticClass: "control" }),
             ]),
           ],
           1
@@ -55299,148 +55295,120 @@ var render = function () {
           _c("div", { staticClass: "bhouse-container box-shadow" }, [
             _c(
               "div",
-              { staticClass: "left-container debug" },
-              _vm._l(_vm.bhouses, function (item, index) {
-                return _c(
-                  "div",
-                  { key: index, staticClass: "bh-info box-shadow" },
+              { staticClass: "buttons is-centered btn-container" },
+              [
+                _c(
+                  "b-button",
+                  {
+                    staticClass: "button is-link",
+                    attrs: { "icon-left": "filter" },
+                    on: { click: _vm.openModalFilter },
+                  },
                   [
-                    _c("div", { staticClass: "image" }, [
-                      _c("a", [
-                        _c("img", {
-                          staticClass: "bh-image",
-                          attrs: {
-                            src: "/storage/bhouses/" + item.bhouse_img_path,
-                          },
-                        }),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "bh-info-body" }, [
-                      _c("div", { staticClass: "bhouse-title" }, [
-                        _vm._v(_vm._s(item.bhouse_name)),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "bhouse-desc" }, [
-                        _vm._v(_vm._s(item.bhouse_desc)),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "bhouse-location" },
-                        [
-                          _c("b-icon", {
-                            attrs: { icon: "map-marker-radius" },
-                          }),
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(item.barangay.brgyDesc) +
-                              ", " +
-                              _vm._s(item.city.citymunDesc) +
-                              "\n                                "
-                          ),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        [
-                          _c("b-icon", { attrs: { icon: "currency-php" } }),
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(
-                                _vm._f("formatDecimalComma")(
-                                  item.bedspaces[0].price
-                                )
-                              ) +
-                              "\n                                "
-                          ),
-                        ],
-                        1
-                      ),
-                    ]),
+                    _vm._v(
+                      "\n                            FILTERS\n                        "
+                    ),
                   ]
-                )
-              }),
-              0
+                ),
+              ],
+              1
             ),
             _vm._v(" "),
-            _vm._m(0),
+            _c("div", { staticClass: "bhouse-container-body" }, [
+              _c(
+                "div",
+                { staticClass: "left-container" },
+                _vm._l(_vm.bhouses, function (item, index) {
+                  return _c(
+                    "div",
+                    { key: index, staticClass: "bh-info box-shadow" },
+                    [
+                      _c("div", { staticClass: "image" }, [
+                        _c("a", [
+                          _c("img", {
+                            staticClass: "bh-image",
+                            attrs: {
+                              src: "/storage/bhouses/" + item.bhouse_img_path,
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "bh-info-body" }, [
+                        _c("div", { staticClass: "bhouse-title" }, [
+                          _vm._v(_vm._s(item.bhouse_name)),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "bhouse-desc" }, [
+                          _vm._v(_vm._s(item.bhouse_desc)),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "bhouse-location" },
+                          [
+                            _c("b-icon", {
+                              attrs: { icon: "map-marker-radius" },
+                            }),
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(item.barangay.brgyDesc) +
+                                ", " +
+                                _vm._s(item.city.citymunDesc) +
+                                "\n                                    "
+                            ),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("b-icon", { attrs: { icon: "currency-php" } }),
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(
+                                  _vm._f("formatDecimalComma")(
+                                    item.bedspaces[0].price
+                                  )
+                                ) +
+                                "\n                                    "
+                            ),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "buttons p-4" },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              attrs: {
+                                type: "is-link",
+                                "icon-right": "chevron-right",
+                                tag: "a",
+                                href: "/client-bhouse-detail/" + item.bhouse_id,
+                              },
+                            },
+                            [_vm._v("SEE MORE...")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm._m(0),
+            ]),
           ]),
         ]),
       ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "result-container" },
-        _vm._l(_vm.bhouses, function (item, index) {
-          return _c("div", { key: index, staticClass: "card" }, [
-            _c("div", { staticClass: "card-image" }, [
-              _c("figure", { staticClass: "image 5" }, [
-                _c("a", [
-                  _c("img", {
-                    staticClass: "bh-image",
-                    attrs: { src: "/storage/bhouses/" + item.bhouse_img_path },
-                  }),
-                ]),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-content" }, [
-              _c("div", { staticClass: "content" }, [
-                _c("p", { staticClass: "title is-6" }, [
-                  _vm._v(_vm._s(item.bhouse_name)),
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(item.bhouse_desc) +
-                      "\n                        "
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "subtitle is-7 mt-4" }, [
-                  _vm._v(
-                    "\n                            Located at: " +
-                      _vm._s(item.street) +
-                      ",  " +
-                      _vm._s(item.barangay.brgyDesc) +
-                      "\n                        "
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "buttons",
-                  staticStyle: { position: "absolute", bottom: "0" },
-                },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: {
-                        type: "is-link",
-                        "icon-right": "chevron-right",
-                        tag: "a",
-                        href: "/client-bhouse-detail/" + item.bhouse_id,
-                      },
-                    },
-                    [_vm._v("SEE MORE...")]
-                  ),
-                ],
-                1
-              ),
-            ]),
-          ])
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _vm._m(1),
       _vm._v(" "),
       _c(
         "b-modal",
@@ -55913,16 +55881,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "right-container debug" }, [
+    return _c("div", { staticClass: "right-container" }, [
       _c("div", { attrs: { id: "mapid" } }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column" }),
     ])
   },
 ]

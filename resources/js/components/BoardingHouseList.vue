@@ -28,11 +28,8 @@
         <div class="columns is-centered">
             <div class="column is-8">
                 <b-field expanded>
-<!--                    <b-input type="text" v-model="filter.bhouse_name" placeholder="Use filter to search boarding houses" expanded></b-input>-->
                     <p class="control">
-                        <b-button class="button is-link" @click="openModalFilter" icon-left="filter">
-                            FILTERS
-                        </b-button>
+                        
                     </p>
                 </b-field>
             </div>
@@ -44,39 +41,53 @@
 
                 <div class="bhouse-container box-shadow">
 
-                    <div class="left-container debug">
-
-                        <div class="bh-info box-shadow" v-for="(item, index) in bhouses" :key="index">
-                            <div class="image">
-                                <a><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
-                            </div>
-
-                            <div class="bh-info-body">
-                                <div class="bhouse-title">{{ item.bhouse_name }}</div>
-                                <div class="bhouse-desc">{{ item.bhouse_desc }}</div>
-
-                                <div class="bhouse-location">
-                                    <b-icon icon="map-marker-radius"></b-icon>
-                                    {{ item.barangay.brgyDesc}}, {{ item.city.citymunDesc }}
-                                </div>
-
-                                <div>
-                                    <b-icon icon="currency-php"></b-icon>
-                                    {{ item.bedspaces[0].price | formatDecimalComma }}
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div><!--left container -->
-
-                    <div class="right-container debug">
-                        <div id="mapid"></div>
+                    <div class="buttons is-centered btn-container">
+                        <b-button class="button is-link" @click="openModalFilter" icon-left="filter">
+                            FILTERS
+                        </b-button>
                     </div>
+
+                    <div class="bhouse-container-body">
+
+                        <div class="left-container">
+                            <div class="bh-info box-shadow" v-for="(item, index) in bhouses" :key="index">
+                                <div class="image">
+                                    <a><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
+                                </div>
+
+                                <div class="bh-info-body">
+                                    <div class="bhouse-title">{{ item.bhouse_name }}</div>
+                                    <div class="bhouse-desc">{{ item.bhouse_desc }}</div>
+
+                                    <div class="bhouse-location">
+                                        <b-icon icon="map-marker-radius"></b-icon>
+                                        {{ item.barangay.brgyDesc}}, {{ item.city.citymunDesc }}
+                                    </div>
+
+                                    <div>
+                                        <b-icon icon="currency-php"></b-icon>
+                                        {{ item.bedspaces[0].price | formatDecimalComma }}
+                                    </div>
+                                </div>
+
+                                <div class="buttons p-4">
+                                    <b-button type="is-link" icon-right="chevron-right" tag="a" :href="`/client-bhouse-detail/${item.bhouse_id}`">SEE MORE...</b-button>
+                                </div>
+
+                            </div>
+
+                        </div><!--left container -->
+
+                        <div class="right-container">
+                            <div id="mapid"></div>
+                        </div><!--right container-->
+                    </div><!--container body-->
+
+                    
                 </div>
 
-            </div>
-        </div>
+            </div><!-- col-->
+        </div><!--cols-->
 
         <!-- <b-carousel-list v-model="test" :data="items" :items-to-show="itemShow">
             <template #item="list">
@@ -84,14 +95,14 @@
             </template>
         </b-carousel-list> -->
 
-        <div class="result-container">
+        <!-- <div class="result-container">
 
             <div class="card" v-for="(item, index) in bhouses" :key="index">
                 <div class="card-image">
                     <figure class="image 5">
                         <a><img class="bh-image" :src="`/storage/bhouses/${item.bhouse_img_path}`"></a>
                     </figure>
-                    <!--                        <b-tag type="is-danger" rounded style="position: absolute; top: 0;"><b>50%</b></b-tag>-->
+                   
                 </div>
                 <div class="card-content">
                     <div class="content">
@@ -116,7 +127,7 @@
             <div class="column">
 
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -322,6 +333,9 @@ export default {
 
             axios.get(`/get-client-bhouses?${params}`).then(res=>{
                 this.bhouses = res.data;
+
+                this.loadMap(res.data);
+
             }).catch(err => {
 
             });
@@ -379,7 +393,7 @@ export default {
 
        
         
-        loadMap(){
+        loadMap(boardingHouses){
             //init map
             var mymap = L.map('mapid').setView([8.062883879533972, 123.74886274337767], 17);
             //to call data inside nested function
@@ -394,7 +408,13 @@ export default {
             }).addTo(mymap);
             console.log(this.nlat)
             //add route in leaflet
-            L.marker([8.060483124452544, 123.752703666687]).addTo(mymap);
+
+            boardingHouses.forEach(el => {
+                console.log(el.lat);
+
+                L.marker([el.lat, el.long]).addTo(mymap);
+            });
+            
 
         }, //load map
 
@@ -409,8 +429,6 @@ export default {
         this.loadBoardingHouses();
         this.loadAmenities();
         this.loadRules();
-        this.loadMap();
-
     },
     beforeDestroy () {
         if (typeof window === 'undefined') return
@@ -460,17 +478,33 @@ export default {
 
 
 
-    .left-container{
-         overflow: auto;
+
+
+    .btn-container{
+        border-bottom: 2px solid rgb(170, 170, 170);
     }
+
     .bhouse-container{
         height: 600px;
         /* border: 1px solid green; */
-        display: flex;
+        width: 1200px;
         padding: 10px;
         background-color: white;
         border-radius: 5px;
+        margin: auto;
     }
+
+    .bhouse-container-body{
+        display: flex;
+    }
+
+    
+    .left-container{
+        overflow: auto;
+        height: 500px;
+    }
+
+
 
     .box-shadow{
         box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);
@@ -479,7 +513,7 @@ export default {
     }
 
     .bh-info{
-        margin: 10px;
+        margin: 10px 10px 20px 10px;
         width: 350px;
     }
     .bhouse-title{
@@ -496,9 +530,9 @@ export default {
 
     #mapid { 
         height: 500px; 
-        width: 400px;
+        width: 780px;
         z-index: 0;
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
     }
 
 </style>
