@@ -56419,7 +56419,7 @@ var staticRenderFns = [
                 },
                 [
                   _vm._v(
-                    "\n                        BOARDING HOUSE INFORMATION SYSTEM\n                    "
+                    "\n                        WEB-BASED BOARDING HOUSE LOCATOR\n                    "
                   ),
                 ]
               ),
@@ -56432,7 +56432,7 @@ var staticRenderFns = [
                 },
                 [
                   _vm._v(
-                    "\n                        A web base boarding house finder.\n                    "
+                    "\n                        A web base boarding house locator.\n                    "
                   ),
                 ]
               ),
@@ -61669,9 +61669,7 @@ var render = function () {
             fn: function () {
               return [
                 _c("b-navbar-item", [
-                  _c("h1", { staticClass: "logo" }, [
-                    _vm._v("BH INFORMATION SYSTEM"),
-                  ]),
+                  _c("h1", { staticClass: "logo" }, [_vm._v("BH LOCATOR")]),
                 ]),
               ]
             },

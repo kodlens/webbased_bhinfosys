@@ -5,10 +5,10 @@
             <div class="hero-body">
                 <div class="banner-wrapper animate__animated animate__backInLeft">
                     <p class="title banner-text animate__animated animate__backInLeft">
-                        BOARDING HOUSE INFORMATION SYSTEM
+                        WEB-BASED BOARDING HOUSE LOCATOR
                     </p>
                     <p class="subtitle banner-sub-text animate__animated animate__backInRight">
-                        A web base boarding house finder.
+                        A web base boarding house locator.
                     </p>
                     <blockquote>
                         Choose the boarding house that appeals to you the most.

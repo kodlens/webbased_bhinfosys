@@ -4,7 +4,7 @@
     <b-navbar :fixed-top="true" class="animate__animated animate__fadeIn is-primary">
         <template #brand>
             <b-navbar-item>
-                <h1 class="logo">BH INFORMATION SYSTEM</h1>
+                <h1 class="logo">BH LOCATOR</h1>
                 <!-- <img class ="logo"
                      src="/img/logo.png"> -->
             </b-navbar-item>
