@@ -41,7 +41,11 @@
                                                 {{ data.street }}, {{ data.barangay.brgyDesc }}, {{ data.city.citymunDesc}}, {{ data.province.provDesc }}
                                             </div>
                                             <div class="loc"> Rules and Regulations in the Boarding House: </div>
-                                            <div class="rules-content locs" v-html="data.bhouse_rule"></div>
+                                            <div class="rules-content locs">
+                                                <div v-for="(i, ix) in data.rules" :key="ix">
+                                                    {{ i.rule }}
+                                                </div>
+                                            </div>
     
                                             <div class="buttons mt-5 is-centered">
                                                 <b-button type="is-link" tag="a" :href="`/client-bh-rooms/${bhouse_id}`">VIEW ROOMS</b-button>
@@ -172,7 +176,7 @@ export default {
             // });
             this.data = JSON.parse(this.propData)[0];
 
-            //console.log(this.data);
+            console.log(this.data);
         },
 
 

@@ -10912,6 +10912,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propData: {
@@ -10991,7 +10995,8 @@ __webpack_require__.r(__webpack_exports__);
       //     this.data = res.data;
       //     console.log(this.data)
       // });
-      this.data = JSON.parse(this.propData)[0]; //console.log(this.data);
+      this.data = JSON.parse(this.propData)[0];
+      console.log(this.data);
     },
     initData: function initData() {
       //this.data = JSON.parse(this.propData);
@@ -56271,10 +56276,20 @@ var render = function () {
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("div", {
-                        staticClass: "rules-content locs",
-                        domProps: { innerHTML: _vm._s(_vm.data.bhouse_rule) },
-                      }),
+                      _c(
+                        "div",
+                        { staticClass: "rules-content locs" },
+                        _vm._l(_vm.data.rules, function (i, ix) {
+                          return _c("div", { key: ix }, [
+                            _vm._v(
+                              "\n                                                " +
+                                _vm._s(i.rule) +
+                                "\n                                            "
+                            ),
+                          ])
+                        }),
+                        0
+                      ),
                       _vm._v(" "),
                       _c(
                         "div",

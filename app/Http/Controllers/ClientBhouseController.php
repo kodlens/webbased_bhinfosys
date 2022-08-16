@@ -150,7 +150,7 @@ class ClientBhouseController extends Controller
 //            ->get();
 
 
-        $data = BoardingHouse::with(['province', 'city', 'barangay', 'amenities', 'owner'])
+        $data = BoardingHouse::with(['province', 'city', 'barangay', 'amenities', 'owner', 'rules'])
             ->where('bhouse_id', $id)
             ->get();
 

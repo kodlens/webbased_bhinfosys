@@ -29,6 +29,7 @@ class BoardingHouse extends Model
     public function rules(){
         return $this->hasMany(BoardingHouseRule::class, 'bhouse_id', 'bhouse_id')
             ->leftJoin('rules', 'boarding_house_rules.rule_id', 'rules.rule_id');
+            
     }
 
     public function province(){
