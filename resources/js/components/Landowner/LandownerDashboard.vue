@@ -37,8 +37,12 @@
                             </div>
                             <div class="media-content">
                                 <p class="title is-4">{{ item.bhouse_name }}</p>
-                                <p class="subtitle is-6">{{ item.lname }}, {{ item.fname }} {{ item.mname }}</p>
+                                <p class="subtitle is-6">{{ item.contact_person }}</p>
                             </div>
+                        </div>
+
+                        <div class="my-2">
+                            <b>Contact NO.: </b> <span>{{ item.contact_no }}</span>
                         </div>
 
                         <div class="buttons">
@@ -54,7 +58,7 @@
                             </div>
                             <div class="card-w-content">
                                 <span class="card-content-title">Amenitites: </span>
-                                <span v-for="(a, ix) in item.amenities">
+                                <span v-for="(a, ix) in item.amenities" :key="`am${ix}`">
                                     {{ a.amenity.amenity }},
                                 </span>
                             </div>

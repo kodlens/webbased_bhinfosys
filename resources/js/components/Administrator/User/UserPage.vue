@@ -115,7 +115,6 @@
         <!--modal create-->
         <b-modal v-model="isModalCreate" has-modal-card
                  trap-focus
-                 :width="640"
                  aria-role="dialog"
                  aria-label="Modal"
                  aria-modal>
@@ -173,7 +172,6 @@
                                     </b-field>
                                 </div>
                             </div>
-
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Last Name"
@@ -294,7 +292,9 @@
                                     </b-field>
                                 </div>
                                 <div class="column">
-                                    <b-field label="Street">
+                                    <b-field label="Street"
+                                            :type="this.errors.street ? 'is-danger':''"
+                                            :message="this.errors.street ? this.errors.street[0] : ''">
                                         <b-input v-model="fields.street"
                                                  placeholder="Street">
                                         </b-input>

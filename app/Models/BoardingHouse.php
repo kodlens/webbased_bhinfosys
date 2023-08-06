@@ -13,9 +13,24 @@ class BoardingHouse extends Model
     protected $primaryKey = 'bhouse_id';
 
 
-    protected $fillable = ['bhouse_name', 'bhouse_desc',
-    'user_id', 'owner', 'business_permit_imgpath',
-    'bhouse_img_path', 'amenities', 'bhouse_rule', 'long', 'lat', 'is_approve', 'province', 'city', 'barangay', 'street'];
+    protected $fillable = [
+        'bhouse_name', 
+        'bhouse_desc',
+        'user_id', 
+        'contact_person',
+        'contact_no',
+        'business_permit_imgpath',
+        'bhouse_img_path', 
+        'amenities', 
+        'bhouse_rule', 
+        'long', 'lat', 
+        'is_approve', 
+        'province', 
+        'city', 
+        'barangay', 
+        'street'
+    ];
+
 
     public function amenities(){
         return $this->hasMany(BhouseAmenity::class, 'bhouse_id', 'bhouse_id')
@@ -28,8 +43,7 @@ class BoardingHouse extends Model
 
     public function rules(){
         return $this->hasMany(BoardingHouseRule::class, 'bhouse_id', 'bhouse_id')
-            ->leftJoin('rules', 'boarding_house_rules.rule_id', 'rules.rule_id');
-            
+            ->leftJoin('rules', 'boarding_house_rules.rule_id', 'rules.rule_id');  
     }
 
     public function province(){
@@ -43,7 +57,6 @@ class BoardingHouse extends Model
     public function barangay(){
         return $this->hasOne(Barangay::class, 'brgyCode', 'barangay');
     }
-
 
     public function rooms(){
         return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id');

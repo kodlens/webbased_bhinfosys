@@ -70,7 +70,6 @@ class ClientBhouseController extends Controller
 
 
         if(!empty($amenities)){
-            return 'true';
             $data->whereHas('amenities', function ($q) use ($amenities){
                 $q->whereIn('amenity_id', $amenities);
             });

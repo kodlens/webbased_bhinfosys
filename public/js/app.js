@@ -10437,10 +10437,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -11025,19 +11021,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -13416,6 +13399,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -13510,10 +13505,9 @@ __webpack_require__.r(__webpack_exports__);
       //console.log(this.global_bhouse_id);
       var formData = new FormData();
       formData.append('bhouse_name', this.fields.bhouse_name);
-      formData.append('bhouse_rule', this.fields.bhouse_rule);
-      formData.append('bhouse_desc', this.fields.bhouse_desc); // this.fields.amenities.forEach(element => {
-      //     formData.append('amenities[]', element);
-      // });
+      formData.append('bhouse_desc', this.fields.bhouse_desc);
+      formData.append('contact_person', this.fields.contact_person);
+      formData.append('contact_no', this.fields.contact_no); //amenities
 
       for (var i = 0; i < this.fields.amenities.length; i++) {
         formData.append('amenities[]', this.fields.amenities[i].amenity_id); //console.log(this.fields.amenities[i].amenity_id);
@@ -13536,8 +13530,14 @@ __webpack_require__.r(__webpack_exports__);
         //udpate
         axios.post('/boarding-house-update/' + this.global_bhouse_id, formData).then(function (res) {
           if (res.data.status === 'updated') {
-            alert('Boarding house successfully updated.');
-            window.location = '/boarding-house';
+            _this.$buefy.dialog.alert({
+              title: 'Updated.',
+              message: 'Boarding house successfully updated.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                window.location = '/boarding-house';
+              }
+            });
           }
         })["catch"](function (err) {
           if (err.response.status === 422) {
@@ -13548,8 +13548,14 @@ __webpack_require__.r(__webpack_exports__);
         //insert
         axios.post('/boarding-house', formData).then(function (res) {
           if (res.data.status === 'saved') {
-            alert('Boarding house successfully saved.');
-            window.location = '/boarding-house';
+            _this.$buefy.dialog.alert({
+              title: 'Saved.',
+              message: 'Boarding house successfully saved.',
+              type: 'is-success',
+              onConfirm: function onConfirm() {
+                window.location = '/boarding-house';
+              }
+            });
           }
         })["catch"](function (err) {
           if (err.response.status === 422) {
@@ -13667,6 +13673,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -14139,9 +14149,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propDataId: {
@@ -14344,6 +14351,9 @@ __webpack_require__.r(__webpack_exports__);
       this.modalShowRoom = true;
       this.room = row;
       console.log(this.room);
+    },
+    goBack: function goBack() {
+      history.back();
     }
   },
   mounted: function mounted() {
@@ -54282,7 +54292,6 @@ var render = function () {
           attrs: {
             "has-modal-card": "",
             "trap-focus": "",
-            width: 640,
             "aria-role": "dialog",
             "aria-label": "Modal",
             "aria-modal": "",
@@ -55045,7 +55054,15 @@ var render = function () {
                         [
                           _c(
                             "b-field",
-                            { attrs: { label: "Street" } },
+                            {
+                              attrs: {
+                                label: "Street",
+                                type: this.errors.street ? "is-danger" : "",
+                                message: this.errors.street
+                                  ? this.errors.street[0]
+                                  : "",
+                              },
+                            },
                             [
                               _c("b-input", {
                                 attrs: { placeholder: "Street" },
@@ -55458,6 +55475,15 @@ var render = function () {
                     { staticClass: "column" },
                     [
                       _c(
+                        "div",
+                        {
+                          staticClass: "subtitle",
+                          staticStyle: { "font-weight": "bold" },
+                        },
+                        [_vm._v("Address")]
+                      ),
+                      _vm._v(" "),
+                      _c(
                         "b-field",
                         { attrs: { grouped: "" } },
                         [
@@ -55694,9 +55720,14 @@ var render = function () {
                       _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
-                      _c("div", { staticClass: "subtitle" }, [
-                        _vm._v("Type of place"),
-                      ]),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "subtitle",
+                          staticStyle: { "font-weight": "bold" },
+                        },
+                        [_vm._v("Room Type")]
+                      ),
                       _vm._v(" "),
                       _c(
                         "b-field",
@@ -59865,7 +59896,15 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "b-field",
-                      { attrs: { label: "BHOUSE RULES" } },
+                      {
+                        attrs: {
+                          label: "BHOUSE RULES",
+                          type: this.errors.rules ? "is-danger" : "",
+                          message: this.errors.rules
+                            ? this.errors.rules[0]
+                            : "",
+                        },
+                      },
                       [
                         _c("b-taginput", {
                           attrs: {
@@ -59940,6 +59979,61 @@ var render = function () {
                               _vm.$set(_vm.fields, "bhouse_desc", $$v)
                             },
                             expression: "fields.bhouse_desc",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "Contact Person",
+                          type: this.errors.contact_person ? "is-danger" : "",
+                          message: this.errors.contact_person
+                            ? this.errors.contact_person[0]
+                            : "",
+                        },
+                      },
+                      [
+                        _c("b-input", {
+                          attrs: {
+                            type: "text",
+                            placeholder: "Contact Person",
+                          },
+                          model: {
+                            value: _vm.fields.contact_person,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.fields, "contact_person", $$v)
+                            },
+                            expression: "fields.contact_person",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-field",
+                      {
+                        attrs: {
+                          label: "Contact No.",
+                          type: this.errors.contact_no ? "is-danger" : "",
+                          message: this.errors.contact_no
+                            ? this.errors.contact_no[0]
+                            : "",
+                        },
+                      },
+                      [
+                        _c("b-input", {
+                          attrs: { type: "text", placeholder: "Contact No." },
+                          model: {
+                            value: _vm.fields.contact_no,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.fields, "contact_no", $$v)
+                            },
+                            expression: "fields.contact_no",
                           },
                         }),
                       ],
@@ -60452,15 +60546,15 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c("p", { staticClass: "subtitle is-6" }, [
-                        _vm._v(
-                          _vm._s(item.lname) +
-                            ", " +
-                            _vm._s(item.fname) +
-                            " " +
-                            _vm._s(item.mname)
-                        ),
+                        _vm._v(_vm._s(item.contact_person)),
                       ]),
                     ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "my-2" }, [
+                    _c("b", [_vm._v("Contact NO.: ")]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(item.contact_no))]),
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "buttons" }, [
@@ -60509,7 +60603,7 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _vm._l(item.amenities, function (a, ix) {
-                          return _c("span", [
+                          return _c("span", { key: "am" + ix }, [
                             _vm._v(
                               "\n                                " +
                                 _vm._s(a.amenity.amenity) +
@@ -60749,11 +60843,8 @@ var render = function () {
                       _c(
                         "b-button",
                         {
-                          attrs: {
-                            "icon-left": "chevron-left",
-                            tag: "a",
-                            href: "/boarding-house",
-                          },
+                          attrs: { "icon-left": "chevron-left", tag: "a" },
+                          on: { click: _vm.goBack },
                         },
                         [
                           _vm._v(

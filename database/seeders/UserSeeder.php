@@ -88,26 +88,6 @@ class UserSeeder extends Seeder
                 'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
-         
-            // [
-            //     'username' => 'jerecho',
-            //     'lname' => 'MELLEJOR',
-            //     'fname' => 'JERECHO',
-            //     'mname' => '',
-            //     'sex' => 'MALE',
-            //     'suffix' => '',
-            //     'province' => 'MISMAIS OCCIDENTAL',
-            //     'city' => 'OZAMIS CITY',
-            //     'barangay' => 'SINUSZA',
-            //     'street' => 'P-SAMPLE',
-            //     'email' => 'jerecho@dev.com',
-            //     'contact_no' => '09167789583',
-            //     'business_permit_img' => '',
-            //     'active' => 1,
-            //     'role' => 'BOARDER',
-            //     'password' => Hash::make('a')
-            // ],
-
             [
                 'username' => 'admin',
                 'lname' => 'CABARDO',
@@ -124,6 +104,45 @@ class UserSeeder extends Seeder
                 'business_permit_img' => '',
                 'active' => 1,
                 'role' => 'ADMINISTRATOR',
+                'password' => Hash::make('a')
+            ],
+
+
+            [
+                'username' => 'carlos',
+                'lname' => 'POYOT',
+                'fname' => 'CARLOS',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'MALE',
+                'province' => '1042',
+                'city' => '104215',
+                'barangay' => '104215025',
+                'street' => 'JUAN LUNA ST.',
+                'email' => 'carlos@sample.com',
+                'contact_no' => '09167789584',
+                'business_permit_img' => '',
+                'active' => 1,
+                'role' => 'LANDOWNER',
+                'password' => Hash::make('a')
+            ],
+
+            [
+                'username' => 'cenas',
+                'lname' => 'CENAS',
+                'fname' => 'VIVIAN',
+                'mname' => '',
+                'suffix' => '',
+                'sex' => 'FEMALE',
+                'province' => '1042',
+                'city' => '104215',
+                'barangay' => '104215025',
+                'street' => 'JUAN LUNA ST.',
+                'email' => 'vivian@sample.com',
+                'contact_no' => '09167789584',
+                'business_permit_img' => '',
+                'active' => 1,
+                'role' => 'LANDOWNER',
                 'password' => Hash::make('a')
             ],
             

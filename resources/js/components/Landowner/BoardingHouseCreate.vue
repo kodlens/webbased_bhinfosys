@@ -18,7 +18,9 @@
                                     <b-input type="text" v-model="fields.bhouse_name" placeholder="Bhouse Name" />
                                 </b-field>
 
-                                <b-field label="BHOUSE RULES">
+                                <b-field label="BHOUSE RULES"
+                                    :type="this.errors.rules ? 'is-danger':''"
+                                    :message="this.errors.rules ? this.errors.rules[0] : ''">
                                     <b-taginput
                                         v-model="fields.rules"
                                         :data="filteredTagRules"
@@ -43,6 +45,18 @@
                                     :type="this.errors.bhouse_desc ? 'is-danger':''"
                                     :message="this.errors.bhouse_desc ? this.errors.bhouse_desc[0] : ''">
                                     <b-input type="textarea" v-model="fields.bhouse_desc" placeholder="Bhouse Description" />
+                                </b-field>
+
+                                <b-field label="Contact Person"
+                                    :type="this.errors.contact_person ? 'is-danger':''"
+                                    :message="this.errors.contact_person ? this.errors.contact_person[0] : ''">
+                                    <b-input type="text" v-model="fields.contact_person" placeholder="Contact Person" />
+                                </b-field>
+
+                                <b-field label="Contact No."
+                                    :type="this.errors.contact_no ? 'is-danger':''"
+                                    :message="this.errors.contact_no ? this.errors.contact_no[0] : ''">
+                                    <b-input type="text" v-model="fields.contact_no" placeholder="Contact No." />
                                 </b-field>
 
                                 <b-field label="AMENITIES" class="mb-4">
@@ -172,8 +186,6 @@
                                     </div>
                                 </div>
 
-
-
                             </div><!--panelbody-->
 
                             <div class="panel-footer">
@@ -256,7 +268,7 @@ export default {
             if(this.global_bhouse_id > 0){
                 //edit mode
                 init_lat = this.fields.lat;
-                init_long = this.fields.long;
+                init_long = this.fields.long; 
             }else{
                 init_lat = 8.062958238977133;
                 init_long = 123.75316500663757;
@@ -308,13 +320,11 @@ export default {
             //console.log(this.global_bhouse_id);
             var formData = new FormData();
             formData.append('bhouse_name', this.fields.bhouse_name);
-            formData.append('bhouse_rule', this.fields.bhouse_rule);
             formData.append('bhouse_desc', this.fields.bhouse_desc);
+            formData.append('contact_person', this.fields.contact_person);
+            formData.append('contact_no', this.fields.contact_no);
 
-            // this.fields.amenities.forEach(element => {
-            //     formData.append('amenities[]', element);
-            // });
-
+            //amenities
             for(let i = 0; i < this.fields.amenities.length; i++){
                 formData.append('amenities[]', this.fields.amenities[i].amenity_id);
                 //console.log(this.fields.amenities[i].amenity_id);
@@ -324,7 +334,6 @@ export default {
             for(let i = 0; i < this.fields.rules.length; i++){
                 formData.append('rules[]', this.fields.rules[i].rule_id);
             }
-
 
             formData.append('bhouse_img_path', this.fields.bhouse_img ? this.fields.bhouse_img : '');
             formData.append('lat', this.fields.lat);
@@ -339,8 +348,14 @@ export default {
                 //udpate
                 axios.post('/boarding-house-update/' + this.global_bhouse_id, formData).then(res=>{
                      if(res.data.status === 'updated'){
-                        alert('Boarding house successfully updated.');
-                        window.location = '/boarding-house';
+                        this.$buefy.dialog.alert({
+                            title: 'Updated.',
+                            message: 'Boarding house successfully updated.',
+                            type: 'is-success',
+                            onConfirm: ()=>{
+                                window.location = '/boarding-house';
+                            }
+                        });
                     }
                 }).catch(err=>{
                     if(err.response.status === 422){
@@ -351,8 +366,14 @@ export default {
                 //insert
                 axios.post('/boarding-house', formData).then(res=>{
                     if(res.data.status === 'saved'){
-                        alert('Boarding house successfully saved.');
-                        window.location = '/boarding-house';
+                        this.$buefy.dialog.alert({
+                            title: 'Saved.',
+                            message: 'Boarding house successfully saved.',
+                            type: 'is-success',
+                            onConfirm: ()=>{
+                                window.location = '/boarding-house';
+                            }
+                        });
                     }
                 }).catch(err=>{
                     if(err.response.status === 422){

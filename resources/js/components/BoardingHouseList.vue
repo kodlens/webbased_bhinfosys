@@ -155,12 +155,7 @@
                         <div class="columns">
                             <div class="column">
 
-<!--                                <b-field label="Bhouse Name">-->
-<!--                                    <b-input type="text" controls-position="compact" v-model="filter.bhousename"></b-input>-->
-<!--                                </b-field>-->
-<!--                                <b-field label="Rules">-->
-<!--                                    <b-input type="text" controls-position="compact" v-model="filter.bhouserule"></b-input>-->
-<!--                                </b-field>-->
+                                <div class="subtitle" style="font-weight: bold;">Address</div>
 
                                 <b-field grouped>
                                     <b-field label="Province" expanded
@@ -207,7 +202,8 @@
                                 </b-field>
 
                                 <hr>
-                                <div class="subtitle">Type of place</div>
+
+                                <div class="subtitle" style="font-weight: bold;">Room Type</div>
 
                                 <b-field label="Private Room">
                                     <b-radio type="checkbox" v-model="filter.room_type" native-value="PRIVATE">

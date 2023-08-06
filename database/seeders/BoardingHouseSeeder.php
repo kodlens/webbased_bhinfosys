@@ -18,24 +18,28 @@ class BoardingHouseSeeder extends Seeder
         //
         $data = [
             [
-                'bhouse_name' => 'BOARDING1 HOUSE',
-                'bhouse_desc' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',
-                'user_id' => 1,
-                'bhouse_rule' => 'SAMPLE BHOUSE RULE',
-                'amenities' => 'SWIMMING POOL',
+                'bhouse_name' => 'CENAS BOARDING HOUSE',
+                'bhouse_desc' => 'Bedspace located at corner Juan luna St, side at Gov. Alfonso D. Tan College',
+                'user_id' => 6,
+                'contact_person' => '',
+                'contact_no' => '',
+                'bhouse_rule' => '',
+                'amenities' => '',
                 'bhouse_img_path' => 'bhouse01.jpg',
                 'province' => '1042',
                 'city' => '104215',
                 'barangay' => '104215025',
                 'street' => 'JUAN LUNA ST p-BOUGAINVILLA',
-                'lat' => '8.061954385341004',
-                'long' => '123.75697910785675',
+                'lat' => '8.064388825691795',
+                'long' => '123.75495928210073',
                 'is_approve' => 0
             ],
             [
                 'bhouse_name' => 'BOARDING2 HOUSE',
                 'bhouse_desc' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',
                 'user_id' => 1,
+                'contact_person' => '',
+                'contact_no' => '',
                 'bhouse_rule' => 'SAMPLE BHOUSE RULE',
                 'amenities' => 'SWIMMING POOL',
                 'bhouse_img_path' => 'bhouse02.jpg',
@@ -51,6 +55,8 @@ class BoardingHouseSeeder extends Seeder
                 'bhouse_name' => 'BOARDING3 HOUSE',
                 'bhouse_desc' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',
                 'user_id' => 4,
+                'contact_person' => '',
+                'contact_no' => '',
                 'bhouse_rule' => 'SAMPLE BHOUSE RULE',
                 'amenities' => 'SWIMMING POOL',
                 'bhouse_img_path' => 'bhouse03.jpg',
@@ -66,6 +72,8 @@ class BoardingHouseSeeder extends Seeder
                 'bhouse_name' => 'BOARDING4 HOUSE',
                 'bhouse_desc' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae quasi eligendi deserunt, magni sequi asperiores.',
                 'user_id' => 5,
+                'contact_person' => '',
+                'contact_no' => '',
                 'bhouse_rule' => 'SAMPLE BHOUSE RULE',
                 'amenities' => 'SWIMMING POOL',
                 'bhouse_img_path' => 'bhouse04.jpg',
@@ -77,6 +85,24 @@ class BoardingHouseSeeder extends Seeder
                 'long' => '123.75342249870299',
                 'is_approve' => 0
             ],
+            [
+                'bhouse_name' => 'POYOT BOARDING HOUSE',
+                'bhouse_desc' => 'Boarding with 24/7 CCTV. Located near the gate 2 of the school.',
+                'user_id' => 5,
+                'contact_person' => '',
+                'contact_no' => '',
+                'bhouse_rule' => '',
+                'amenities' => '',
+                'bhouse_img_path' => 'bh04.jpg',
+                'province' => '1042',
+                'city' => '104215',
+                'barangay' => '104215025',
+                'street' => 'JUAN LUNA ST p-BOUGAINVILLA',
+                'lat' => '8.06631693122091',
+                'long' => '123.75695796599443',
+                'is_approve' => 0
+            ],
+
         ];
 
         BoardingHouse::insertOrIgnore($data);

@@ -54,10 +54,12 @@ class LandownerBoardingHouseController extends Controller
 
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
-            'bhouse_rule' => ['required'],
+            'contact_person' => ['required'],
+            'contact_no' => ['required'],
+            'rules' => ['required'],
             'bhouse_img_path' => ['required', 'mimes:jpg,png,bmp'],
             'long' => ['required'],
-            'amenities.*' => ['required', 'min:1'],
+            'amenities' => ['required'],
             'lat' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
@@ -65,7 +67,8 @@ class LandownerBoardingHouseController extends Controller
             'street' => ['required'],
         ], $message = [
             'bhouse_img_path.mimes' => 'Type of the file must be jpg, png or bmp.',
-            'bhouse_img_path.required' => 'Image is required.'
+            'bhouse_img_path.required' => 'Image is required.',
+            'rules.required' => 'Please select atleast one boarding house rules.'
         ]);
 
 
@@ -82,6 +85,8 @@ class LandownerBoardingHouseController extends Controller
         $data = BoardingHouse::create([
             'bhouse_name' => strtoupper($req->bhouse_name),
             'user_id' => $userid,
+            'contact_person' => strtoupper($req->contact_person),
+            'contact_no' => $req->contact_no,
             'bhouse_rule' => $req->bhouse_rule,
             'bhouse_desc' => $req->bhouse_desc,
             'bhouse_img_path' => $bhousePath[2] != null ? $bhousePath[2]: '',
@@ -126,17 +131,27 @@ class LandownerBoardingHouseController extends Controller
 
         $validate = $req->validate([
             'bhouse_name' => ['required', 'string', 'max: 100'],
-            'bhouse_rule' => ['required', 'string'],
+            'contact_person' => ['required'],
+            'contact_no' => ['required'],
+            'rules' => ['required'],
+            'amenities' => ['required'],
             'long' => ['required'],
             'lat' => ['required'],
+            'province' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
+            'street' => ['required'],
+        ],[
+            'rules.required' => 'Please select atleast one boarding house rules.'
         ]);
+
+        //return $req;
 
         $data = BoardingHouse::find($id);
         $bhouseImg = null;
         //upload image b house
 
         $bhouseImg = $req->file('bhouse_img_path');
-
         if($bhouseImg){
             //check the file and delete to update
             if(Storage::exists('public/bhouses/' .$data->bhouse_img_path)) {
@@ -147,6 +162,8 @@ class LandownerBoardingHouseController extends Controller
         }
 
         $data->bhouse_name = strtoupper($req->bhouse_name);
+        $data->contact_person = strtoupper($req->contact_person);
+        $data->contact_no = $req->contact_no;
         $data->bhouse_rule = $req->bhouse_rule;
         $data->bhouse_desc = $req->bhouse_desc;
 
@@ -168,9 +185,11 @@ class LandownerBoardingHouseController extends Controller
         if($req->amenities){
             foreach($req->amenities as $item){
                 BhouseAmenity::updateOrCreate(
-                    [ 'bhouse_id' => $id, 'amenity_id' => $item ],
+                    [ 'bhouse_id' => $id, 
+                        'amenity_id' => $item ],
                     [
-                        'bhouse_id' => $id, 'amenity_id' => $item
+                        'bhouse_id' => $id, 
+                        'amenity_id' => $item
                     ]
                 );
             }
@@ -183,7 +202,6 @@ class LandownerBoardingHouseController extends Controller
                         ->delete();
                 }
             }
-
         }else{
             //if wala amenities, delete all amenities
             BhouseAmenity::where('bhouse_id', $id)

@@ -78,7 +78,9 @@ class AminitySeeder extends Seeder
             [
                 'amenity' => 'CRIB',
             ],
-
+            [
+                'amenity' => 'PARKING AREA',
+            ],
 
         ];
 

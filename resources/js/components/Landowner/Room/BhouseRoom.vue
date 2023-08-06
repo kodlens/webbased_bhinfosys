@@ -11,7 +11,7 @@
 
                         <div class="panel-body">
                             <div class="buttons">
-                                <b-button icon-left="chevron-left" tag="a" href="/boarding-house">
+                                <b-button icon-left="chevron-left" tag="a" @click="goBack">
                                     BACK
                                 </b-button>
                             </div>
@@ -252,9 +252,6 @@
         </b-modal>
         <!--close modal-->
 
-
-
-
     </div><!--root-->
 </template>
 
@@ -472,6 +469,10 @@ export default {
             this.room = row;
             console.log(this.room)
         },
+
+        goBack(){
+            history.back();
+        }
 
 
     },

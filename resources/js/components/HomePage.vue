@@ -50,19 +50,6 @@
 
                         </div>
                     </div>
-<!--                     <div class="column">-->
-<!--                        <div class="p-5">-->
-<!--                            <div class="footer-component-title">-->
-<!--                                 Address-->
-<!--                            </div>-->
-<!--                             <div>-->
-<!--                                Juan Luna St.-->
-<!--                                Maloro, Tangub City-->
-<!--                                Misamis Occidental-->
-<!--                                Philippines-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </section>

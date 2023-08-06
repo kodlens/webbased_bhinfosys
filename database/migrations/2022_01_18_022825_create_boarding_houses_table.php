@@ -22,6 +22,10 @@ class CreateBoardingHousesTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+            $table->string('contact_person')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('gcash_no')->nullable();
+
             $table->string('province')->nullable();
             $table->string('city')->nullable();
             $table->string('barangay')->nullable();

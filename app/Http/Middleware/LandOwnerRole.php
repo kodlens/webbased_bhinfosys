@@ -20,8 +20,14 @@ class LandOwnerRole
         $user = Auth::user();
 
         if(in_array($user->role, ['LANDOWNER']) && $user->is_approve === 1){
-            return $next($request);
+            $response = $next($request);
+            $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+
+            return $response;
         }
+        
         return abort(403);
     }
 }
