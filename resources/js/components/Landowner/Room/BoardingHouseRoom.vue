@@ -6,7 +6,7 @@
 
                     <div class="panel">
                         <div class="panel-heading">
-                            LIST OF ROOMS
+                            {{ propBoardingHouse.bhouse_name }} ROOMS
                         </div>
 
                         <div class="panel-body">
@@ -46,19 +46,9 @@
                                 </div>
                             </div>
 
-                            <div class="columns">
-                                <div class="column">
-                                    <div>
-                                        <b>BOARDING HOUSE/APARMENT: </b>{{ propBoardingHouse.bhouse_name }}
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="buttons mt-3 is-right">
-                                        <b-button @click="openModal(0)" icon-right="room-service-outline" class="is-success">NEW ROOM</b-button>
-                                    </div>
-                                </div>
+                            <div class="buttons mt-3 is-right">
+                                <b-button @click="openModal(0)" icon-right="room-service-outline" class="is-success">NEW ROOM</b-button>
                             </div>
-                            
 
                             <b-table
                                 :data="data"
@@ -86,6 +76,10 @@
 
                                 <b-table-column field="room_desc" label="Description" v-slot="props">
                                     {{ props.row.room_desc }}
+                                </b-table-column>
+
+                                <b-table-column field="room_type" label="Type" v-slot="props">
+                                    {{ props.row.room_type }}
                                 </b-table-column>
 
 

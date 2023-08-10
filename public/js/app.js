@@ -14185,12 +14185,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     propBoardingHouse: {
@@ -60979,7 +60973,9 @@ var render = function () {
             _c("div", { staticClass: "panel" }, [
               _c("div", { staticClass: "panel-heading" }, [
                 _vm._v(
-                  "\n                        LIST OF ROOMS\n                    "
+                  "\n                        " +
+                    _vm._s(_vm.propBoardingHouse.bhouse_name) +
+                    " ROOMS\n                    "
                 ),
               ]),
               _vm._v(" "),
@@ -61152,40 +61148,26 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "columns" }, [
-                    _c("div", { staticClass: "column" }, [
-                      _c("div", [
-                        _c("b", [_vm._v("BOARDING HOUSE/APARMENT: ")]),
-                        _vm._v(
-                          _vm._s(_vm.propBoardingHouse.bhouse_name) +
-                            "\n                                "
-                        ),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "column" }, [
+                  _c(
+                    "div",
+                    { staticClass: "buttons mt-3 is-right" },
+                    [
                       _c(
-                        "div",
-                        { staticClass: "buttons mt-3 is-right" },
-                        [
-                          _c(
-                            "b-button",
-                            {
-                              staticClass: "is-success",
-                              attrs: { "icon-right": "room-service-outline" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.openModal(0)
-                                },
-                              },
+                        "b-button",
+                        {
+                          staticClass: "is-success",
+                          attrs: { "icon-right": "room-service-outline" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.openModal(0)
                             },
-                            [_vm._v("NEW ROOM")]
-                          ),
-                        ],
-                        1
+                          },
+                        },
+                        [_vm._v("NEW ROOM")]
                       ),
-                    ]),
-                  ]),
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "b-table",
@@ -61253,6 +61235,24 @@ var render = function () {
                                 _vm._v(
                                   "\n                                " +
                                     _vm._s(props.row.room_desc) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "room_type", label: "Type" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.room_type) +
                                     "\n                            "
                                 ),
                               ]
