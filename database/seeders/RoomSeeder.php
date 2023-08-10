@@ -33,6 +33,15 @@ class RoomSeeder extends Seeder
                 'room_type' => 'SHARED ROOM',
             ],
 
+            [
+                'bhouse_id' => 3,
+                'room_no' => 'ROOM 01',
+                'room_desc' => 'SMALL AND SHARE ROOM BEDSPACE.',
+                'room_img_path' => 'tlX0liWQ7mXnxIaMRBfypHde7HQwBZYEDmZi6MUF.jpg',
+                'room_type' => 'SHARED ROOM',
+            ],
+
+
 
         ];
 

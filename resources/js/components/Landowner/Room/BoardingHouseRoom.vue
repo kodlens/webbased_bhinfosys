@@ -17,7 +17,7 @@
                             </div>
                             <div class="level">
                                 <div class="level-left">
-                                    <b-field label="Page">
+                                    <b-field label="Page" label-position="on-border">
                                         <b-select v-model="perPage" @input="setPerPage">
                                             <option value="5">5 per page</option>
                                             <option value="10">10 per page</option>
@@ -34,7 +34,7 @@
 
                                 <div class="level-right">
                                     <div class="level-item">
-                                        <b-field label="Search">
+                                        <b-field label="Search" label-position="on-border">
                                             <b-input type="text"
                                                      v-model="search.room_no" placeholder="Search Room No"
                                                      @keyup.native.enter="loadAsyncData"/>
@@ -46,9 +46,19 @@
                                 </div>
                             </div>
 
-                            <div class="buttons mt-3 is-right">
-                                <b-button @click="openModal(0)" icon-right="room-service-outline" class="is-success">NEW ROOM</b-button>
+                            <div class="columns">
+                                <div class="column">
+                                    <div>
+                                        <b>BOARDING HOUSE/APARMENT: </b>{{ propBoardingHouse.bhouse_name }}
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="buttons mt-3 is-right">
+                                        <b-button @click="openModal(0)" icon-right="room-service-outline" class="is-success">NEW ROOM</b-button>
+                                    </div>
+                                </div>
                             </div>
+                            
 
                             <b-table
                                 :data="data"
@@ -90,7 +100,7 @@
                                         </template>
 
                                         <b-dropdown-item aria-role="listitem" @click="openModal(props.row.room_id)">Modify</b-dropdown-item>
-                                        <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + global_bhouse_id + `/` + props.row.room_id">Bed Space</b-dropdown-item>
+                                        <b-dropdown-item aria-role="listitem" tag="a" :href="`/boarding-house-bedspace/` + global_bhouse_id + `/` + props.row.room_id">Bed</b-dropdown-item>
                                         <b-dropdown-item aria-role="listitem" @click="confirmDelete(props.row.room_id)">Delete</b-dropdown-item>
 
 
@@ -259,9 +269,9 @@
 
 export default {
     props: {
-        propDataId: {
-            type: String,
-            default: '',
+        propBoardingHouse: {
+            type: Object,
+            default: {},
         },
         propRouteback: {
             type: String,
@@ -317,7 +327,7 @@ export default {
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-boarding-house-rooms/${this.global_bhouse_id}?${params}`)
+            axios.get(`/get-boarding-house-rooms/${this.propBoardingHouse.bhouse_id}?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total

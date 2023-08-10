@@ -4,7 +4,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-    <bhouse-room prop-data-id='<?php echo e($id); ?>' prop-route-back="<?php echo e(url()->previous()); ?>"></bhouse-room>
+    <boarding-house-room :prop-boarding-house='<?php echo json_encode($bhouse, 15, 512) ?>' prop-route-back="<?php echo e(url()->previous()); ?>"></boarding-house-room>
 
 
 <?php $__env->stopSection(); ?>

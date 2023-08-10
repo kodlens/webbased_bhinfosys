@@ -34,6 +34,7 @@ class BedspaceImgSeeder extends Seeder
                 'bedspace_id' => 1,
                 'bedspace_img_path' => 'bedspace04.jpg',
             ],
+            
         ];
 
         BedspaceImg::insertOrIgnore($data);

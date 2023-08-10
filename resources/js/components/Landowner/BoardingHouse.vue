@@ -43,6 +43,7 @@
                             :data="data"
                             :loading="loading"
                             paginated
+                            detailed
                             backend-pagination
                             :total="total"
                             :per-page="perPage"
@@ -87,6 +88,34 @@
                                     <b-button class="button is-small is-danger mr-1" icon-right="delete" @click="confirmDelete(props.row.bhouse_id)"></b-button>
                                 </div> -->
                             </b-table-column>
+
+                            <template #detail="props">
+                                <div v-if="props.row.rooms">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Room</th>
+                                        <th>Description</th>
+                                        <th>Type</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tr v-for="(item, ix) in props.row.rooms" :key="ix">
+                                        <td>{{ item.room_id }}</td>
+                                        <td>{{ item.room_no }}</td>
+                                        <td>{{ item.room_desc }}</td>
+                                        <td>{{ item.room_type }}</td>
+                                        <td>{{ item.price }}</td>
+                                        <td>
+                                            <div class="buttons">
+                                                <b-button tag="a"
+                                                    :href="`/boarding-house-bedspace/${item.room_id}`"
+                                                    class="is-small is-info" label="Bed"></b-button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </template>
+                            
                         </b-table>
                     </div><!--close column-->
                 </div>
@@ -154,7 +183,7 @@ export default{
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-bhouses?${params}`)
+            axios.get(`/get-boarding-houses?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total

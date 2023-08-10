@@ -114,10 +114,6 @@
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                        <b-button
-                            icon-left="close-box-outline"
-                            label="Close"
-                            @click="modalRule=false"/>
                         <button
                             :class="btnClass"
                             icon-left="thumb-up-outline">

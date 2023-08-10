@@ -17,13 +17,6 @@ use Auth;
 class LandownerBoardingHouseController extends Controller
 {
     //
-    public function __construct()
-    {
-        $this->middleware('auth');
-        //$this->middleware('landowner');
-
-    }
-
     public function index(){
         $user = Auth::user();
 
@@ -37,10 +30,12 @@ class LandownerBoardingHouseController extends Controller
     }
 
 
-    public function getBhouses(Request $req){
+    public function getBoardingHouses(Request $req){
+
         $id = Auth::user()->user_id;
 
-        return BoardingHouse::where('user_id', $id)
+        return BoardingHouse::with(['rooms', 'rooms.bedspaces'])
+            ->where('user_id', $id)
             ->where('bhouse_name', 'like', $req->bhousename . '%')
             ->orderBy('bhouse_id', 'desc')
             ->get();

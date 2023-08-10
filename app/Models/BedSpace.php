@@ -26,4 +26,10 @@ class BedSpace extends Model
         return $this->belongsTo(Room::class, 'room_id', 'room_id');
     }
 
+    
+    public function bedspaceImages(){
+        return $this->belongsTo(BedspaceImg::class, 'bedspace_id', 'bedspace_id');
+    }
+
+
 }

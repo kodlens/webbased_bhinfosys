@@ -8942,10 +8942,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10437,6 +10433,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10444,8 +10458,8 @@ __webpack_require__.r(__webpack_exports__);
       bhouses: [],
       itemShow: 3,
       search: {
-        category: '',
-        key: ''
+        category: "",
+        key: ""
       },
       modalFilter: false,
       errors: {},
@@ -10453,24 +10467,24 @@ __webpack_require__.r(__webpack_exports__);
       amenities: [],
       rules: [],
       filter: {
-        bhousename: '',
+        bhousename: "",
         rules: [],
-        room_type: '',
+        room_type: "",
         min_price: 700,
         max_price: 1500,
         amenities: [],
-        province: '',
-        city: '',
-        barangay: '',
-        street: ''
+        province: "",
+        city: "",
+        barangay: "",
+        street: ""
       },
       provinces: [],
       cities: [],
       barangays: [],
       btnClass: {
-        'is-loading': false,
-        'button': true,
-        'is-primary': true
+        "is-loading": false,
+        button: true,
+        "is-primary": true
       }
     };
   },
@@ -10482,7 +10496,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.modalFilter = false;
-      var params = ["rules=".concat(encodeURIComponent(JSON.stringify(this.filter.rules))), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join('&');
+      var params = ["rules=".concat(encodeURIComponent(JSON.stringify(this.filter.rules))), "min_price=".concat(this.filter.min_price), "max_price=".concat(this.filter.max_price), "room_type=".concat(this.filter.room_type), "amenities=".concat(encodeURIComponent(JSON.stringify(this.filter.amenities))), "province=".concat(this.filter.province), "city=".concat(this.filter.city), "barangay=".concat(this.filter.barangay), "street=".concat(this.filter.street)].join("&");
       axios.get("/get-client-bhouses?".concat(params)).then(function (res) {
         _this.bhouses = res.data;
 
@@ -10519,35 +10533,35 @@ __webpack_require__.r(__webpack_exports__);
     loadProvince: function loadProvince() {
       var _this4 = this;
 
-      axios.get('/load-provinces').then(function (res) {
+      axios.get("/load-provinces").then(function (res) {
         _this4.provinces = res.data;
       });
     },
     loadCity: function loadCity() {
       var _this5 = this;
 
-      axios.get('/load-cities?prov=' + this.filter.province).then(function (res) {
+      axios.get("/load-cities?prov=" + this.filter.province).then(function (res) {
         _this5.cities = res.data;
       });
     },
     loadBarangay: function loadBarangay() {
       var _this6 = this;
 
-      axios.get('/load-barangays?prov=' + this.filter.province + '&city_code=' + this.filter.city).then(function (res) {
+      axios.get("/load-barangays?prov=" + this.filter.province + "&city_code=" + this.filter.city).then(function (res) {
         _this6.barangays = res.data;
       });
     },
     loadMap: function loadMap(boardingHouses) {
       //init map
-      var mymap = L.map('mapid').setView([8.062883879533972, 123.74886274337767], 17); //to call data inside nested function
+      var mymap = L.map("mapid").setView([8.062883879533972, 123.74886274337767], 17); //to call data inside nested function
 
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw', {
+      L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw", {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: 'mapbox/streets-v11',
+        id: "mapbox/streets-v11",
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw'
+        accessToken: "pk.eyJ1IjoiZXRpZW5uZXdheW5lIiwiYSI6ImNrcno0N29seTE2bG0yd2szOXl5OXZ0ZWsifQ.xlNi77GcJmddd9UZTz1Hpw"
       }).addTo(mymap);
       console.log(this.nlat); //add route in leaflet
 
@@ -10561,14 +10575,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.loadProvince();
     this.onResize();
-    window.addEventListener('resize', this.onResize);
+    window.addEventListener("resize", this.onResize);
     this.loadBoardingHouses();
     this.loadAmenities();
     this.loadRules();
   },
   beforeDestroy: function beforeDestroy() {
-    if (typeof window === 'undefined') return;
-    window.removeEventListener('resize', this.onResize);
+    if (typeof window === "undefined") return;
+    window.removeEventListener("resize", this.onResize);
   }
 });
 
@@ -11563,10 +11577,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    propBhId: {
-      type: String,
-      "default": ''
-    },
     propBhRoomId: {
       type: String,
       "default": ''
@@ -11577,7 +11587,7 @@ __webpack_require__.r(__webpack_exports__);
       data: [],
       total: 0,
       loading: false,
-      sortField: 'bedspace_id',
+      sortField: 'room_id',
       sortOrder: 'desc',
       page: 1,
       perPage: 5,
@@ -11604,20 +11614,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    initData: function initData() {
-      this.global_room_id = parseInt(this.propBhRoomId);
-      this.global_bh_id = parseInt(this.propBhId);
-    },
-
     /*
     * Load async data
     */
     loadAsyncData: function loadAsyncData() {
       var _this = this;
 
-      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "bhousename=".concat(this.search.bhousename), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "bhousename=".concat(this.search.bhousename), "roomid=".concat(this.propBhRoomId), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
-      axios.get("/get-bhouse-bedspaces/".concat(this.global_room_id, "?").concat(params)).then(function (_ref) {
+      axios.get("/get-boarding-house-bedspaces/".concat(this.propBhRoomId, "?").concat(params)).then(function (_ref) {
         var data = _ref.data;
         _this.data = [];
         var currentTotal = data.total;
@@ -11771,8 +11776,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.initData(); //this.loadBedspaceImgs();
-
     this.loadAsyncData();
   }
 });
@@ -13083,6 +13086,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -13115,7 +13147,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "bhousename=".concat(this.search.bhousename), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
-      axios.get("/get-bhouses?".concat(params)).then(function (_ref) {
+      axios.get("/get-boarding-houses?".concat(params)).then(function (_ref) {
         var data = _ref.data;
         _this.data = [];
         var currentTotal = data.total;
@@ -13881,10 +13913,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14149,11 +14181,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    propDataId: {
-      type: String,
-      "default": ''
+    propBoardingHouse: {
+      type: Object,
+      "default": {}
     },
     propRouteback: {
       type: String,
@@ -14197,7 +14239,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "roomno=".concat(this.search.room_no), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
       this.loading = true;
-      axios.get("/get-boarding-house-rooms/".concat(this.global_bhouse_id, "?").concat(params)).then(function (_ref) {
+      axios.get("/get-boarding-house-rooms/".concat(this.propBoardingHouse.bhouse_id, "?").concat(params)).then(function (_ref) {
         var data = _ref.data;
         _this.data = [];
         var currentTotal = data.total;
@@ -35763,7 +35805,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427]{\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427]{\n    box-shadow: none;\n}\n.card[data-v-26ea6427]{\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427]{\n    height: 200px;\n}\n.card-content[data-v-26ea6427]{\n    position: relative;\n}\n.content[data-v-26ea6427]{\n    height: 100%;\n}\n.bh-image[data-v-26ea6427]{\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427]{\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.btn-container[data-v-26ea6427]{\n    border-bottom: 2px solid rgb(170, 170, 170);\n}\n.bhouse-container[data-v-26ea6427]{\n    height: 600px;\n    /* border: 1px solid green; */\n    width: 1200px;\n    padding: 10px;\n    background-color: white;\n    border-radius: 5px;\n    margin: auto;\n}\n.bhouse-container-body[data-v-26ea6427]{\n    display: flex;\n}\n.left-container[data-v-26ea6427]{\n    overflow: auto;\n    height: 500px;\n}\n.box-shadow[data-v-26ea6427]{\n    box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n    -moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.2);\n}\n.bh-info[data-v-26ea6427]{\n    margin: 10px 10px 20px 10px;\n    width: 350px;\n}\n.bhouse-title[data-v-26ea6427]{\n    font-weight: bold;\n}\n.bhouse-desc[data-v-26ea6427]{\n}\n.bh-info-body[data-v-26ea6427]{\n    padding: 20px;\n}\n#mapid[data-v-26ea6427] { \n    height: 500px; \n    width: 780px;\n    z-index: 0;\n    /* border: 1px solid blue; */\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-26ea6427] {\n    margin: 15px;\n    width: 350px;\n}\n.carousel-list[data-v-26ea6427] {\n    box-shadow: none;\n}\n.card[data-v-26ea6427] {\n    height: 500px;\n}\n.card .card-image[data-v-26ea6427] {\n    height: 200px;\n}\n.card-content[data-v-26ea6427] {\n    position: relative;\n}\n.content[data-v-26ea6427] {\n    height: 100%;\n}\n.bh-image[data-v-26ea6427] {\n    height: 200px;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.result-container[data-v-26ea6427] {\n    display: flex;\n    flex-wrap: wrap;\n    justify-content: center;\n}\n.btn-container[data-v-26ea6427] {\n    border-bottom: 2px solid rgb(170, 170, 170);\n}\n.bhouse-container[data-v-26ea6427] {\n    height: 600px;\n    /* border: 1px solid green; */\n    width: 1200px;\n    padding: 10px;\n    background-color: white;\n    border-radius: 5px;\n    margin: auto;\n}\n.bhouse-container-body[data-v-26ea6427] {\n    display: flex;\n}\n.left-container[data-v-26ea6427] {\n    overflow: auto;\n    height: 500px;\n}\n.box-shadow[data-v-26ea6427] {\n    box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.2);\n    -webkit-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.2);\n    -moz-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.2);\n}\n.bh-info[data-v-26ea6427] {\n    margin: 10px 10px 20px 10px;\n    width: 350px;\n}\n.bhouse-title[data-v-26ea6427] {\n    font-weight: bold;\n}\n.bhouse-desc[data-v-26ea6427] {}\n.bh-info-body[data-v-26ea6427] {\n    padding: 20px;\n}\n#mapid[data-v-26ea6427] {\n    height: 500px;\n    width: 780px;\n    z-index: 0;\n    /* border: 1px solid blue; */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -50002,10 +50044,10 @@ component.options.__file = "resources/js/components/Landowner/NavbarLandOwner.vu
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Room/BhouseRoom.vue":
-/*!***************************************************************!*\
-  !*** ./resources/js/components/Landowner/Room/BhouseRoom.vue ***!
-  \***************************************************************/
+/***/ "./resources/js/components/Landowner/Room/BoardingHouseRoom.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/Landowner/Room/BoardingHouseRoom.vue ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50013,8 +50055,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BhouseRoom.vue?vue&type=template&id=7606fc6b& */ "./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&");
-/* harmony import */ var _BhouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BhouseRoom.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=script&lang=js&");
+/* harmony import */ var _BoardingHouseRoom_vue_vue_type_template_id_25a385bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BoardingHouseRoom.vue?vue&type=template&id=25a385bd& */ "./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=template&id=25a385bd&");
+/* harmony import */ var _BoardingHouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BoardingHouseRoom.vue?vue&type=script&lang=js& */ "./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -50024,9 +50066,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _BhouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.render,
-  _BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _BoardingHouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BoardingHouseRoom_vue_vue_type_template_id_25a385bd___WEBPACK_IMPORTED_MODULE_0__.render,
+  _BoardingHouseRoom_vue_vue_type_template_id_25a385bd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -50036,7 +50078,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Landowner/Room/BhouseRoom.vue"
+component.options.__file = "resources/js/components/Landowner/Room/BoardingHouseRoom.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -50617,10 +50659,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************/
+/***/ "./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50628,8 +50670,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BhouseRoom.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoardingHouseRoom.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseRoom_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -51363,19 +51405,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b& ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=template&id=25a385bd&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=template&id=25a385bd& ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseRoom_vue_vue_type_template_id_25a385bd___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseRoom_vue_vue_type_template_id_25a385bd___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BhouseRoom_vue_vue_type_template_id_7606fc6b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BhouseRoom.vue?vue&type=template&id=7606fc6b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BoardingHouseRoom_vue_vue_type_template_id_25a385bd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./BoardingHouseRoom.vue?vue&type=template&id=25a385bd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=template&id=25a385bd&");
 
 
 /***/ }),
@@ -53334,37 +53376,20 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
-                _c(
-                  "footer",
-                  { staticClass: "modal-card-foot" },
-                  [
-                    _c("b-button", {
-                      attrs: {
-                        "icon-left": "close-box-outline",
-                        label: "Close",
-                      },
-                      on: {
-                        click: function ($event) {
-                          _vm.modalRule = false
-                        },
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        class: _vm.btnClass,
-                        attrs: { "icon-left": "thumb-up-outline" },
-                      },
-                      [
-                        _vm._v(
-                          "\n                        SAVE\n                    "
-                        ),
-                      ]
-                    ),
-                  ],
-                  1
-                ),
+                _c("footer", { staticClass: "modal-card-foot" }, [
+                  _c(
+                    "button",
+                    {
+                      class: _vm.btnClass,
+                      attrs: { "icon-left": "thumb-up-outline" },
+                    },
+                    [
+                      _vm._v(
+                        "\n                        SAVE\n                    "
+                      ),
+                    ]
+                  ),
+                ]),
               ]),
             ]
           ),
@@ -55328,7 +55353,7 @@ var render = function () {
                   },
                   [
                     _vm._v(
-                      "\n                            FILTERS\n                        "
+                      "\n                        FILTERS\n                    "
                     ),
                   ]
                 ),
@@ -55358,11 +55383,19 @@ var render = function () {
                       _vm._v(" "),
                       _c("div", { staticClass: "bh-info-body" }, [
                         _c("div", { staticClass: "bhouse-title" }, [
-                          _vm._v(_vm._s(item.bhouse_name)),
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(item.bhouse_name) +
+                              "\n                                "
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "bhouse-desc" }, [
-                          _vm._v(_vm._s(item.bhouse_desc)),
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(item.bhouse_desc) +
+                              "\n                                "
+                          ),
                         ]),
                         _vm._v(" "),
                         _c(
@@ -55373,11 +55406,11 @@ var render = function () {
                               attrs: { icon: "map-marker-radius" },
                             }),
                             _vm._v(
-                              "\n                                        " +
+                              "\n                                    " +
                                 _vm._s(item.barangay.brgyDesc) +
-                                ", " +
+                                ",\n                                    " +
                                 _vm._s(item.city.citymunDesc) +
-                                "\n                                    "
+                                "\n                                "
                             ),
                           ],
                           1
@@ -55388,13 +55421,13 @@ var render = function () {
                           [
                             _c("b-icon", { attrs: { icon: "currency-php" } }),
                             _vm._v(
-                              "\n                                        " +
+                              "\n                                    " +
                                 _vm._s(
                                   _vm._f("formatDecimalComma")(
                                     item.bedspaces[0].price
                                   )
                                 ) +
-                                "\n                                    "
+                                "\n                                "
                             ),
                           ],
                           1
@@ -55480,7 +55513,11 @@ var render = function () {
                           staticClass: "subtitle",
                           staticStyle: { "font-weight": "bold" },
                         },
-                        [_vm._v("Address")]
+                        [
+                          _vm._v(
+                            "\n                                Address\n                            "
+                          ),
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
@@ -55525,7 +55562,13 @@ var render = function () {
                                         key: index,
                                         domProps: { value: item.provCode },
                                       },
-                                      [_vm._v(_vm._s(item.provDesc))]
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(item.provDesc) +
+                                            "\n                                        "
+                                        ),
+                                      ]
                                     )
                                   }),
                                 ],
@@ -55573,7 +55616,13 @@ var render = function () {
                                         key: index,
                                         domProps: { value: item.citymunCode },
                                       },
-                                      [_vm._v(_vm._s(item.citymunDesc))]
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(item.citymunDesc) +
+                                            "\n                                        "
+                                        ),
+                                      ]
                                     )
                                   }),
                                 ],
@@ -55627,7 +55676,13 @@ var render = function () {
                                         key: index,
                                         domProps: { value: item.brgyCode },
                                       },
-                                      [_vm._v(_vm._s(item.brgyDesc))]
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(item.brgyDesc) +
+                                            "\n                                        "
+                                        ),
+                                      ]
                                     )
                                   }),
                                 ],
@@ -55726,7 +55781,11 @@ var render = function () {
                           staticClass: "subtitle",
                           staticStyle: { "font-weight": "bold" },
                         },
-                        [_vm._v("Room Type")]
+                        [
+                          _vm._v(
+                            "\n                                Room Type\n                            "
+                          ),
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
@@ -55750,7 +55809,7 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                        Your own home in a home.\n                                    "
+                                "\n                                    Your own home in a home.\n                                "
                               ),
                             ]
                           ),
@@ -55779,7 +55838,7 @@ var render = function () {
                             },
                             [
                               _vm._v(
-                                "\n                                        A sleeping space and common areas that may be shared with others.\n                                    "
+                                "\n                                    A sleeping space and common areas that\n                                    may be shared with others.\n                                "
                               ),
                             ]
                           ),
@@ -55795,14 +55854,18 @@ var render = function () {
                           staticClass: "subtitle",
                           staticStyle: { "font-weight": "bold" },
                         },
-                        [_vm._v("Amenities")]
+                        [
+                          _vm._v(
+                            "\n                                Amenities\n                            "
+                          ),
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
                         "div",
                         {
                           staticClass:
-                            "is-flex is-flex-wrap-wrap is-justify-content-space-between",
+                            "\n                                    is-flex\n                                    is-flex-wrap-wrap\n                                    is-justify-content-space-between\n                                ",
                         },
                         _vm._l(_vm.amenities, function (el, ix) {
                           return _c(
@@ -55839,14 +55902,18 @@ var render = function () {
                             "margin-top": "20px",
                           },
                         },
-                        [_vm._v("Rules")]
+                        [
+                          _vm._v(
+                            "\n                                Rules\n                            "
+                          ),
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
                         "div",
                         {
                           staticClass:
-                            "is-flex is-flex-wrap-wrap is-justify-content-space-between",
+                            "\n                                    is-flex\n                                    is-flex-wrap-wrap\n                                    is-justify-content-space-between\n                                ",
                         },
                         _vm._l(_vm.rules, function (el, ix) {
                           return _c(
@@ -55900,7 +55967,7 @@ var render = function () {
                     attrs: { label: "Save", type: "is-success" },
                     on: { click: _vm.loadBoardingHouses },
                   },
-                  [_vm._v("SEARCH")]
+                  [_vm._v("\n                    SEARCH\n                ")]
                 ),
               ],
               1
@@ -59595,6 +59662,7 @@ var render = function () {
                         data: _vm.data,
                         loading: _vm.loading,
                         paginated: "",
+                        detailed: "",
                         "backend-pagination": "",
                         total: _vm.total,
                         "per-page": _vm.perPage,
@@ -59606,6 +59674,89 @@ var render = function () {
                         "default-sort-direction": _vm.defaultSortDirection,
                       },
                       on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "detail",
+                            fn: function (props) {
+                              return [
+                                props.row.rooms
+                                  ? _c(
+                                      "div",
+                                      [
+                                        _c("tr", [
+                                          _c("th", [_vm._v("Id")]),
+                                          _vm._v(" "),
+                                          _c("th", [_vm._v("Room")]),
+                                          _vm._v(" "),
+                                          _c("th", [_vm._v("Description")]),
+                                          _vm._v(" "),
+                                          _c("th", [_vm._v("Type")]),
+                                          _vm._v(" "),
+                                          _c("th", [_vm._v("Price")]),
+                                          _vm._v(" "),
+                                          _c("th", [_vm._v("Action")]),
+                                        ]),
+                                        _vm._v(" "),
+                                        _vm._l(
+                                          props.row.rooms,
+                                          function (item, ix) {
+                                            return _c("tr", { key: ix }, [
+                                              _c("td", [
+                                                _vm._v(_vm._s(item.room_id)),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("td", [
+                                                _vm._v(_vm._s(item.room_no)),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("td", [
+                                                _vm._v(_vm._s(item.room_desc)),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("td", [
+                                                _vm._v(_vm._s(item.room_type)),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("td", [
+                                                _vm._v(_vm._s(item.price)),
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("td", [
+                                                _c(
+                                                  "div",
+                                                  { staticClass: "buttons" },
+                                                  [
+                                                    _c("b-button", {
+                                                      staticClass:
+                                                        "is-small is-info",
+                                                      attrs: {
+                                                        tag: "a",
+                                                        href:
+                                                          "/boarding-house-bedspace/" +
+                                                          item.room_id,
+                                                        label: "Bed",
+                                                      },
+                                                    }),
+                                                  ],
+                                                  1
+                                                ),
+                                              ]),
+                                            ])
+                                          }
+                                        ),
+                                      ],
+                                      2
+                                    )
+                                  : _vm._e(),
+                              ]
+                            },
+                          },
+                        ],
+                        null,
+                        false,
+                        687866957
+                      ),
                     },
                     [
                       _c("b-table-column", {
@@ -60803,10 +60954,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b&":
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BhouseRoom.vue?vue&type=template&id=7606fc6b& ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=template&id=25a385bd&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Landowner/Room/BoardingHouseRoom.vue?vue&type=template&id=25a385bd& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60863,7 +61014,12 @@ var render = function () {
                       [
                         _c(
                           "b-field",
-                          { attrs: { label: "Page" } },
+                          {
+                            attrs: {
+                              label: "Page",
+                              "label-position": "on-border",
+                            },
+                          },
                           [
                             _c(
                               "b-select",
@@ -60932,7 +61088,12 @@ var render = function () {
                         [
                           _c(
                             "b-field",
-                            { attrs: { label: "Search" } },
+                            {
+                              attrs: {
+                                label: "Search",
+                                "label-position": "on-border",
+                              },
+                            },
                             [
                               _c("b-input", {
                                 attrs: {
@@ -60991,26 +61152,40 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "buttons mt-3 is-right" },
-                    [
+                  _c("div", { staticClass: "columns" }, [
+                    _c("div", { staticClass: "column" }, [
+                      _c("div", [
+                        _c("b", [_vm._v("BOARDING HOUSE/APARMENT: ")]),
+                        _vm._v(
+                          _vm._s(_vm.propBoardingHouse.bhouse_name) +
+                            "\n                                "
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "column" }, [
                       _c(
-                        "b-button",
-                        {
-                          staticClass: "is-success",
-                          attrs: { "icon-right": "room-service-outline" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.openModal(0)
+                        "div",
+                        { staticClass: "buttons mt-3 is-right" },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "is-success",
+                              attrs: { "icon-right": "room-service-outline" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.openModal(0)
+                                },
+                              },
                             },
-                          },
-                        },
-                        [_vm._v("NEW ROOM")]
+                            [_vm._v("NEW ROOM")]
+                          ),
+                        ],
+                        1
                       ),
-                    ],
-                    1
-                  ),
+                    ]),
+                  ]),
                   _vm._v(" "),
                   _c(
                     "b-table",
@@ -61152,7 +61327,7 @@ var render = function () {
                                             props.row.room_id,
                                         },
                                       },
-                                      [_vm._v("Bed Space")]
+                                      [_vm._v("Bed")]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -87097,7 +87272,7 @@ var map = {
 	"./components/Landowner/BoardingHouseCreate.vue": "./resources/js/components/Landowner/BoardingHouseCreate.vue",
 	"./components/Landowner/LandownerDashboard.vue": "./resources/js/components/Landowner/LandownerDashboard.vue",
 	"./components/Landowner/NavbarLandOwner.vue": "./resources/js/components/Landowner/NavbarLandOwner.vue",
-	"./components/Landowner/Room/BhouseRoom.vue": "./resources/js/components/Landowner/Room/BhouseRoom.vue",
+	"./components/Landowner/Room/BoardingHouseRoom.vue": "./resources/js/components/Landowner/Room/BoardingHouseRoom.vue",
 	"./components/Login.vue": "./resources/js/components/Login.vue",
 	"./components/MainNavbar.vue": "./resources/js/components/MainNavbar.vue",
 	"./components/RegisterBoarder.vue": "./resources/js/components/RegisterBoarder.vue",

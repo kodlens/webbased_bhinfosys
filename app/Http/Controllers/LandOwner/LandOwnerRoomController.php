@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Models\Room;
 use Illuminate\Support\Facades\Storage;
+use App\Models\BoardingHouse;
 
 class LandOwnerRoomController extends Controller
 {
@@ -23,8 +24,11 @@ class LandOwnerRoomController extends Controller
     }
 
     public function index($id){
+
+        $bhouse = BoardingHouse::where('bhouse_id', $id)->first();
+
         return view('landowner.room.boarding-house-room')
-            ->with('id', $id);
+            ->with('bhouse', $bhouse);
     }
 
     public function getRooms(Request $req, $bhouse_id){
@@ -33,10 +37,12 @@ class LandOwnerRoomController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $userid = Auth::user()->user_id;
-        $data =  DB::table('rooms as a')
-            ->join('boarding_houses as b', 'a.bhouse_id', 'b.bhouse_id')
-            ->where('a.bhouse_id', $bhouse_id)
-            ->where('b.user_id', $userid)
+        
+        $data = Room::with(['boardingHouse', 'bedspaces'])
+            ->where('bhouse_id', $bhouse_id)
+            ->whereHas('boardingHouse', function($q) use ($userid){
+                $q->where('user_id', $userid);
+            })
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-    <boarding-house-bedspace prop-bh-id='<?php echo e($bhouse_id); ?>' prop-bh-room-id='<?php echo e($bh_room_id); ?>'></boarding-house-bedspace>
+    <boarding-house-bedspace prop-bh-room-id='<?php echo e($room_id); ?>'></boarding-house-bedspace>
 
 <?php $__env->stopSection(); ?>
 

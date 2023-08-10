@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\BedSpace;
 use App\Models\BedspaceImg;
+use App\Models\Room;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -22,25 +23,20 @@ class LandownerBedspaceController extends Controller
     }
 
 
-    public function index($bhouse_id, $bh_room_id){
-
-        $bedspaces = BedSpace::where('room_id', $bh_room_id)->get();
+    public function index($room_id){
         return view('landowner.bedspace.boarding-house-bedspace')
-            ->with('bhouse_id', $bhouse_id)
-            ->with('bh_room_id', $bh_room_id)
-            ->with('bedspaces', $bedspaces);
+            ->with('room_id', $room_id);
     }
 
-//    public function getBedspaceImgs($room_id){
-//
-//        return DB::table('boarding_houses as a')
-//            ->join('rooms as b', 'a.bhouse_id', 'b.bhouse_id')
-//            ->join('bedspaces as c', 'b.room_id', 'c.room_id')
-//            ->where('a.bhouse_id', $room_id)
-//            ->get();
-//    }
+    public function getBedSpaces(Request $req, $roomId){
+        $sort = explode('.', $req->sort_by);
+    
+        return Room::with(['bedspaces', 'bedspaces.bedspaceImgs'])
+            ->where('room_id', $roomId)
+            ->orderBy($sort[0], $sort[1])
+            ->paginate($req->perpage);
 
-
+    }
 
     public function showBedSpace($id){
         return BedSpace::find($id);

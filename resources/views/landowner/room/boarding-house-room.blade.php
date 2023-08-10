@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <bhouse-room prop-data-id='{{ $id }}' prop-route-back="{{url()->previous()}}"></bhouse-room>
+    <boarding-house-room :prop-boarding-house='@json($bhouse)' prop-route-back="{{url()->previous()}}"></boarding-house-room>
 
 
 @endsection

@@ -59,9 +59,11 @@ class BoardingHouse extends Model
     }
 
     public function rooms(){
-        return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id');
+        return $this->hasMany(Room::class, 'bhouse_id', 'bhouse_id')
+            ->orderBy('room_id', 'desc');
     }
 
+    
     public function bedspaces(){
         return $this->hasManyThrough(
             BedSpace::class,

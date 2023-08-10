@@ -86,21 +86,6 @@ Route::get('/get-bh-rules', [App\Http\Controllers\Administrator\BHRuleController
 //---------------------------//
 
 
-//LANDOWNER
-//-------------------------///
-Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
-Route::get('/get-landowner-bhouses', [App\Http\Controllers\LandOwner\LandownerDashboardController::class, 'getLandOwnerBhouses']);
-
-
-//BOARDING HOUSE
-Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
-Route::post('/boarding-house-update/{id}', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'update']);
-Route::get('/get-bhouses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBhouses']);
-
-Route::resource('/amenities', App\Http\Controllers\LandOwner\AmenityController::class);
-
-
-
 //load OPEN amenities
 Route::get('/load-open-amenities', function(){
     return \App\Models\Amenity::orderBy('amenity', 'asc')->get();
@@ -110,33 +95,62 @@ Route::get('/load-open-rules', function(){
     return \App\Models\Rule::orderBy('rule', 'asc')->get();
 });
 
-
-//BOARDING HOUSE ROOMS LAND OWNER
-Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'index']);
-Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
-Route::post('/boarding-house-rooms-update/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'update']);
-
 Route::get('/load-open-room-types', function(){
     return RoomType::orderBy('room_type', 'asc')->get();
 });
 
 
-Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
-Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'destroy']);
 
-Route::get('/get-boarding-house-room-edit/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getBhouseRoomEdit']);
+Route::middleware(['auth'])->group(function() {
 
-Route::get('/boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'index']);
-Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'getBoarderReservation']);
+    //==============================//
+    //==========LANDOWNER============//
+    //===============================//
+
+    
+    Route::resource('/amenities', App\Http\Controllers\LandOwner\AmenityController::class);
+
+    Route::resource('/landowner-dashboard', App\Http\Controllers\LandOwner\LandownerDashboardController::class);
+    Route::get('/get-landowner-bhouses', [App\Http\Controllers\LandOwner\LandownerDashboardController::class, 'getLandOwnerBhouses']);
+
+    //BOARDING HOUSE
+    Route::resource('/boarding-house', App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class);
+    Route::post('/boarding-house-update/{id}', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'update']);
+    Route::get('/get-boarding-houses', [App\Http\Controllers\LandOwner\LandownerBoardingHouseController::class, 'getBoardingHouses']); //get Boarding House of the landowner
+
+
+    //BOARDING HOUSE - BEDSPACE
+    Route::get('/boarding-house-bedspace/{room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
+    Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedSpaces']);
+
+    //BOARDING HOUSE ROOMS LAND OWNER
+    Route::get('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'index']);
+    Route::post('/boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'store']);
+    Route::post('/boarding-house-rooms-update/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'update']);
+
+
+    Route::get('/get-boarding-house-rooms/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getRooms']);
+    Route::delete('/boarding-house-room-delete/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'destroy']);
+
+    Route::get('/get-boarding-house-room-edit/{id}', [App\Http\Controllers\LandOwner\LandOwnerRoomController::class, 'getBhouseRoomEdit']);
+
+    Route::get('/boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'index']);
+    Route::get('/get-boarder-reservation', [App\Http\Controllers\LandOwner\BoarderReservationController::class, 'getBoarderReservation']);
+
+
+});
+
+
+
+
+
+
 
 
 
 //-------------LANDOWNER------------///
 //----------------------------------///
 
-//BOARDING HOUSE - BEDSPACE
-Route::get('/boarding-house-bedspace/{bhouse_id}/{bh_room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'index']);
-Route::get('/get-boarding-house-bedspaces/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'showBedSpace']);
 
 Route::post('/boarding-house-bedspace/{bhouse_id}/{room_id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'store']);
 //Route::get('/get-boarding-house-bedspaces-imgs/{id}', [App\Http\Controllers\LandOwner\LandownerBedspaceController::class, 'getBedspaceImgs']);

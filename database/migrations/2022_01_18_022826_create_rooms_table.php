@@ -25,6 +25,7 @@ class CreateRoomsTable extends Migration
             $table->string('room_desc')->nullable();
             $table->string('room_type')->nullable();
             $table->string('amenities')->nullable();
+            $table->double('price')->default(0);
             $table->string('room_img_path')->nullable();
             $table->timestamps();
         });

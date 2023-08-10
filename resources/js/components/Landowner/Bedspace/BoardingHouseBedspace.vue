@@ -192,10 +192,6 @@
 <script>
 export default {
     props: {
-        propBhId: {
-            type: String,
-            default: '',
-        },
 
         propBhRoomId: {
             type: String,
@@ -209,7 +205,7 @@ export default {
             data: [],
             total: 0,
             loading: false,
-            sortField: 'bedspace_id',
+            sortField: 'room_id',
             sortOrder: 'desc',
             page: 1,
             perPage: 5,
@@ -250,11 +246,6 @@ export default {
 
     methods: {
 
-        initData: function(){
-            this.global_room_id = parseInt(this.propBhRoomId);
-            this.global_bh_id = parseInt(this.propBhId);
-        },
-
         /*
         * Load async data
         */
@@ -262,12 +253,13 @@ export default {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `bhousename=${this.search.bhousename}`,
+                `roomid=${this.propBhRoomId}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
 
             this.loading = true
-            axios.get(`/get-bhouse-bedspaces/${this.global_room_id}?${params}`)
+            axios.get(`/get-boarding-house-bedspaces/${this.propBhRoomId}?${params}`)
                 .then(({ data }) => {
                     this.data = [];
                     let currentTotal = data.total
@@ -433,8 +425,6 @@ export default {
     },
 
     mounted(){
-        this.initData();
-        //this.loadBedspaceImgs();
         this.loadAsyncData();
     }
 }
